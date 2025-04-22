@@ -1,0 +1,121 @@
+.mob_menu_wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(25, 26, 21, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  overflow-y: hidden;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mob_menu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  height: 100%;
+  z-index: 999;
+  background-color: var(--white);
+  opacity: 1;
+  visibility: hidden;
+  pointer-events: auto;
+  transform: translateX(100%);
+  transition: transform 450ms ease, opacity 450ms ease;
+  overflow-x: hidden;
+}
+
+.mob_menu.is_open {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  display: flex;
+}
+
+.mob_menu_close_wrapper {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+}
+
+.mob_menu_close_btn {
+  line-height: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  stroke: var(--black);
+  z-index: 1000;
+  top: 20px;
+  right: 20px;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 54px;
+  justify-content: center;
+  align-items: center;
+  & button {
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    padding: 14px 40px;
+  }
+}
+
+.content a {
+  position: relative;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--black);
+}
+
+.active_link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: var(--green);
+  border-radius: 50%;
+}
+
+.log_btn {
+  border: 1px solid rgba(25, 26, 21, 0.2);
+  color: var(--black);
+}
+
+.reg_btn {
+  background-color: var(--green);
+  color: var(--white);
+}
