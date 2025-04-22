@@ -1,7 +1,7 @@
 import s from './UniversalMenu.module.css'
 import { Link, useLocation } from 'react-router-dom'
 
-const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu }) => {
+const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal }) => {
     
     const svg = '/sprite.svg'
     const location = useLocation()
@@ -25,8 +25,8 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
 
                 {isUserMenuOpen && (
                     <div className={s.content}>
-                        <button className={s.log_btn}>Log In</button>
-                        <button className={s.reg_btn}>Registration</button>
+                        <button className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
+                        <button className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
                     </div>
                 )}
 

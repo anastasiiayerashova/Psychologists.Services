@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import UniversalMenu from '../UniversalMenu/UniversalMenu.jsx';
 
-const Header = ({toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen}) => {
+const Header = ({toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, openModal}) => {
 
     const svg = '/sprite.svg'
     const location = useLocation()
@@ -19,8 +19,8 @@ const Header = ({toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen}) 
                 </div>
             </div>
             <div className={s.btn_wrapper}>
-                <button className={s.log_btn}>Log In</button>
-                <button className={s.reg_btn}>Registration</button>
+                <button className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
+                <button className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
             </div>
             <div className={s.menu_btns}>
                 <button onClick={toggleUserMenu}>
