@@ -1,11 +1,10 @@
 import s from './Header.module.css'
 import { Link, useLocation } from 'react-router-dom'
-import { useState, useEffect } from 'react';
+import { svg } from '../../constants/index.js';
 import UniversalMenu from '../UniversalMenu/UniversalMenu.jsx';
 
-const Header = ({toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, openModal}) => {
-
-    const svg = '/sprite.svg'
+const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, openModal }) => {
+    
     const location = useLocation()
 
     return (

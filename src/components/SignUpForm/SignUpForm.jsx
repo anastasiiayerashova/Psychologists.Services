@@ -5,10 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
+import { svg } from '../../constants/index.js';
 
 const SignUpForm = ({ onClose }) => {
-    
-        const svg = '/sprite.svg'
         
         // const dispatch = useDispatch()
         // const navigate = useNavigate()

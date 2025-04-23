@@ -1,9 +1,8 @@
 import ReactModal from 'react-modal';
 import s from './Modal.module.css';
+import { svg } from '../../constants/index.js';
 
 export default function Modal({ onClose, children }) {
-    
-  const svg = '/sprite.svg'
 
   return (
     <ReactModal

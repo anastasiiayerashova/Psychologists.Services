@@ -1,9 +1,9 @@
 import s from './UniversalMenu.module.css'
 import { Link, useLocation } from 'react-router-dom'
+import { svg } from '../../constants/index.js'
 
 const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal }) => {
     
-    const svg = '/sprite.svg'
     const location = useLocation()
 
     return (

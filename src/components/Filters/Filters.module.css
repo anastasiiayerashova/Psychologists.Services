@@ -21,6 +21,7 @@
   border-radius: 14px;
   align-self: flex-start;
   display: flex;
+  column-gap: 10px;
   justify-content: space-between;
   align-items: center;
   width: 100%;

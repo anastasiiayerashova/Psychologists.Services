@@ -1,9 +1,8 @@
 import s from './Hero.module.css'
 import { Link } from 'react-router-dom'
+import { svg } from '../../constants/index.js'
 
 const Hero = () => {
-
-    const svg = '/sprite.svg'
 
     return (
         <section className={s.container}>

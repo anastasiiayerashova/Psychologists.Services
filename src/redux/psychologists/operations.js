@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { get, ref } from "firebase/database";
 import { db } from "../../config/firebase.js";
 import { getDocs, query, collection, orderBy, startAfter, limit, where, getDoc, doc } from "firebase/firestore";
 
@@ -7,7 +6,7 @@ const psychologistsCollectionRef = collection(db, 'psychologists-services')
 
 export const getPsychologists = createAsyncThunk(
     'psychologists/getAll',
-    async ({ filters, lastVisibleDoc = null }, thunkAPI) => {
+    async ({ filters = {}, lastVisibleDoc = null }, thunkAPI) => {
         
         const { limit: limitValue = 3, sortBy = 'name', direction = 'asc', priceGreater, priceLess } = filters
         
@@ -42,6 +41,7 @@ export const getPsychologists = createAsyncThunk(
                 ...doc.data(),
                 id: doc.id
             }))
+            console.log(psychologists)
 
             const newLastVisibleDoc = snapshot.docs[snapshot.docs.length - 1]?.id || null
             

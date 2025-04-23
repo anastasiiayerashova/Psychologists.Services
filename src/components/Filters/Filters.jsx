@@ -1,24 +1,11 @@
 import s from './Filters.module.css'
-import { FormControl, MenuItem, Select } from '@mui/material';
-import { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { setFilters } from '../../redux/filters/slice.js';
 import { useClickOutside } from '../../utils/customHook.js';
+import { filters, svg } from '../../constants/index.js';
 
 const Filters = () => {
-
-    const svg = '/sprite.svg'
-
-    const filters = {
-        'A to Z': { direction: 'asc' },
-        'Z to A': { direction: 'desc' },
-        'Less than 10$': { priceLess: 10 },
-        'Greater than 10$': { priceGreater: 10 },
-        'Popular': { sortBy: 'rating', direction: 'desc' },
-        'Not popular': { sortBy: 'rating', direction: 'asc' },
-        'Show all': {}
-    }
 
     const iterableFilters = Object.keys(filters)
 
@@ -33,8 +20,7 @@ const Filters = () => {
     const handleChangeFilters = (filterName) => {
         dispatch(setFilters(filters[filterName]))
         setSelectedFilter(filterName)
-         setIsDropdownOpen(false)
-         console.log(filterName)
+        setIsDropdownOpen(false)
     }
 
     useClickOutside(dropdownRef, () => setIsDropdownOpen(false))

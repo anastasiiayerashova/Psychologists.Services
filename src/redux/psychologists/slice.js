@@ -3,6 +3,8 @@ import { getPsychologists } from "./operations.js";
 
 const initialState = {
     list: [],
+    lastVisibleDoc: null,
+    hasMore: true,
     loading: false,
     error: null
 }
@@ -10,6 +12,18 @@ const initialState = {
 const slice = createSlice({
     name: 'psychologists',
     initialState,
+    selectors: {
+        selectList: state => state.list,
+        selectLastVisibleDoc: state => state.lastVisibleDoc,
+        selectHasMore: state => state.hasMore,
+        selectLoading: state => state.loading,
+        selectError: state => state.error
+    },
+    reducers: {
+        resetList: (state) => {
+            state.list = []
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getPsychologists.pending, (state) => {
@@ -18,7 +32,9 @@ const slice = createSlice({
             })
             .addCase(getPsychologists.fulfilled, (state, { payload }) => {
                 state.loading = false
-                state.list = payload
+                state.list = [...state.list, ...payload.data]
+                state.lastVisibleDoc = payload.lastVisibleDoc
+                state.hasMore = payload.data.length > 0
             })
             .addCase(getPsychologists.rejected, (state, { payload }) => {
                 state.loading = false
@@ -28,3 +44,5 @@ const slice = createSlice({
 })
 
 export const psychologistsReducer = slice.reducer
+export const {resetList} = slice.actions
+export const {selectError, selectLoading, selectList, selectHasMore, selectLastVisibleDoc} = slice.selectors

@@ -4,11 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
+import { svg } from '../../constants/index.js';
 import { schema } from '../../validation/logInSchema.js';
 
 const SignInForm = ({ onClose }) => {
-
-    const svg = '/sprite.svg'
     
     // const dispatch = useDispatch()
     // const navigate = useNavigate()
