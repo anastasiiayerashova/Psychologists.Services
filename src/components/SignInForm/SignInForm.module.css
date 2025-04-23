@@ -1,5 +1,5 @@
 .container {
-  padding: 20px 20px 68px 20px;
+  padding: 60px 20px 68px 20px;
 }
 
 .title_wrap {
@@ -7,11 +7,12 @@
   flex-direction: column;
   row-gap: 30px;
   text-align: center;
+  margin-bottom: 40px;
 }
 
 .title {
   font-weight: 500;
-  font-size: 35px;
+  font-size: 32px;
   line-height: 1.37143;
   letter-spacing: -0.02em;
 }
@@ -22,4 +23,57 @@
   line-height: 1.33333;
   text-align: center;
   color: rgba(25, 26, 21, 0.5);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+}
+
+.input_group {
+  position: relative;
+}
+
+.input_group input {
+  padding: 16px 0 16px 18px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  border: 1px solid rgba(25, 26, 21, 0.1);
+  border-radius: 12px;
+  outline: none;
+  width: 100%;
+  color: var(--black);
+  margin-bottom: 6px;
+}
+
+.error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.25;
+  color: #ff0e0e;
+}
+
+.eyeIcon {
+  position: absolute;
+  top: 16px;
+  right: 10px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  stroke: var(--black);
+  fill: var(--white);
+}
+
+.log_btn {
+  margin-top: 22px;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  padding: 16px 0;
+  background-color: var(--green);
+  color: var(--white);
 }
