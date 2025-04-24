@@ -19,6 +19,13 @@
   color: rgba(25, 26, 21, 0.5);
 }
 
+.load_wrap {
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 375px) {
   .not_found_text {
     font-size: 10px;

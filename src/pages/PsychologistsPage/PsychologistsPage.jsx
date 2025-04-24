@@ -3,9 +3,10 @@ import { selectFilters } from '../../redux/filters/selectors.js'
 import s from './PsychologistsPage.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { selectList, selectLoading, resetList, selectLastVisibleDoc, selectHasMore, selectError } from '../../redux/psychologists/slice.js'
+import { selectList, selectLoading, resetList, selectLastVisibleDoc, selectHasMore } from '../../redux/psychologists/slice.js'
 import { getPsychologists } from '../../redux/psychologists/operations.js'
 import PsychologistsList from '../../components/PsychologistsList/PsychologistsList.jsx'
+import Loader from '../../components/Loader/Loader.jsx'
 
 const PsychologistsPage = () => {
 
@@ -14,13 +15,9 @@ const PsychologistsPage = () => {
     const list = useSelector(selectList)
     const lastVisibleDoc = useSelector(selectLastVisibleDoc)
     const hasMore = useSelector(selectHasMore)
-    const error = useSelector(selectError)
-
-    const [isLoading, setIsLoading] = useState(true)
-    const [filtersOn, setFiltersOn] = useState(false)
+    const loading = useSelector(selectLoading)
 
     useEffect(() => {
-        console.log("Filters in useEffect:", filters);
         dispatch(resetList())
         dispatch(getPsychologists({filters}))
     }, [filters, dispatch])
@@ -32,14 +29,23 @@ const PsychologistsPage = () => {
     return (
         <section className={s.container}>
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
-            <Filters setFiltersOn={setFiltersOn} />
-            {list.length > 0 ? <PsychologistsList list={list} />
-                :
-                (
-                    <div className={s.text_wrap}>
-                        <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
-                    </div>
-                )
+            <Filters />
+
+            {loading && list.length === 0 && (
+                <div className={s.load_wrap}>
+                    <Loader/>
+                </div>
+            )}
+            
+            {!loading && list.length > 0 && (
+                <PsychologistsList list={list}/>
+            )}
+
+            {!loading && list.length === 0 && (
+                <div className={s.text_wrap}>
+                    <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
+                </div>
+            )
             }
         </section>
     )

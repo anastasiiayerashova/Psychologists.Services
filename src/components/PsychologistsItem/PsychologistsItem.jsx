@@ -2,10 +2,14 @@ import s from './PsychologistsItem.module.css'
 import { svg } from '../../constants/index.js'
 import PsychologistsFeaturesList from '../PsychologistsFeaturesList/PsychologistsFeaturesList.jsx'
 import PsychologistAvatar from '../PsychologistAvatar/PsychologistAvatar.jsx'
+import Reviews from '../Reviews/Reviews.jsx'
+import { useState } from 'react'
 
 const PsychologistsItem = ({ data }) => {
   
   const { about, avatar_url, experience, id, initial_consultation, license, name, price_per_hour, rating, reviews, specialization } = data
+
+  const [showReviews, setShowReviews] = useState(false)
   
   return (
     <li className={s.card}>
@@ -36,7 +40,12 @@ const PsychologistsItem = ({ data }) => {
               <div className={s.card_body_desc}>
                  <PsychologistsFeaturesList data={data} />
                  <p className={s.about}>{about}</p>
-                 <button type='button' className={s.btn}>Read more</button>
+                 <div className={`${s.reviewsWrapper} ${showReviews ? s.open : ''}`}>
+                      <Reviews data={data}/>
+                 </div>
+                 <button type='button' onClick={() => { setShowReviews(true)}} className={showReviews ? s.make : s.read}>
+                     {showReviews ? 'Make an appointment' : 'Read more'}
+                 </button>
               </div>
           </div>
       </div>
@@ -44,7 +53,12 @@ const PsychologistsItem = ({ data }) => {
       <div className={s.card_body_mob}>
          <PsychologistsFeaturesList data={data} />
          <p className={s.about}>{about}</p>
-         <button type='button' className={s.btn}>Read more</button>
+         <div className={`${s.reviewsWrapper} ${showReviews ? s.open : ''}`}>
+              <Reviews data={data}/>
+         </div>
+         <button type='button' onClick={() => { setShowReviews(true)}} className={showReviews ? s.make : s.read}>
+              {showReviews ? 'Make an appointment' : 'Read more'}
+          </button>
       </div>
     </li>
   )
