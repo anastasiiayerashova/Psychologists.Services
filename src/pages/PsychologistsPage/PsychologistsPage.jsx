@@ -15,13 +15,15 @@ const PsychologistsPage = () => {
     const lastVisibleDoc = useSelector(selectLastVisibleDoc)
     const hasMore = useSelector(selectHasMore)
     const error = useSelector(selectError)
-   
+
+    const [isLoading, setIsLoading] = useState(true)
+    const [filtersOn, setFiltersOn] = useState(false)
 
     useEffect(() => {
+        console.log("Filters in useEffect:", filters);
         dispatch(resetList())
-        dispatch(getPsychologists(filters))
-    }, [filters])
-
+        dispatch(getPsychologists({filters}))
+    }, [filters, dispatch])
 
     const handleLoadMore = () => {
         dispatch(getPsychologists({filters, lastVisibleDoc}))
@@ -30,8 +32,15 @@ const PsychologistsPage = () => {
     return (
         <section className={s.container}>
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
-            <Filters />
-            <PsychologistsList list={list} />
+            <Filters setFiltersOn={setFiltersOn} />
+            {list.length > 0 ? <PsychologistsList list={list} />
+                :
+                (
+                    <div className={s.text_wrap}>
+                        <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
+                    </div>
+                )
+            }
         </section>
     )
 }

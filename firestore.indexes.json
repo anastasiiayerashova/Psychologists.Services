@@ -1,0 +1,21 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "psychologists-services",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "price_per_hour", "order": "ASCENDING" },
+        { "fieldPath": "rating", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "psychologists-services",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "price_per_hour", "order": "ASCENDING" },
+        { "fieldPath": "rating", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

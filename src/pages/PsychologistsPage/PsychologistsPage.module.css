@@ -2,8 +2,37 @@
   padding: 22px 20px 40px 20px;
 }
 
+.text_wrap {
+  padding: 10px;
+  text-align: center;
+  width: fit-content;
+  border-radius: 14px;
+  border: 1px solid orange;
+  margin-top: 14px;
+}
+
+.not_found_text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: rgba(25, 26, 21, 0.5);
+}
+
+@media screen and (max-width: 375px) {
+  .not_found_text {
+    font-size: 10px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .container {
     padding: 64px 128px 100px 128px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .not_found_text {
+    font-size: 16px;
   }
 }

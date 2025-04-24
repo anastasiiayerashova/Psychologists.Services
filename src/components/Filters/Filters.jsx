@@ -5,7 +5,7 @@ import { setFilters } from '../../redux/filters/slice.js';
 import { useClickOutside } from '../../utils/customHook.js';
 import { filters, svg } from '../../constants/index.js';
 
-const Filters = () => {
+const Filters = ({setFiltersOn}) => {
 
     const iterableFilters = Object.keys(filters)
 
@@ -18,7 +18,10 @@ const Filters = () => {
     const dispatch = useDispatch()
 
     const handleChangeFilters = (filterName) => {
+        console.log("Selected filter:", filterName); // Логируем выбранный фильтр
+        console.log("Filter object:", filters[filterName]);
         dispatch(setFilters(filters[filterName]))
+        setFiltersOn(true)
         setSelectedFilter(filterName)
         setIsDropdownOpen(false)
     }
