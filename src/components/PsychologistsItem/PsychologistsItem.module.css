@@ -1,3 +1,16 @@
+.card_body_desc {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
 .card {
   padding: 20px;
   border-radius: 24px;
@@ -22,6 +35,12 @@
   height: fit-content;
 }
 
+.title_wrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
 .subtitle {
   font-weight: 500;
   font-size: 14px;
@@ -38,6 +57,7 @@
 .meta {
   display: flex;
   column-gap: 10px;
+  align-items: center;
 }
 
 .rating,
@@ -52,14 +72,14 @@
 
 .separator {
   height: 16px;
-  stroke: rgba(25, 26, 21, 0.2);
+  color: rgba(25, 26, 21, 0.2);
 }
 
 .price_label span {
   color: #38cd3e;
 }
 
-.card_body {
+.card_body_mob {
   margin-top: 18px;
   display: flex;
   flex-direction: column;
@@ -84,6 +104,46 @@
   align-self: flex-start;
 }
 
+.header_wrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+@media screen and (max-width: 365px) {
+  .image {
+    width: 60px;
+    height: 58px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .meta {
+    column-gap: 4px;
+  }
+
+  .rating,
+  .price_label {
+    font-size: 8px;
+    column-gap: 4px;
+    width: max-content;
+  }
+
+  .about {
+    font-size: 10px;
+  }
+
+  .btn {
+    font-size: 12px;
+  }
+}
+
 @media screen and (min-width: 1280px) {
   .card {
     padding: 24px;
@@ -96,10 +156,22 @@
 
   .card_main {
     width: 100%;
-    row-gap: 8px;
-    flex-direction: row;
+    row-gap: 24px;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
+  }
+
+  .header_wrap {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .title_wrap {
+    row-gap: 8px;
   }
 
   .subtitle {
@@ -120,13 +192,35 @@
     font-size: 16px;
   }
 
-  .card_body {
-    margin-top: unset;
+  .card_body_desc {
+    position: unset;
+    width: unset;
+    height: unset;
+    margin: unset;
+    white-space: unset;
+    clip-path: unset;
+    clip: unset;
+    overflow: unset;
+    display: flex;
+    flex-direction: column;
     row-gap: 14px;
   }
 
+  .card_body_mob {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+  }
+
   .about {
-    margin-bottom: 10px;
+    margin-top: 10px;
     font-size: 16px;
   }
 

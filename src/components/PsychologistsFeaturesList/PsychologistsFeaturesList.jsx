@@ -26,7 +26,6 @@ const PsychologistsFeaturesList = ({ data }) => {
                   Initial_consultation: <span>{initial_consultation}</span>
               </p>
           </li>
-      
       </ul>
   )
 }
