@@ -1,6 +1,7 @@
 import s from './PsychologistsItem.module.css'
 import { svg } from '../../constants/index.js'
 import PsychologistsFeaturesList from '../PsychologistsFeaturesList/PsychologistsFeaturesList.jsx'
+import PsychologistAvatar from '../PsychologistAvatar/PsychologistAvatar.jsx'
 
 const PsychologistsItem = ({ data }) => {
   
@@ -9,7 +10,7 @@ const PsychologistsItem = ({ data }) => {
   return (
     <li className={s.card}>
       <div className={s.card_header}>
-           <img src={avatar_url} alt={name} className={s.image} />
+        <PsychologistAvatar data={data} />
            <div className={s.card_main}>
 
               <div className={s.header_wrap}>

@@ -1,0 +1,12 @@
+.wrapper {
+  border: 2px solid rgba(84, 190, 150, 0.2);
+  border-radius: 15px;
+  padding: 7px;
+  height: fit-content;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    padding: 12px;
+  }
+}
