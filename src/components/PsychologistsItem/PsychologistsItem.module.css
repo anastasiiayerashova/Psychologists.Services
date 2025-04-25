@@ -21,6 +21,7 @@
 .card_header {
   display: flex;
   column-gap: 18px;
+  position: relative;
 }
 
 .image {
@@ -221,6 +222,10 @@
   .rating,
   .price_label {
     font-size: 16px;
+  }
+
+  .price_label {
+    padding-right: 56px;
   }
 
   .card_body_desc {

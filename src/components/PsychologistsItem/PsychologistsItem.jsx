@@ -5,6 +5,9 @@ import PsychologistAvatar from '../PsychologistAvatar/PsychologistAvatar.jsx'
 import Reviews from '../Reviews/Reviews.jsx'
 import { useState } from 'react'
 import { useModal } from '../../utils/ModalContext.js'
+import FavouriteButton from '../FavouriteButton/FavouriteButton.jsx'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectFavourites, toggleFavourite } from '../../redux/favourites/slice.js'
 
 const PsychologistsItem = ({ data }) => {
   
@@ -15,12 +18,22 @@ const PsychologistsItem = ({ data }) => {
    const {openModal} = useModal()
    
    const handleMakeAppointment = () => {
-    openModal('booking', data)
-  }
+        openModal('booking', data)
+   }
+   
+   const dispatch = useDispatch()
+
+   const favourites = useSelector(selectFavourites)
+   const isFavourite = favourites.some(favourite => favourite.id === id)
+
+   const handleToggleFavourite = () => {
+        dispatch(toggleFavourite(data))
+    }
   
   return (
     <li className={s.card}>
       <div className={s.card_header}>
+        <FavouriteButton isFavourite={isFavourite} onClick={handleToggleFavourite}/>
         <PsychologistAvatar data={data} />
            <div className={s.card_main}>
 
