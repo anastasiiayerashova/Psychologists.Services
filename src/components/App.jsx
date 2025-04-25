@@ -12,12 +12,12 @@ function App() {
 
   return (
     <SharedLayout>
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/psychologists' element={<PsychologistsPage />} />
-        <Route path='/favorites' element={<FavoritesPage />} />
-        <Route path='*' element={<NotFoundPage/> } />
-      </Routes>
+        <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/psychologists' element={<PsychologistsPage />} />
+            <Route path='/favorites' element={<FavoritesPage />} />
+            <Route path='*' element={<NotFoundPage/> } />
+        </Routes>
     </SharedLayout>
   )
 }

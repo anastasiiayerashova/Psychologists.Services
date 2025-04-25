@@ -17,7 +17,8 @@ const PsychologistsPage = () => {
     const lastVisibleDoc = useSelector(selectLastVisibleDoc)
     const hasMore = useSelector(selectHasMore)
     const loading = useSelector(selectLoading)
-    const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [isFirstLoad, setIsFirstLoad] = useState(true)
+    const [openSnackbar, setOpenSnackbar] = useState(false)
 
     useEffect(() => {
         dispatch(resetList())
@@ -27,21 +28,15 @@ const PsychologistsPage = () => {
     }, [filters, dispatch])
 
     const handleLoadMore = () => {
+        setOpenSnackbar(false)
         dispatch(getPsychologists({ filters, lastVisibleDoc }))
     }
 
-    const [openSnackbar, setOpenSnackbar] = useState(false)
-
-    const handleSnackbarClose = (event, reason) => {
-        if (reason === 'clickaway') return
-           setOpenSnackbar(false)
-    }
-
     useEffect(() => {
-        if (!lastVisibleDoc && list.length !== 0) {
+        if (!loading && !hasMore && list.length > 0) {
            setOpenSnackbar(true)
         }
-    }, [lastVisibleDoc, list])
+    }, [hasMore, loading, list])
 
     return (
         <section className={s.container}>
@@ -55,11 +50,23 @@ const PsychologistsPage = () => {
             ) : (
                 <>
                     <PsychologistsList list={list} />
+                        
                     {hasMore && !loading && (
                         <button type="button" className={s.load_btn} onClick={handleLoadMore}>
                             Load more
                         </button>
                     )}
+                        
+                    <CustomAlert
+                        severity='warning'
+                        openSnackbar={openSnackbar}
+                        handleSnackbarClose={() => setOpenSnackbar(false)}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                        alertSx={{ backgroundColor: '#ffe5b4', height: 'auto' }}
+                    >
+                        All psychologists loaded
+                    </CustomAlert>
+                        
                     {list.length === 0 && !loading && (
                         <div className={s.text_wrap}>
                             <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
@@ -67,25 +74,6 @@ const PsychologistsPage = () => {
                     )}
                 </>
             )}
-            
-            {/* {!loading && list.length > 0 && (
-                <PsychologistsList list={list} />
-            )}
-
-            {!loading && hasMore && (
-                <button type='button' className={s.load_btn} onClick={handleLoadMore}>Load more</button>
-            )}
-
-            {!loading && !lastVisibleDoc && list.length !==0 && (
-                <CustomAlert openSnackbar={openSnackbar} handleSnackbarClose={handleSnackbarClose}>All psychologists loaded</CustomAlert>
-            )}
-
-            {!loading && list.length === 0 && (
-                <div className={s.text_wrap}>
-                    <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
-                </div>
-            )
-            } */}
         </section>
     )
 }

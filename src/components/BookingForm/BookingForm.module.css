@@ -71,7 +71,7 @@
   font-family: 'Inter', sans-serif;
   resize: none;
   background-color: transparent;
-  outline: none;
+  text-align: left;
 }
 
 .input_group input::placeholder,
@@ -97,6 +97,7 @@
   font-family: 'Inter', sans-serif;
   resize: none;
   background-color: transparent;
+  text-align: left;
 }
 
 .input_group_icon input::placeholder {

@@ -4,7 +4,9 @@ export const schema = () => {
     return Yup.object().shape({
         name: Yup.string()
             .required('Name is required')
-            .matches(/^[а-яА-ЯёЁЇїІіЄєҐґa-zA-Z\s]+$/, 'Name should contain only letters'),
+            .matches(/^[а-яА-ЯёЁЇїІіЄєҐґa-zA-Z\s]+$/, 'Name should contain only letters')
+            .min(2, 'Name should be at least 2 characters')
+            .max(20, 'Name should not exceed 20 characters'),
         email: Yup.string()
             .required('Email is required')
             .email('Email must be valid')

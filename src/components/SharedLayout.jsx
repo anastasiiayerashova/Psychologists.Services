@@ -53,11 +53,11 @@ const SharedLayout = ({ children }) => {
         <>
             <header>
                 <Header
-                toggleUserMenu={toggleUserMenu}
-                toggleNavMenu={toggleNavMenu}
-                isUserMenuOpen={isUserMenuOpen}
-                isNavMenuOpen={isNavMenuOpen}
-                openModal={openModal}
+                    toggleUserMenu={toggleUserMenu}
+                    toggleNavMenu={toggleNavMenu}
+                    isUserMenuOpen={isUserMenuOpen}
+                    isNavMenuOpen={isNavMenuOpen}
+                    openModal={openModal}
             />
             </header>
             <main>
@@ -76,7 +76,7 @@ const SharedLayout = ({ children }) => {
                     {modalType === 'register' && <SignUpForm onClose={closeModal} />}
                     {modalType === 'booking' && <BookingForm data={modalData} onClose={closeModal} />}
                 </Modal>
-)}
+            )}
         </>
         </ModalContext.Provider>
     )

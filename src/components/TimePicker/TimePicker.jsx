@@ -1,51 +1,43 @@
 import s from './TimePicker.module.css'
-import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-const TimePicker = ({ isOpen, selectedHour, selectedMinute, handleSelect }) => {
+const TimePicker = ({ isOpen, selectedHour, selectedMinute, handleSelect, ref }) => {
 
- const hours = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'));
-    const minutes = ['00', '30'];
-    
-      const timeSlots = hours.flatMap(hour =>
-    minutes.map(minute => ({
-      time: `${hour}:${minute}`,
-      hour,
-      minute
-    }))
-  );
-    
+    const hours = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))
+
+    const minutes = ['00', '30']
+
+    const totalSlots = hours.length * minutes.length
+
     return (
        <motion.div
           className={s.popover}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
+          ref={ref}
         >
           <p className={s.popover_title}>Meeting time</p>
           <div className={s.picker}>
-            {hours.map((h) => (
-              <div
-                key={h}
-                className={s.timeSlot}
-                onClick={() => handleSelect(h, selectedMinute)}
-              >
-                <div className={s.item}>{h}</div>
-                <div className={s.separator}>:</div>
-                <div className={s.item}>{selectedMinute}</div>
-              </div>
-            ))}
-            {minutes.map((m) => (
-              <div
-                key={m}
-                className={s.timeSlot}
-                onClick={() => handleSelect(selectedHour, m)}
-              >
-                <div className={s.item}>{selectedHour}</div>
-                <div className={s.separator}>:</div>
-                <div className={s.item}>{m}</div>
-              </div>
-            ))}
+                
+          {Array.from({ length: totalSlots }).map((_, idx) => {
+              const hour = hours[Math.floor(idx / minutes.length)]
+              const minute = minutes[idx % minutes.length]
+              const key = `${hour}:${minute}`
+              const isActive = hour === selectedHour && minute === selectedMinute;
+
+                return (
+                   <div
+                      key={key}
+                      className={`${s.timeSlot} ${isActive ? s.active : ''}`}
+                      onClick={() => handleSelect(hour, minute)}
+                    >
+                      <div className={`${s.item} ${isActive ? s.active : ''}`}>{hour}</div>
+                      <div className={`${s.separator} ${isActive ? s.active : ''}`}>:</div>
+                      <div className={`${s.item} ${isActive ? s.active : ''}`}>{minute}</div>
+                    </div>
+                )
+            })}
           </div>
         </motion.div>
     )

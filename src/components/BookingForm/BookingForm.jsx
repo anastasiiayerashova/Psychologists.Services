@@ -2,12 +2,13 @@ import s from './BookingForm.module.css'
 import Avatar from '@mui/material/Avatar';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useId } from 'react';
+import { useState, useId } from 'react';
 import { schema } from '../../validation/bookingSchema.js';
 import { svg } from '../../constants/index.js';
 import TimePicker from '../TimePicker/TimePicker.jsx';
+import { useRef } from 'react';
+import { useClickOutside } from '../../utils/customHook.js';
+import CustomAlert from '../CustomAlert/CustomAlert.jsx';
 
 const BookingForm = ({ data, onClose }) => {
     
@@ -19,13 +20,13 @@ const BookingForm = ({ data, onClose }) => {
     const commentId = useId()
     const dateId = useId()
 
+    const dropdownRef = useRef(null)
+
     const {
         register,
         handleSubmit,
         setValue,
         reset,
-        trigger,
-        watch,
         formState: {errors}
     } = useForm({
         resolver: yupResolver(schema()),
@@ -34,19 +35,42 @@ const BookingForm = ({ data, onClose }) => {
         reValidateMode: 'onChange'
     })
 
-    const hours = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'));
-    const minutes = ['00', '30'];
-
       const [isOpen, setIsOpen] = useState(false);
-      const [selectedHour, setSelectedHour] = useState('00');
-      const [selectedMinute, setSelectedMinute] = useState('00');
+      const [selectedHour, setSelectedHour] = useState('00')
+      const [selectedMinute, setSelectedMinute] = useState('00')
+    
+      const onChange = (time) => {
+        console.log("Selected time: ", time)
+    }
 
       const handleSelect = (hour, minute) => {
-        setSelectedHour(hour);
-        setSelectedMinute(minute);
-        onChange(`${hour}:${minute}`);
-  }
+        setSelectedHour(hour)
+        setSelectedMinute(minute)
+        onChange(`${hour}:${minute}`)
+        setValue('date', `${hour}:${minute}`, { shouldValidate: true })
+        setIsOpen(false)
+    }
+    
+    useClickOutside(dropdownRef, () => setIsOpen(false))
 
+    const [openSnackbar, setOpenSnackbar] = useState(false)
+    const [bookedDate, setBookedDate] = useState('')
+    const [bookedName, setBookedName] = useState('')
+
+    const onSubmit = (values) => {
+        console.log(values)
+        setOpenSnackbar(true)
+        setBookedName(values.name)
+        setBookedDate(values.date)
+        reset()
+        setSelectedHour('00')
+        setSelectedMinute('00')
+        
+        setTimeout(() => {
+            onClose()
+        }, 4000)
+    }
+    
     return (
         <div className={s.container}>
             <div className={s.title_wrap}>
@@ -74,7 +98,7 @@ const BookingForm = ({ data, onClose }) => {
                 </div>
             </div>
 
-            <form className={s.form}>
+            <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={s.input_group}>
                     <label htmlFor={nameId} className='visually_hidden'>Name</label>
                     <input id={nameId} type='text' {...register('name')} placeholder='Name' />
@@ -97,7 +121,15 @@ const BookingForm = ({ data, onClose }) => {
                                <use href={`${svg}#icon-clock`} />
                             </svg>
                         </button>
-                        {isOpen && (<TimePicker isOpen={isOpen} selectedHour={selectedHour} selectedMinute={selectedMinute} handleSelect={handleSelect} />)}
+                        {isOpen && (
+                            <TimePicker
+                                isOpen={isOpen}
+                                selectedHour={selectedHour}
+                                selectedMinute={selectedMinute}
+                                handleSelect={handleSelect}
+                                ref={dropdownRef}
+                            />
+                        )}
                         {errors.date && <p className={s.error}>{errors.date.message}</p>}
                     </div>
                 </div>
@@ -113,6 +145,15 @@ const BookingForm = ({ data, onClose }) => {
                 </div>
                 <button type='submit' className={s.send_btn}>Send</button>
             </form>
+
+            <CustomAlert
+                openSnackbar={openSnackbar}
+                severity='success'
+                handleSnackbarClose={() => setOpenSnackbar(false)}
+                alertSx={{ backgroundColor: '#d4edda', height: 'auto', textAlign: 'left' }}
+            >
+                {`Thank you ${bookedName}, your meeting time is ${bookedDate} !`}
+            </CustomAlert>
         </div>
     )
  }
