@@ -2,11 +2,12 @@ import Filters from '../../components/Filters/Filters.jsx'
 import { selectFilters } from '../../redux/filters/selectors.js'
 import s from './PsychologistsPage.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { selectList, selectLoading, resetList, selectLastVisibleDoc, selectHasMore } from '../../redux/psychologists/slice.js'
 import { getPsychologists } from '../../redux/psychologists/operations.js'
 import PsychologistsList from '../../components/PsychologistsList/PsychologistsList.jsx'
 import Loader from '../../components/Loader/Loader.jsx'
+import CustomAlert from '../../components/CustomAlert/CustomAlert.jsx'
 
 const PsychologistsPage = () => {
 
@@ -26,7 +27,18 @@ const PsychologistsPage = () => {
         dispatch(getPsychologists({filters, lastVisibleDoc}))
     }
 
-    console.log(hasMore)
+    const [openSnackbar, setOpenSnackbar] = useState(false)
+
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') return
+           setOpenSnackbar(false);
+    }
+
+    useEffect(() => {
+        if (!lastVisibleDoc && list.length !== 0) {
+           setOpenSnackbar(true)
+        }
+    }, [lastVisibleDoc, list])
 
     return (
         <section className={s.container}>
@@ -48,7 +60,7 @@ const PsychologistsPage = () => {
             )}
 
             {!loading && !lastVisibleDoc && list.length !==0 && (
-                <p>no more</p>
+                <CustomAlert openSnackbar={openSnackbar} handleSnackbarClose={handleSnackbarClose}>All psychologists loaded</CustomAlert>
             )}
 
             {!loading && list.length === 0 && (
