@@ -6,7 +6,7 @@ const PsychologistsList = ({ list }) => {
     return (
         <ul className={s.list}>
             {list.map((item) => (
-                <PsychologistsItem key={item} data={item} />
+                <PsychologistsItem key={item.id} data={item} />
             ))}
         </ul>
     )

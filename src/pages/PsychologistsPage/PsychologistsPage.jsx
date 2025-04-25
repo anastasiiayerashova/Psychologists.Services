@@ -24,7 +24,7 @@ const PsychologistsPage = () => {
     }, [filters, dispatch])
 
     const handleLoadMore = () => {
-        dispatch(getPsychologists({filters, lastVisibleDoc}))
+        dispatch(getPsychologists({ filters, lastVisibleDoc }))
     }
 
     const [openSnackbar, setOpenSnackbar] = useState(false)

@@ -5,7 +5,6 @@ import { svg } from '../../constants/index.js'
 const Reviews = ({ data }) => {
     
     const { reviews } = data
-    console.log(reviews)
 
     return (
         <ul className={s.list}>

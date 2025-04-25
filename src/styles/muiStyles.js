@@ -3,7 +3,9 @@ export const carListSnackbarSx = {
     height: '50px', 
     marginTop: '10px',
     fontSize: '16px',
-    justifySelf: 'center'
+    justifySelf: 'center',
+    textAlign: 'center',
+    maxWidth: 'fit-content'
 }
 
 
