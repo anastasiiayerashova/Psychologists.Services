@@ -81,9 +81,9 @@ h1 {
   font-weight: 600;
 }
 
-p:last-child {
+/* p:last-child {
   margin-bottom: 0;
-}
+} */
 
 ul,
 ol {

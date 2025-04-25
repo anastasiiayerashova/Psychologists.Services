@@ -5,6 +5,8 @@ import UniversalMenu from "./UniversalMenu/UniversalMenu.jsx"
 import Modal from "./Modal/Modal.jsx"
 import SignInForm from "./SignInForm/SignInForm.jsx"
 import SignUpForm from "./SignUpForm/SignUpForm.jsx"
+import BookingForm from "./BookingForm/BookingForm.jsx"
+import { ModalContext } from "../utils/ModalContext.js"
 
 const SharedLayout = ({ children }) => {
     
@@ -12,6 +14,7 @@ const SharedLayout = ({ children }) => {
     const [isNavMenuOpen, setIsNavMenuOpen] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalType, setModalType] = useState(null)
+    const [modalData, setModalData] = useState(null)
 
     const toggleUserMenu = () => {
         setIsUserMenuOpen(prev => !prev);
@@ -21,8 +24,9 @@ const SharedLayout = ({ children }) => {
         setIsNavMenuOpen(prev => !prev);
     }
 
-    const openModal = (type) => {
+    const openModal = (type, data = null) => {
         setModalType(type)
+        setModalData(data)
         setIsModalOpen(true)
         setIsUserMenuOpen(false)
         setIsNavMenuOpen(false)
@@ -31,6 +35,7 @@ const SharedLayout = ({ children }) => {
     const closeModal = () => {
         setIsModalOpen(false)
         setModalType(null)
+        setModalData(null)
     }
 
     useEffect(() => {
@@ -44,6 +49,7 @@ const SharedLayout = ({ children }) => {
     }, [isUserMenuOpen, isNavMenuOpen])
     
     return (
+        <ModalContext.Provider value={{openModal}}>
         <>
             <header>
                 <Header
@@ -66,11 +72,13 @@ const SharedLayout = ({ children }) => {
             />
             {isModalOpen && (
                <Modal onClose={closeModal}>
-                  {modalType === 'login' && <SignInForm onClose={closeModal} />}
-                  {modalType === 'register' && <SignUpForm onClose={closeModal} />}
+                    {modalType === 'login' && <SignInForm onClose={closeModal} />}
+                    {modalType === 'register' && <SignUpForm onClose={closeModal} />}
+                    {modalType === 'booking' && <BookingForm data={modalData} onClose={closeModal} />}
                 </Modal>
 )}
         </>
+        </ModalContext.Provider>
     )
 }
 

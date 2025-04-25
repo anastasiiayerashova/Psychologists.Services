@@ -1,17 +1,3 @@
-// import s from './Loader.module.css'
-// import CircularProgress from '@mui/material/CircularProgress';
-
-// const Loader = () => {
-
-//     return (
-//         <div className={s.wrp}>
-//             <span className={s.loader}></span>
-//         </div>
-//     )
-// }
-
-// export default Loader
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -20,8 +6,8 @@ import Box from '@mui/material/Box';
 
 function CircularProgressWithLabel(props) {
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-      <CircularProgress variant="determinate" {...props} />
+    <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: '15px' }}>
+      <CircularProgress variant="determinate" {...props} color="success" sx={{borderRadius: '15px'}} size="3rem" thickness={4}/>
       <Box
         sx={{
           top: 0,
@@ -32,7 +18,7 @@ function CircularProgressWithLabel(props) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'var(--green)'
+          color: 'var(--green)',
         }}
       >
         <Typography

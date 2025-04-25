@@ -38,7 +38,7 @@ const PsychologistsPage = () => {
             )}
             
             {!loading && list.length > 0 && (
-                <PsychologistsList list={list}/>
+                <PsychologistsList list={list} />
             )}
 
             {!loading && list.length === 0 && (

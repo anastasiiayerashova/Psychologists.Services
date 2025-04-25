@@ -4,12 +4,19 @@ import PsychologistsFeaturesList from '../PsychologistsFeaturesList/Psychologist
 import PsychologistAvatar from '../PsychologistAvatar/PsychologistAvatar.jsx'
 import Reviews from '../Reviews/Reviews.jsx'
 import { useState } from 'react'
+import { useModal } from '../../utils/ModalContext.js'
 
 const PsychologistsItem = ({ data }) => {
   
   const { about, avatar_url, experience, id, initial_consultation, license, name, price_per_hour, rating, reviews, specialization } = data
 
-  const [showReviews, setShowReviews] = useState(false)
+   const [showReviews, setShowReviews] = useState(false)
+
+   const {openModal} = useModal()
+   
+   const handleMakeAppointment = () => {
+    openModal('booking', data)
+  }
   
   return (
     <li className={s.card}>
@@ -43,7 +50,7 @@ const PsychologistsItem = ({ data }) => {
                  <div className={`${s.reviewsWrapper} ${showReviews ? s.open : ''}`}>
                       <Reviews data={data}/>
                  </div>
-                 <button type='button' onClick={() => { setShowReviews(true)}} className={showReviews ? s.make : s.read}>
+                 <button type='button' onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)} className={showReviews ? s.make : s.read}>
                      {showReviews ? 'Make an appointment' : 'Read more'}
                  </button>
               </div>
@@ -56,7 +63,7 @@ const PsychologistsItem = ({ data }) => {
          <div className={`${s.reviewsWrapper} ${showReviews ? s.open : ''}`}>
               <Reviews data={data}/>
          </div>
-         <button type='button' onClick={() => { setShowReviews(true)}} className={showReviews ? s.make : s.read}>
+         <button type='button' onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)} className={showReviews ? s.make : s.read}>
               {showReviews ? 'Make an appointment' : 'Read more'}
           </button>
       </div>
