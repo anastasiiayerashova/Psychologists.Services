@@ -26,6 +26,8 @@ const PsychologistsPage = () => {
         dispatch(getPsychologists({filters, lastVisibleDoc}))
     }
 
+    console.log(hasMore)
+
     return (
         <section className={s.container}>
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
@@ -39,6 +41,14 @@ const PsychologistsPage = () => {
             
             {!loading && list.length > 0 && (
                 <PsychologistsList list={list} />
+            )}
+
+            {!loading && hasMore && (
+                <button type='button' className={s.load_btn} onClick={handleLoadMore}>Load more</button>
+            )}
+
+            {!loading && !lastVisibleDoc && list.length !==0 && (
+                <p>no more</p>
             )}
 
             {!loading && list.length === 0 && (

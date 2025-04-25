@@ -26,6 +26,20 @@
   align-items: center;
 }
 
+.load_btn {
+  padding: 14px 48px;
+  color: var(--white);
+  background-color: var(--green);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  border-radius: 30px;
+  display: inline;
+  display: flex;
+  justify-self: center;
+}
+
 @media screen and (max-width: 375px) {
   .not_found_text {
     font-size: 10px;
