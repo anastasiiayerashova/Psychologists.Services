@@ -17,10 +17,13 @@ const PsychologistsPage = () => {
     const lastVisibleDoc = useSelector(selectLastVisibleDoc)
     const hasMore = useSelector(selectHasMore)
     const loading = useSelector(selectLoading)
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
 
     useEffect(() => {
         dispatch(resetList())
-        dispatch(getPsychologists({filters}))
+        dispatch(getPsychologists({ filters })).finally(() => {
+            setIsFirstLoad(false)
+        })
     }, [filters, dispatch])
 
     const handleLoadMore = () => {
@@ -31,7 +34,7 @@ const PsychologistsPage = () => {
 
     const handleSnackbarClose = (event, reason) => {
         if (reason === 'clickaway') return
-           setOpenSnackbar(false);
+           setOpenSnackbar(false)
     }
 
     useEffect(() => {
@@ -45,13 +48,27 @@ const PsychologistsPage = () => {
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
             <Filters />
 
-            {loading && list.length === 0 && (
+           {isFirstLoad ? (
                 <div className={s.load_wrap}>
-                    <Loader/>
+                    <Loader />
                 </div>
+            ) : (
+                <>
+                    <PsychologistsList list={list} />
+                    {hasMore && !loading && (
+                        <button type="button" className={s.load_btn} onClick={handleLoadMore}>
+                            Load more
+                        </button>
+                    )}
+                    {list.length === 0 && !loading && (
+                        <div className={s.text_wrap}>
+                            <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
+                        </div>
+                    )}
+                </>
             )}
             
-            {!loading && list.length > 0 && (
+            {/* {!loading && list.length > 0 && (
                 <PsychologistsList list={list} />
             )}
 
@@ -68,7 +85,7 @@ const PsychologistsPage = () => {
                     <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
                 </div>
             )
-            }
+            } */}
         </section>
     )
 }

@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
 import { schema } from '../../validation/bookingSchema.js';
+import { svg } from '../../constants/index.js';
+import TimePicker from '../TimePicker/TimePicker.jsx';
 
 const BookingForm = ({ data, onClose }) => {
     
@@ -15,6 +17,7 @@ const BookingForm = ({ data, onClose }) => {
     const nameId = useId()
     const phoneId = useId()
     const commentId = useId()
+    const dateId = useId()
 
     const {
         register,
@@ -30,6 +33,19 @@ const BookingForm = ({ data, onClose }) => {
         mode: 'onChange',
         reValidateMode: 'onChange'
     })
+
+    const hours = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'));
+    const minutes = ['00', '30'];
+
+      const [isOpen, setIsOpen] = useState(false);
+      const [selectedHour, setSelectedHour] = useState('00');
+      const [selectedMinute, setSelectedMinute] = useState('00');
+
+      const handleSelect = (hour, minute) => {
+        setSelectedHour(hour);
+        setSelectedMinute(minute);
+        onChange(`${hour}:${minute}`);
+  }
 
     return (
         <div className={s.container}>
@@ -70,10 +86,19 @@ const BookingForm = ({ data, onClose }) => {
                         <input id={phoneId} type='text' {...register('phone')} placeholder='+380' />
                         {errors.phone && <p className={s.error}>{errors.phone.message}</p>}
                     </div>
-                    <div className={s.input_group}>
-                        <label htmlFor={phoneId} className='visually_hidden'>Phone</label>
-                        <input id={phoneId} type='number' {...register('phone')} placeholder='+380' />
-                        {errors.phone && <p className={s.error}>{errors.phone.message}</p>}
+                    <div className={s.input_group_icon}>
+                        <label htmlFor={dateId} className='visually_hidden'>Date</label>
+                        <input id={dateId} type='text' {...register('date')} placeholder='00:00'
+                            value={`${selectedHour}:${selectedMinute}`}
+                            onClick={() => setIsOpen(!isOpen)}
+                            readOnly/>
+                        <button type='button' className={s.icon_btn} onClick={() => setIsOpen(!isOpen)}>
+                            <svg width="20" height="20" fill='none' stroke='black'>
+                               <use href={`${svg}#icon-clock`} />
+                            </svg>
+                        </button>
+                        {isOpen && (<TimePicker isOpen={isOpen} selectedHour={selectedHour} selectedMinute={selectedMinute} handleSelect={handleSelect} />)}
+                        {errors.date && <p className={s.error}>{errors.date.message}</p>}
                     </div>
                 </div>
                 <div className={s.input_group}>

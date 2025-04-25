@@ -1,0 +1,98 @@
+.popover {
+  position: absolute;
+  background-color: #ffffff;
+  width: 151px;
+  height: 180px;
+  padding: 16px 34px 16px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popover_title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #191a15;
+  text-align: center;
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  width: 100%;
+  height: 100px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.picker::-webkit-scrollbar {
+  display: none;
+}
+
+.timeSlot {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  height: 32px;
+  min-height: 28px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #a5a5a5;
+  cursor: pointer;
+  user-select: none;
+}
+
+.item {
+  min-height: 28px;
+  min-width: 20px;
+  max-width: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.timeSlot.active {
+  color: #191a15;
+  font-weight: 500;
+}
+
+.separator {
+  margin: 0 12px;
+  color: #a5a5a5;
+  user-select: none;
+}
+
+.time-picker-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.icon-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
