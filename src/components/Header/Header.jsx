@@ -1,14 +1,23 @@
 import s from './Header.module.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { svg } from '../../constants/index.js';
 import UniversalMenu from '../UniversalMenu/UniversalMenu.jsx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuth } from '../../redux/auth/slice.js';
+import AuthButtons from '../AuthButtons/AuthButtons.jsx';
+import { signOutUser } from '../../redux/auth/operations.js';
 
 const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, openModal }) => {
     
     const location = useLocation()
+    const dispatch = useDispatch()
     const isAuth = useSelector(selectIsAuth)
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await dispatch(signOutUser())
+        navigate('/')
+    }
 
     return (
         <>
@@ -20,10 +29,16 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
                     <Link to='/psychologists' className={`${location.pathname === '/psychologists' ? s.active_link : ''}`}>Psychologists</Link>
                 </div>
             </div>
-            <div className={s.btn_wrapper}>
-                <button className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
-                <button className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
-            </div>
+                {!isAuth && (
+                    <div className={s.btn_wrapper}>
+                        <AuthButtons openModal={openModal}/>
+                    </div>
+                )}
+                {isAuth && (
+                    <div className={s.btn_wrapper}>
+                        <AuthButtons handleLogout={handleLogout}/>
+                    </div>
+                )}
             <div className={s.menu_btns}>
                 <button onClick={toggleUserMenu}>
                     <svg width={16} height={16}>

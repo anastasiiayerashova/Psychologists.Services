@@ -24,7 +24,7 @@ export const signUpUser = createAsyncThunk(
             }
         }
         catch (e) {
-            return thunkAPI.rejectWithValue(e.message)
+            return thunkAPI.rejectWithValue(e)
         }
     }
 )
@@ -47,7 +47,7 @@ export const signInUser = createAsyncThunk(
             }
         }
         catch (e) {
-            return thunkAPI.rejectWithValue(e.message)
+            return thunkAPI.rejectWithValue(e)
         }
     }
 )

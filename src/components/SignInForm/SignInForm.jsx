@@ -3,10 +3,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useId } from 'react';
+import { useState, useId, useEffect } from 'react';
 import { svg } from '../../constants/index.js';
 import { schema } from '../../validation/logInSchema.js';
 import { signInUser } from '../../redux/auth/operations.js';
+import CustomAlert from '../CustomAlert/CustomAlert.jsx';
+import useFirebaseError from '../../utils/firebaseErrorsHook.js';
 
 const SignInForm = ({ onClose }) => {
     
@@ -18,14 +20,21 @@ const SignInForm = ({ onClose }) => {
 
     const [showPassword, setShowPassword] = useState(false)
     const togglePasswordVisibility = () => setShowPassword(!showPassword)
+    const [openSnackbar, setOpenSnackbar] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+  
+    const { getErrorMessage } = useFirebaseError()
+  
+    useEffect(() => {
+      if (errorMessage) {
+          setOpenSnackbar(true)
+      }
+    }, [errorMessage])
 
     const {
     register,
     handleSubmit,
     reset,
-    trigger,
-    getValues,
-    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema()),
@@ -34,8 +43,16 @@ const SignInForm = ({ onClose }) => {
     reValidateMode: 'onChange',
   });
 
-  const onSubmit = (values) => {
-    dispatch(signInUser({values}))
+  const onSubmit = async (values) => {
+    try {
+      await dispatch(signInUser({ values })).unwrap()
+      reset()
+    }
+    catch (e) {
+      const message = getErrorMessage(e)
+      setErrorMessage(message)
+      setOpenSnackbar(true)
+    }
   }
 
     return (
@@ -72,6 +89,18 @@ const SignInForm = ({ onClose }) => {
                 </div>
                     <button type='submit' className={s.log_btn}>Log In</button>
             </form>
+        
+        {openSnackbar && (
+          <CustomAlert
+              severity='error'
+              openSnackbar={openSnackbar}
+              handleSnackbarClose={() => setOpenSnackbar(false)}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              alertSx={{ height: 'auto' }}
+          >
+              {errorMessage}
+          </CustomAlert>
+        )}
         </div>
     )
 }

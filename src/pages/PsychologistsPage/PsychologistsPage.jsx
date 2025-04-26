@@ -62,7 +62,7 @@ const PsychologistsPage = () => {
                         openSnackbar={openSnackbar}
                         handleSnackbarClose={() => setOpenSnackbar(false)}
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                        alertSx={{ backgroundColor: '#ffe5b4', height: 'auto' }}
+                        alertSx={{ backgroundColor: '#fff4e5', height: 'auto' }}
                     >
                         All psychologists loaded
                     </CustomAlert>

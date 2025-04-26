@@ -145,16 +145,16 @@ const BookingForm = ({ data, onClose }) => {
                 </div>
                 <button type='submit' className={s.send_btn}>Send</button>
             </form>
-
             <CustomAlert
                 openSnackbar={openSnackbar}
                 severity='success'
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 handleSnackbarClose={() => setOpenSnackbar(false)}
                 alertSx={{ backgroundColor: '#d4edda', height: 'auto', textAlign: 'left' }}
             >
                 {`Thank you ${bookedName}, your meeting time is ${bookedDate} !`}
             </CustomAlert>
-        </div>
+        </div>    
     )
  }
 

@@ -4,6 +4,7 @@ import { svg } from '../../constants/index.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth } from '../../redux/auth/slice.js'
 import { signOutUser } from '../../redux/auth/operations.js'
+import AuthButtons from '../AuthButtons/AuthButtons.jsx'
 
 const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal, setIsUserMenuOpen }) => {
     
@@ -37,14 +38,13 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
 
                 {isUserMenuOpen && !isAuth && (
                     <div className={s.content}>
-                        <button className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
-                        <button className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
+                        <AuthButtons openModal={openModal} />
                     </div>
                 )}
 
                  {isUserMenuOpen && isAuth && (
                     <div className={s.content}>
-                        <button className={s.logOut_btn} onClick={handleLogout}>Log out</button>
+                        <AuthButtons handleLogout={handleLogout}/>
                     </div>
                 )}
 

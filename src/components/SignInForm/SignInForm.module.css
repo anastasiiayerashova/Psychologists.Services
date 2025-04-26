@@ -50,6 +50,7 @@
   margin-bottom: 6px;
   background-color: transparent;
   font-family: 'Inter', sans-serif;
+  text-align: left;
 }
 
 .input_group input::placeholder {

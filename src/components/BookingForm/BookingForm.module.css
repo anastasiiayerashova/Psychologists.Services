@@ -58,7 +58,7 @@
 
 .input_group input,
 .input_group textarea {
-  padding: 16px 0 16px 18px;
+  padding: 16px 18px 16px 18px;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.25;

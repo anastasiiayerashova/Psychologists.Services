@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
 import { svg } from '../../constants/index.js';
 import { signUpUser } from '../../redux/auth/operations.js';
+import CustomAlert from '../CustomAlert/CustomAlert.jsx';
+import useFirebaseError from '../../utils/firebaseErrorsHook.js';
 
 const SignUpForm = ({ onClose }) => {
         
@@ -19,14 +21,22 @@ const SignUpForm = ({ onClose }) => {
     
         const [showPassword, setShowPassword] = useState(false)
         const togglePasswordVisibility = () => setShowPassword(!showPassword)
+        const [openSnackbar, setOpenSnackbar] = useState(false)
+        const [errorMessage, setErrorMessage] = useState('')
+        const [password, setPassword] = useState('')
+
+        const {getErrorMessage} = useFirebaseError()
+
+        useEffect(() => {
+          if (errorMessage) {
+            setOpenSnackbar(true)
+          }
+        }, [errorMessage])
     
         const {
         register,
         handleSubmit,
         reset,
-        trigger,
-        getValues,
-        watch,
         formState: { errors },
       } = useForm({
         resolver: yupResolver(schema()),
@@ -35,8 +45,17 @@ const SignUpForm = ({ onClose }) => {
         reValidateMode: 'onChange',
       });
   
-      const onSubmit = (values) => {
-         dispatch(signUpUser({values}))
+      const onSubmit = async (values) => {
+        try {
+           await dispatch(signUpUser({ values })).unwrap()
+          //  reset()
+        }
+        catch (e) {
+          const message = getErrorMessage(e)
+          setErrorMessage(message)
+          console.log(errorMessage)
+          setOpenSnackbar(true)
+        }
       }
     
         return (
@@ -58,7 +77,7 @@ const SignUpForm = ({ onClose }) => {
                     </div>
                     <div className={s.input_group}>
                         <label htmlFor={pwdId} className='visually_hidden'>Password</label>
-                        <input id={pwdId} type={showPassword ? 'text' : 'password'} {...register('password')} placeholder='Password' />
+                        <input id={pwdId} type={showPassword ? 'text' : 'password'} {...register('password')} placeholder='Password' value={password}/>
                         {errors.password && <p className={s.error}>{errors.password.message}</p>}
                         <button
                     className={s.eyeIcon}
@@ -78,6 +97,18 @@ const SignUpForm = ({ onClose }) => {
                     </div>
                         <button type='submit' className={s.log_btn}>Sign Up</button>
                 </form>
+            
+                {openSnackbar && (
+                    <CustomAlert
+                        severity='error'
+                        openSnackbar={openSnackbar}
+                        handleSnackbarClose={() => setOpenSnackbar(false)}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                        alertSx={{ height: 'auto' }}
+                    >
+                      {errorMessage}
+                    </CustomAlert>
+                )}
             </div>
         )
     }
