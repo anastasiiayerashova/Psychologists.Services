@@ -13,6 +13,7 @@ export default function Modal({ onClose, children }) {
       shouldCloseOnOverlayClick={true}
       ariaHideApp={false}
       onRequestClose={onClose}
+      closeTimeoutMS={1000}
       onAfterOpen={() => (document.body.style.overflow = 'hidden')}
       onAfterClose={() => (document.body.style.overflow = 'unset')}
     >
