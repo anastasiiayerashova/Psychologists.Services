@@ -2,10 +2,13 @@ import s from './Header.module.css'
 import { Link, useLocation } from 'react-router-dom'
 import { svg } from '../../constants/index.js';
 import UniversalMenu from '../UniversalMenu/UniversalMenu.jsx';
+import { useSelector } from 'react-redux';
+import { selectIsAuth } from '../../redux/auth/slice.js';
 
 const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, openModal }) => {
     
     const location = useLocation()
+    const isAuth = useSelector(selectIsAuth)
 
     return (
         <>

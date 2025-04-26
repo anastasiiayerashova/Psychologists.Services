@@ -6,11 +6,12 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
 import { svg } from '../../constants/index.js';
+import { signUpUser } from '../../redux/auth/operations.js';
 
 const SignUpForm = ({ onClose }) => {
         
-        // const dispatch = useDispatch()
-        // const navigate = useNavigate()
+        const dispatch = useDispatch()
+        const navigate = useNavigate()
     
         const nameId = useId()
         const emailId = useId()
@@ -33,6 +34,10 @@ const SignUpForm = ({ onClose }) => {
         mode: 'onChange',
         reValidateMode: 'onChange',
       });
+  
+      const onSubmit = (values) => {
+         dispatch(signUpUser({values}))
+      }
     
         return (
             <div className={s.container}>
@@ -40,7 +45,7 @@ const SignUpForm = ({ onClose }) => {
                     <p className={s.title}>Registration</p>
                     <p className={s.subtitle}>Thank you for your interest in our platform! In order to register, we need some information. Please provide us with the following information.</p>
                 </div>
-                <form className={s.form}>
+                <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                     <div className={s.input_group}>
                         <label htmlFor={nameId} className='visually_hidden'>Name</label>
                         <input id={nameId} type='text' {...register('name')} placeholder='Name' />

@@ -69,6 +69,7 @@ const SharedLayout = ({ children }) => {
                 toggleUserMenu={toggleUserMenu}
                 toggleNavMenu={toggleNavMenu}
                 openModal={openModal}
+                setIsUserMenuOpen={setIsUserMenuOpen}
             />
             {isModalOpen && (
                <Modal onClose={closeModal}>

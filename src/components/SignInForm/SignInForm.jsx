@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
 import { svg } from '../../constants/index.js';
 import { schema } from '../../validation/logInSchema.js';
+import { signInUser } from '../../redux/auth/operations.js';
 
 const SignInForm = ({ onClose }) => {
     
-    // const dispatch = useDispatch()
-    // const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const emailId = useId()
     const pwdId = useId()
@@ -33,13 +34,17 @@ const SignInForm = ({ onClose }) => {
     reValidateMode: 'onChange',
   });
 
+  const onSubmit = (values) => {
+    dispatch(signInUser({values}))
+  }
+
     return (
         <div className={s.container}>
             <div className={s.title_wrap}>
                 <p className={s.title}>Log In</p>
                 <p className={s.subtitle}>Welcome back! Please enter your credentials to access your account and continue your search for a psychologist.</p>
             </div>
-            <form className={s.form}>
+            <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={s.input_group}>
                     <label htmlFor={emailId} className='visually_hidden'>Email</label>
                     <input id={emailId} type='text' {...register('email')} placeholder='Email' />

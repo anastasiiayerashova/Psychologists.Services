@@ -1,10 +1,22 @@
 import s from './UniversalMenu.module.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { svg } from '../../constants/index.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectIsAuth } from '../../redux/auth/slice.js'
+import { signOutUser } from '../../redux/auth/operations.js'
 
-const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal }) => {
+const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal, setIsUserMenuOpen }) => {
     
     const location = useLocation()
+    const isAuth = useSelector(selectIsAuth)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await dispatch(signOutUser())
+        setIsUserMenuOpen(false)
+        navigate('/')
+    }
 
     return (
        <div className={s.mob_menu_wrapper}>
@@ -23,10 +35,16 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
                   </button>
                 </div>
 
-                {isUserMenuOpen && (
+                {isUserMenuOpen && !isAuth && (
                     <div className={s.content}>
                         <button className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
                         <button className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
+                    </div>
+                )}
+
+                 {isUserMenuOpen && isAuth && (
+                    <div className={s.content}>
+                        <button className={s.logOut_btn} onClick={handleLogout}>Log out</button>
                     </div>
                 )}
 

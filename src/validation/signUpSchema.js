@@ -12,7 +12,7 @@ export const schema = () => {
             .email('Email must be valid')
             .matches(/^[a-zA-Z0-9._%+-]+@(gmail\.com|meta\.ua|ukr\.net)$/i, 'Enter a valid email'),
         password: Yup.string()
-            .min(3, 'Password must be at least 3 characters')
+            .min(6, 'Password must be at least 6 characters')
             .max(10, 'Password can not exceed 10 characters')
             .required('Password is required'),
     })

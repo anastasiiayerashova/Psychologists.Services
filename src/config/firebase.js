@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-// import { getAuth } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const {VITE_API_KEY, VITE_AUTH_DOMAIN, VITE_DB_DOMAIN, VITE_PROJECT_ID, VITE_STORAGE_BUCKET, VITE_MESSAGING_SENDER_ID, VITE_APP_ID} = import.meta.env
@@ -16,7 +16,7 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
-// export const auth = getAuth(app)
+export const auth = getAuth(app)
 
 // async function uploadData() {
 //   const collectionRef = collection(db, "psychologists-services");
