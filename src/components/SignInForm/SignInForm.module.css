@@ -88,6 +88,10 @@
   color: var(--white);
 }
 
+.passwordHints {
+  margin-top: 12px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     padding: 64px;

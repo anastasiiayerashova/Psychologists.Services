@@ -9,6 +9,8 @@ import { schema } from '../../validation/logInSchema.js';
 import { signInUser } from '../../redux/auth/operations.js';
 import CustomAlert from '../CustomAlert/CustomAlert.jsx';
 import useFirebaseError from '../../utils/firebaseErrorsHook.js';
+import { passwordValidation } from '../../validation/passwordValidation.js';
+import PasswordHint from '../PasswordHint/PasswordHint.jsx';
 
 const SignInForm = ({ onClose }) => {
     
@@ -22,8 +24,10 @@ const SignInForm = ({ onClose }) => {
     const togglePasswordVisibility = () => setShowPassword(!showPassword)
     const [openSnackbar, setOpenSnackbar] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const [password, setPassword] = useState('')
   
     const { getErrorMessage } = useFirebaseError()
+    const {isPasswordValid, hasMinLength, hasMaxLength, hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar} = passwordValidation(password)
   
     useEffect(() => {
       if (errorMessage) {
@@ -41,12 +45,13 @@ const SignInForm = ({ onClose }) => {
     defaultValues: { email: '', password: '' },
     mode: 'onChange',
     reValidateMode: 'onChange',
-  });
+  })
 
   const onSubmit = async (values) => {
     try {
       await dispatch(signInUser({ values })).unwrap()
       reset()
+      onClose()
     }
     catch (e) {
       const message = getErrorMessage(e)
@@ -69,8 +74,17 @@ const SignInForm = ({ onClose }) => {
                 </div>
                 <div className={s.input_group}>
                     <label htmlFor={pwdId} className='visually_hidden'>Password</label>
-                    <input id={pwdId} type={showPassword ? 'text' : 'password'} {...register('password')} placeholder='Password' />
-                    {errors.password && <p className={s.error}>{errors.password.message}</p>}
+                    <input id={pwdId} type={showPassword ? 'text' : 'password'} {...register('password')} placeholder='Password' value={password} onChange={(e) => {setPassword(e.target.value)} } />
+                    {password.length > 0 && !isPasswordValid && (
+                        <div className={s.passwordHints}>
+                            <PasswordHint condition={hasMinLength} text="At least 6 characters" />
+                            <PasswordHint condition={hasMaxLength} text="No more than 30 characters" />
+                            <PasswordHint condition={hasLowerCase} text="At least one lowercase letter" />
+                            <PasswordHint condition={hasUpperCase} text="At least one uppercase letter" />
+                            <PasswordHint condition={hasDigit} text="At least one digit" />
+                            <PasswordHint condition={hasSpecialChar} text="At least one special character" />
+                        </div>
+                    )}
                     <button
                 className={s.eyeIcon}
                 onClick={togglePasswordVisibility}

@@ -9,6 +9,8 @@ import { svg } from '../../constants/index.js';
 import { signUpUser } from '../../redux/auth/operations.js';
 import CustomAlert from '../CustomAlert/CustomAlert.jsx';
 import useFirebaseError from '../../utils/firebaseErrorsHook.js';
+import { passwordValidation } from '../../validation/passwordValidation.js';
+import PasswordHint from '../PasswordHint/PasswordHint.jsx';
 
 const SignUpForm = ({ onClose }) => {
         
@@ -25,7 +27,8 @@ const SignUpForm = ({ onClose }) => {
         const [errorMessage, setErrorMessage] = useState('')
         const [password, setPassword] = useState('')
 
-        const {getErrorMessage} = useFirebaseError()
+        const { getErrorMessage } = useFirebaseError()
+        const {isPasswordValid, hasMinLength, hasMaxLength, hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar} = passwordValidation(password)
 
         useEffect(() => {
           if (errorMessage) {
@@ -43,17 +46,17 @@ const SignUpForm = ({ onClose }) => {
         defaultValues: { name: '', email: '', password: '' },
         mode: 'onChange',
         reValidateMode: 'onChange',
-      });
+      })
   
       const onSubmit = async (values) => {
         try {
            await dispatch(signUpUser({ values })).unwrap()
-          //  reset()
+           reset()
+           onClose()
         }
         catch (e) {
           const message = getErrorMessage(e)
           setErrorMessage(message)
-          console.log(errorMessage)
           setOpenSnackbar(true)
         }
       }
@@ -77,8 +80,17 @@ const SignUpForm = ({ onClose }) => {
                     </div>
                     <div className={s.input_group}>
                         <label htmlFor={pwdId} className='visually_hidden'>Password</label>
-                        <input id={pwdId} type={showPassword ? 'text' : 'password'} {...register('password')} placeholder='Password' value={password}/>
-                        {errors.password && <p className={s.error}>{errors.password.message}</p>}
+                        <input id={pwdId} type={showPassword ? 'text' : 'password'} {...register('password')} placeholder='Password' value={password} onChange={(e) => {setPassword(e.target.value)} } />
+                        {password.length > 0 && !isPasswordValid && (
+                        <div className={s.passwordHints}>
+                            <PasswordHint condition={hasMinLength} text="At least 6 characters" />
+                            <PasswordHint condition={hasMaxLength} text="No more than 30 characters" />
+                            <PasswordHint condition={hasLowerCase} text="At least one lowercase letter" />
+                            <PasswordHint condition={hasUpperCase} text="At least one uppercase letter" />
+                            <PasswordHint condition={hasDigit} text="At least one digit" />
+                            <PasswordHint condition={hasSpecialChar} text="At least one special character" />
+                        </div>
+                        )}
                         <button
                     className={s.eyeIcon}
                     onClick={togglePasswordVisibility}

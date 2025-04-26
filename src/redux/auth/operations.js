@@ -10,8 +10,6 @@ export const signUpUser = createAsyncThunk(
             
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
 
-            console.log('userCredential:', userCredential)
-
             await updateProfile(userCredential.user, { displayName: name })
             
             const user = userCredential.user
