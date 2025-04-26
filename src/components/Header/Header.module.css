@@ -76,6 +76,33 @@
   column-gap: 25px;
 }
 
+.head_wrap {
+  display: flex;
+  column-gap: 14px;
+  align-items: center;
+  flex: 1;
+}
+
+.green_wrap {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--green);
+  padding: 12px;
+}
+
+.user_name {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 134px;
+}
+
 @media screen and (min-width: 768px) {
   .logo {
     font-weight: 700;
@@ -111,6 +138,8 @@
 
   .btn_wrapper {
     display: flex;
+    column-gap: 28px;
+    align-items: center;
     & button {
       padding: 14px 40px;
     }

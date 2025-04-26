@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { svg } from '../../constants/index.js';
 import UniversalMenu from '../UniversalMenu/UniversalMenu.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsAuth } from '../../redux/auth/slice.js';
+import { selectIsAuth, selectName } from '../../redux/auth/slice.js';
 import AuthButtons from '../AuthButtons/AuthButtons.jsx';
 import { signOutUser } from '../../redux/auth/operations.js';
 
@@ -12,6 +12,7 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
     const location = useLocation()
     const dispatch = useDispatch()
     const isAuth = useSelector(selectIsAuth)
+    const userName = useSelector(selectName)
     const navigate = useNavigate()
 
     const handleLogout = async () => {
@@ -27,6 +28,9 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
                 <div className={s.links_wrapper}>
                     <Link to='/' className={`${location.pathname === '/' ? s.active_link : ''}`}>Home</Link>
                     <Link to='/psychologists' className={`${location.pathname === '/psychologists' ? s.active_link : ''}`}>Psychologists</Link>
+                    {isAuth && (
+                        <Link to='/favorites' className={`${location.pathname === '/favorites' ? s.active_link : ''}`}>Favorites</Link>
+                    )}
                 </div>
             </div>
                 {!isAuth && (
@@ -36,6 +40,14 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
                 )}
                 {isAuth && (
                     <div className={s.btn_wrapper}>
+                          <div className={s.head_wrap}>
+                                                <div className={s.green_wrap}>
+                                                    <svg width={16} height={16}>
+                                                       <use href={`${svg}#icon-user`} />
+                                                    </svg>
+                                                </div>
+                                                <p className={s.user_name}>{userName}</p>   
+                                            </div>
                         <AuthButtons handleLogout={handleLogout}/>
                     </div>
                 )}

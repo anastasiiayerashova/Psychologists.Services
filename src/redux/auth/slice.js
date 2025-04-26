@@ -18,7 +18,8 @@ const slice = createSlice({
     initialState,
     selectors: {
         selectIsAuth: state => state.isAuth,
-        selectError: state => state.error
+        selectError: state => state.error,
+        selectName: state => state.user.name,
     },
     reducers: {
         setUser: (state, { payload }) => {
@@ -94,4 +95,4 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer
 export const { setUser, logoutUser } = slice.actions
-export const {selectIsAuth, selectError} = slice.selectors
+export const {selectIsAuth, selectError, selectName} = slice.selectors

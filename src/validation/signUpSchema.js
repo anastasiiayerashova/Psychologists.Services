@@ -6,7 +6,7 @@ export const schema = () => {
             .required('Name is required')
             .matches(/^[а-яА-ЯёЁЇїІіЄєҐґa-zA-Z\s]+$/, 'Name should contain only letters')
             .min(2, 'Name should be at least 2 characters')
-            .max(20, 'Name should not exceed 20 characters'),
+            .max(30, 'Name should not exceed 30 characters'),
         email: Yup.string()
             .required('Email is required')
             .email('Email must be valid')
