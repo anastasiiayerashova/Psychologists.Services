@@ -6,7 +6,7 @@ import { selectIsAuth } from '../../redux/auth/slice.js'
 import { signOutUser } from '../../redux/auth/operations.js'
 import AuthButtons from '../AuthButtons/AuthButtons.jsx'
 
-const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal, setIsUserMenuOpen }) => {
+const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal, setIsUserMenuOpen, showAlert }) => {
     
     const location = useLocation()
     const isAuth = useSelector(selectIsAuth)
@@ -44,7 +44,7 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
 
                  {isUserMenuOpen && isAuth && (
                     <div className={s.content}>
-                        <AuthButtons handleLogout={handleLogout}/>
+                        <AuthButtons handleLogout={handleLogout} showAlert={showAlert} />
                     </div>
                 )}
 

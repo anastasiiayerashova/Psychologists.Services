@@ -12,7 +12,7 @@ const CustomAlert = ({children, openSnackbar, handleSnackbarClose, severity = 'w
     return (
         <Snackbar
             open={openSnackbar}
-            autoHideDuration={4000}
+            autoHideDuration={2000}
             onClose={handleSnackbarClose}
             slots={{transition: FadeTransition}}
             anchorOrigin={ anchorOrigin || { vertical: 'top', horizontal: 'center' }} 

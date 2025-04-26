@@ -7,6 +7,7 @@ import SignInForm from "./SignInForm/SignInForm.jsx"
 import SignUpForm from "./SignUpForm/SignUpForm.jsx"
 import BookingForm from "./BookingForm/BookingForm.jsx"
 import { ModalContext } from "../utils/ModalContext.js"
+import CustomAlert from "./CustomAlert/CustomAlert.jsx"
 
 const SharedLayout = ({ children }) => {
     
@@ -15,6 +16,15 @@ const SharedLayout = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalType, setModalType] = useState(null)
     const [modalData, setModalData] = useState(null)
+    const [alertOptions, setAlertOptions] = useState(null)
+
+    const showAlert = (severity, message) => {
+        setAlertOptions({ severity, message })
+        setTimeout(() => {
+            setAlertOptions(null)
+        }, 2000)
+    }
+
 
     const toggleUserMenu = () => {
         setIsUserMenuOpen(prev => !prev);
@@ -70,6 +80,7 @@ const SharedLayout = ({ children }) => {
                 toggleNavMenu={toggleNavMenu}
                 openModal={openModal}
                 setIsUserMenuOpen={setIsUserMenuOpen}
+                showAlert={showAlert}
             />
             {isModalOpen && (
                <Modal onClose={closeModal}>
@@ -77,7 +88,18 @@ const SharedLayout = ({ children }) => {
                     {modalType === 'register' && <SignUpForm onClose={closeModal} />}
                     {modalType === 'booking' && <BookingForm data={modalData} onClose={closeModal} />}
                 </Modal>
-            )}
+                )}
+                {alertOptions && (
+                     <CustomAlert
+                        severity={alertOptions.severity}
+                        openSnackbar={!!alertOptions}
+                        handleSnackbarClose={() => setAlertOptions(null)}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                        alertSx={{ height: 'auto' }}
+                    >
+                      {alertOptions.message}
+                    </CustomAlert>
+                )}
         </>
         </ModalContext.Provider>
     )

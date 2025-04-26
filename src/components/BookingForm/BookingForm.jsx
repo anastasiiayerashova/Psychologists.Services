@@ -68,7 +68,7 @@ const BookingForm = ({ data, onClose }) => {
         
         setTimeout(() => {
             onClose()
-        }, 4000)
+        }, 2000)
     }
     
     return (

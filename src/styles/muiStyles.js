@@ -17,7 +17,7 @@ export const carListAlertSx = {
     lineHeight: 1.25,
     fontWeight: 400,
     borderRadius: '24px',
-    backgroundColor: '#FFCDD2',
+    // backgroundColor: '#FFCDD2',
     color: 'var(--main)',
     border: 'none'
 }

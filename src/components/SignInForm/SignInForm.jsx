@@ -23,6 +23,7 @@ const SignInForm = ({ onClose }) => {
     const [showPassword, setShowPassword] = useState(false)
     const togglePasswordVisibility = () => setShowPassword(!showPassword)
     const [openSnackbar, setOpenSnackbar] = useState(false)
+    const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [password, setPassword] = useState('')
   
@@ -51,7 +52,11 @@ const SignInForm = ({ onClose }) => {
     try {
       await dispatch(signInUser({ values })).unwrap()
       reset()
-      onClose()
+      setSuccessMessage('You have successfully logged in!')
+      setOpenSnackbar(true)
+      setTimeout(() => {
+          onClose()
+      }, 2000)
     }
     catch (e) {
       const message = getErrorMessage(e)
@@ -106,13 +111,13 @@ const SignInForm = ({ onClose }) => {
         
         {openSnackbar && (
           <CustomAlert
-              severity='error'
+              severity={successMessage ? 'success' : 'error'}
               openSnackbar={openSnackbar}
               handleSnackbarClose={() => setOpenSnackbar(false)}
               anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              alertSx={{ height: 'auto' }}
+              alertSx={{  height: 'auto' }}
           >
-              {errorMessage}
+              {successMessage || errorMessage}
           </CustomAlert>
         )}
         </div>
