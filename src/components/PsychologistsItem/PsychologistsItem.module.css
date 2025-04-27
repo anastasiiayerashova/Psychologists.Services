@@ -101,7 +101,7 @@
   line-height: 1.5;
   text-decoration: underline;
   text-decoration-skip-ink: none;
-  color: #191a15;
+  color: var(--black);
   align-self: flex-start;
 }
 
@@ -109,7 +109,7 @@
   border-radius: 30px;
   padding: 14px 32px;
   width: fit-content;
-  background-color: #54be96;
+  background-color: var(--green);
   font-weight: 500;
   font-size: 16px;
   line-height: 1.25;

@@ -12,10 +12,10 @@ const Reviews = ({ data }) => {
                 <li key={index} className={s.item}>
                     <div className={s.head}>
                         <Avatar sx={{
-                            bgcolor: 'rgba(84, 190, 150, 0.2)',
+                            bgcolor: 'var(--light-green)',
                             fontFamily: 'Inter, sans-serif',
                         }}
-                        ><span style={{ color: '#54be91', lineHeight: 1, fontWeight: '500', fontSize: '20px' }}>{review.reviewer.slice(0, 1)}</span></Avatar>
+                        ><span style={{ color: 'var(--green)', lineHeight: 1, fontWeight: '500', fontSize: '20px' }}>{review.reviewer.slice(0, 1)}</span></Avatar>
                         <div className={s.head_text}>
                             <p className={s.name}>{review.reviewer}</p>
                             <p className={s.rating}>

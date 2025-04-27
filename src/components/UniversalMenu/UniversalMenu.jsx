@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectIsAuth, selectName } from '../../redux/auth/slice.js'
 import { signOutUser } from '../../redux/auth/operations.js'
 import AuthButtons from '../AuthButtons/AuthButtons.jsx'
+import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.jsx'
 
 const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal, setIsUserMenuOpen, showAlert }) => {
     
@@ -66,6 +67,7 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
                         {isAuth && (
                             <Link to='/favorites' onClick={toggleNavMenu} className={`${location.pathname === '/favorites' ? s.active_link : ''}`}>Favorites</Link>
                         )}
+                        <ControlledSwitch/>
                     </div>
                 )}
             </div>

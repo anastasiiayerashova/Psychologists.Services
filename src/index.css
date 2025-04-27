@@ -58,7 +58,19 @@ body {
   --gray: #fbfbfb;
   --green: #54be96;
   --green-hover: rgba(84, 190, 150, 0.2);
+  --blue: #4535af;
+  --light-green: rgba(84, 190, 150, 0.2);
   font-family: 'Inter', sans-serif;
+}
+
+.orangered-theme {
+  --black: #191a15;
+  --white: #fbfbfb;
+  --gray: #fbfbfb;
+  --green: #fc832c;
+  --green-hover: rgba(55, 158, 124, 0.2);
+  --blue: #54be96;
+  --light-green: rgba(252, 131, 44, 0.2);
 }
 
 *,

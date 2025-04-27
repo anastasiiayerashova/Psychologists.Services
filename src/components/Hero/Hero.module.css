@@ -88,7 +88,7 @@
   border-radius: 10px;
   width: 27px;
   height: 27px;
-  background-color: #4535af;
+  background-color: var(--blue);
   transform: rotate(-15deg);
 }
 

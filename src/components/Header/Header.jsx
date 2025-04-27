@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuth, selectName } from '../../redux/auth/slice.js';
 import AuthButtons from '../AuthButtons/AuthButtons.jsx';
 import { signOutUser } from '../../redux/auth/operations.js';
+import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.jsx';
+import { useState, useEffect } from 'react';
 
 const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, openModal }) => {
     
@@ -14,11 +16,27 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
     const isAuth = useSelector(selectIsAuth)
     const userName = useSelector(selectName)
     const navigate = useNavigate()
+    const [showSwitch, setShowSwitch] = useState(false)
 
     const handleLogout = async () => {
         await dispatch(signOutUser())
         navigate('/')
     }
+
+        useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setShowSwitch(true)
+            } else {
+                setShowSwitch(false)
+            }
+        }
+
+        handleResize()
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     return (
         <>
@@ -35,12 +53,14 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
             </div>
                 {!isAuth && (
                     <div className={s.btn_wrapper}>
+                        {showSwitch && <ControlledSwitch />}
                         <AuthButtons openModal={openModal}/>
                     </div>
                 )}
                 {isAuth && (
                     <div className={s.btn_wrapper}>
-                          <div className={s.head_wrap}>
+                        <div className={s.head_wrap}>
+                           {showSwitch && <ControlledSwitch />}
                                                 <div className={s.green_wrap}>
                                                     <svg width={16} height={16}>
                                                        <use href={`${svg}#icon-user`} />
@@ -51,7 +71,8 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
                         <AuthButtons handleLogout={handleLogout}/>
                     </div>
                 )}
-            <div className={s.menu_btns}>
+                <div className={s.menu_btns}>
+                    {showSwitch && <ControlledSwitch />}
                 <button onClick={toggleUserMenu}>
                     <svg width={16} height={16}>
                         <use href={`${svg}#icon-user-mob`} />

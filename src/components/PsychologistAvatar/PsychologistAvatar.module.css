@@ -1,5 +1,5 @@
 .wrapper {
-  border: 2px solid rgba(84, 190, 150, 0.2);
+  border: 2px solid var(--light-green);
   border-radius: 15px;
   padding: 7px;
   height: fit-content;

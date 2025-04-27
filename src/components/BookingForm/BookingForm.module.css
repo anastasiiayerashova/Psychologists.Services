@@ -81,6 +81,9 @@
 
 .input_group_icon {
   position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .input_group_icon input {
