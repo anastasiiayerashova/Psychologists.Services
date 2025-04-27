@@ -15,12 +15,17 @@ const FavoritesPage = () => {
     const [filteredList, setFilteredList] = useState([])
     const [loading, setLoading] = useState(false)
     const [openSnackbar, setOpenSnackbar] = useState(false)
+    const [visibleCout, setVisibleCount] = useState(3)
+    const [allLoaded, setAllLoaded] = useState(false)
+    const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState(false)
 
     useEffect(() => {
         setLoading(true)
 
         const timeId = setTimeout(() => {
             filterFavourites()
+            setVisibleCount(3)
+            setAllLoaded(false)
             setLoading(false)
         }, 300)
 
@@ -65,6 +70,24 @@ const FavoritesPage = () => {
         }
     }
 
+    const handleClick = () => {
+        setVisibleCount(prev => {
+            const newCount = prev + 3
+
+            if (newCount >= filteredList.length) {
+                setAllLoaded(true)
+            }
+
+            return newCount
+        })
+    }
+
+     useEffect(() => {
+        if (allLoaded && filteredList.length === visibleCout) {
+            setOpenSnackbarNotFound(true)
+        }
+     }, [allLoaded, filteredList.length, visibleCout])
+    
     return (
         <section className={s.container}>
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
@@ -76,14 +99,14 @@ const FavoritesPage = () => {
                 </div>
             ) : (
                 <>
-                    <PsychologistsList list={filteredList} />
+                    <PsychologistsList list={filteredList.slice(0, visibleCout)} />
                         
-                    {/* {filteredList.length !== 0 && !loading && (
-                        <button type="button" className={s.load_btn} onClick={handleLoadMore}>
+                    {filteredList.length !== 0 && !loading && visibleCout < filteredList.length && (
+                        <button type="button" className={s.load_btn} onClick={handleClick}>
                             Load more
                         </button>
-                    )} */}
-                        
+                        ) 
+                        }
                     <CustomAlert
                         severity='warning'
                         openSnackbar={openSnackbar}
@@ -92,7 +115,17 @@ const FavoritesPage = () => {
                         alertSx={{ backgroundColor: '#fff4e5', height: 'auto' }}
                     >
                         No favorites found for the selected filters
-                    </CustomAlert>
+                        </CustomAlert>
+                        
+                        <CustomAlert
+                                    severity="info"
+                                    openSnackbar={openSnackbarNotFound}
+                                    handleSnackbarClose={() => {setOpenSnackbarNotFound(false)}}
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                                    alertSx={{ height: 'auto' }}
+                                >
+                                    All psychologists loaded
+                                </CustomAlert>
                         
                     {filteredList.length === 0 && !openSnackbar && favourites.length === 0 && (
                         <div className={s.text_wrap}>

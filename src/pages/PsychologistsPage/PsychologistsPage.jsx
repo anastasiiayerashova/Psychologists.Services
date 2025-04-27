@@ -19,6 +19,7 @@ const PsychologistsPage = () => {
     const loading = useSelector(selectLoading)
     const [isFirstLoad, setIsFirstLoad] = useState(true)
     const [openSnackbar, setOpenSnackbar] = useState(false)
+    const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState(false)
 
     useEffect(() => {
         dispatch(resetList())
@@ -35,6 +36,10 @@ const PsychologistsPage = () => {
     useEffect(() => {
         if (!loading && !hasMore && list.length > 0) {
            setOpenSnackbar(true)
+        }
+
+        if (list.length === 0 && !loading && Object.keys(filters).length > 0) {
+            setOpenSnackbarNotFound(true)
         }
     }, [hasMore, loading, list])
 
@@ -58,20 +63,25 @@ const PsychologistsPage = () => {
                     )}
                         
                     <CustomAlert
-                        severity='warning'
+                        severity='info'
                         openSnackbar={openSnackbar}
                         handleSnackbarClose={() => setOpenSnackbar(false)}
                         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                        alertSx={{ backgroundColor: '#fff4e5', height: 'auto' }}
+                        alertSx={{ height: 'auto' }}
                     >
                         All psychologists loaded
                     </CustomAlert>
                         
-                    {list.length === 0 && !loading && (
-                        <div className={s.text_wrap}>
-                            <p className={s.not_found_text}>No psychologists found for the selected filters. Please, try different filters</p>
-                        </div>
-                    )}
+                    <CustomAlert
+                        severity='warning'
+                        openSnackbar={openSnackbarNotFound}
+                        handleSnackbarClose={() => setOpenSnackbarNotFound(false)}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                        alertSx={{ height: 'auto' }}
+                    >
+                        No psychologists found for the selected filters. Please, try different filters.
+                    </CustomAlert>
+                    
                 </>
             )}
         </section>

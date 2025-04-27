@@ -55,7 +55,7 @@ const Filters = () => {
                 <div className={`${s.list_wrap} ${isDropdownOpen ? s.open : ''}`} ref={dropdownRef}>
                     <ul className={s.list}>
                     {iterableFilters.map((filter) => (
-                        <li className={`${s.list_item} ${selectedFilter === filter ? s.active : ''}`} key={filter} onClick={() => handleChangeFilters(filter)}>
+                        <li className={`${s.list_item} ${selectedFilterName === filter ? s.active : ''}`} key={filter} onClick={() => handleChangeFilters(filter)}>
                             {filter}
                         </li>
                     ))}
