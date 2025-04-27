@@ -95,10 +95,9 @@ const ControlledSwitch = () => {
 
     return (
         <IOSSwitch
-            defaultChecked color="primary"
             checked={checked}
             onChange={handleChange}
-            />
+        />
     )
 }
 
