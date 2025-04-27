@@ -1,17 +1,20 @@
 import { useSelector } from 'react-redux'
 import s from './AuthButtons.module.css'
 import { selectIsAuth } from '../../redux/auth/slice.js'
+import { useModal } from '../../utils/ModalContext.js'
 
-const AuthButtons = ({openModal, handleLogout, showAlert}) => {
+const AuthButtons = ({ handleLogout }) => {
+    
+    const {openModal, showAlert} = useModal()
 
     const isAuth = useSelector(selectIsAuth)
 
     const onLogoutClick = () => {
+        handleLogout()
         showAlert('success', 'You have logged out!')
         setTimeout(() => {
             handleLogout()
         }, 500)
-        
     }
 
     return (

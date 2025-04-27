@@ -3,11 +3,12 @@ import { svg } from '../../constants/index.js'
 import PsychologistsFeaturesList from '../PsychologistsFeaturesList/PsychologistsFeaturesList.jsx'
 import PsychologistAvatar from '../PsychologistAvatar/PsychologistAvatar.jsx'
 import Reviews from '../Reviews/Reviews.jsx'
-import { useState } from 'react'
-import { useModal } from '../../utils/ModalContext.js'
+import { useContext, useState } from 'react'
+import { ModalContext, useModal } from '../../utils/ModalContext.js'
 import FavouriteButton from '../FavouriteButton/FavouriteButton.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectFavourites, toggleFavourite } from '../../redux/favourites/slice.js'
+import { selectIsAuth } from '../../redux/auth/slice.js'
 
 const PsychologistsItem = ({ data }) => {
   
@@ -15,7 +16,10 @@ const PsychologistsItem = ({ data }) => {
 
    const [showReviews, setShowReviews] = useState(false)
 
-   const {openModal} = useModal()
+   const { openModal } = useModal()
+   
+   const isAuth = useSelector(selectIsAuth)
+   const {showAlert} = useContext(ModalContext)
    
    const handleMakeAppointment = () => {
         openModal('booking', data)
@@ -27,7 +31,12 @@ const PsychologistsItem = ({ data }) => {
    const isFavourite = favourites.some(favourite => favourite.id === id)
 
    const handleToggleFavourite = () => {
-        dispatch(toggleFavourite(data))
+      if (isAuth) {
+           dispatch(toggleFavourite(data))
+      }
+      else {
+         showAlert('error', 'You must be logged in to add to favorites')
+      }
     }
   
   return (

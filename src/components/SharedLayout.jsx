@@ -25,7 +25,6 @@ const SharedLayout = ({ children }) => {
         }, 2000)
     }
 
-
     const toggleUserMenu = () => {
         setIsUserMenuOpen(prev => !prev);
     }
@@ -59,7 +58,7 @@ const SharedLayout = ({ children }) => {
     }, [isUserMenuOpen, isNavMenuOpen])
     
     return (
-        <ModalContext.Provider value={{openModal}}>
+        <ModalContext.Provider value={{openModal, showAlert}}>
         <>
             <header>
                 <Header
@@ -67,7 +66,6 @@ const SharedLayout = ({ children }) => {
                     toggleNavMenu={toggleNavMenu}
                     isUserMenuOpen={isUserMenuOpen}
                     isNavMenuOpen={isNavMenuOpen}
-                    openModal={openModal}
             />
             </header>
             <main>
@@ -78,7 +76,6 @@ const SharedLayout = ({ children }) => {
                 isNavMenuOpen={isNavMenuOpen}
                 toggleUserMenu={toggleUserMenu}
                 toggleNavMenu={toggleNavMenu}
-                openModal={openModal}
                 setIsUserMenuOpen={setIsUserMenuOpen}
                 showAlert={showAlert}
             />

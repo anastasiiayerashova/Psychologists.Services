@@ -6,14 +6,16 @@ import { selectIsAuth, selectName } from '../../redux/auth/slice.js'
 import { signOutUser } from '../../redux/auth/operations.js'
 import AuthButtons from '../AuthButtons/AuthButtons.jsx'
 import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.jsx'
+import { useModal } from '../../utils/ModalContext.js'
 
-const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, openModal, setIsUserMenuOpen, showAlert }) => {
+const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, setIsUserMenuOpen, showAlert }) => {
     
     const location = useLocation()
     const isAuth = useSelector(selectIsAuth)
     const userName = useSelector(selectName)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const {openModal} = useModal()
 
     const handleLogout = async () => {
         await dispatch(signOutUser())
@@ -50,7 +52,7 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
 
                 {isUserMenuOpen && !isAuth && (
                     <div className={s.content}>
-                        <AuthButtons openModal={openModal} />
+                        <AuthButtons />
                     </div>
                 )}
 

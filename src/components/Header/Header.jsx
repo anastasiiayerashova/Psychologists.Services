@@ -9,7 +9,7 @@ import { signOutUser } from '../../redux/auth/operations.js';
 import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.jsx';
 import { useState, useEffect } from 'react';
 
-const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, openModal }) => {
+const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }) => {
     
     const location = useLocation()
     const dispatch = useDispatch()
@@ -54,7 +54,7 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
                 {!isAuth && (
                     <div className={s.btn_wrapper}>
                         {showSwitch && <ControlledSwitch />}
-                        <AuthButtons openModal={openModal}/>
+                        <AuthButtons/>
                     </div>
                 )}
                 {isAuth && (
@@ -68,7 +68,7 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen, 
                                                 </div>
                                                 <p className={s.user_name}>{userName}</p>   
                                             </div>
-                        <AuthButtons handleLogout={handleLogout}/>
+                        <AuthButtons handleLogout={handleLogout} />
                     </div>
                 )}
                 <div className={s.menu_btns}>

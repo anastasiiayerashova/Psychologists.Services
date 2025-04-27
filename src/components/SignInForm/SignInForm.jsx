@@ -57,6 +57,7 @@ const SignInForm = ({ onClose }) => {
       setTimeout(() => {
           onClose()
       }, 2000)
+      navigate('/favorites')
     }
     catch (e) {
       const message = getErrorMessage(e)

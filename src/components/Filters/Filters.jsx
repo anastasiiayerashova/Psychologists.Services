@@ -1,15 +1,33 @@
 import s from './Filters.module.css'
 import { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setFilters } from '../../redux/filters/slice.js';
 import { useClickOutside } from '../../utils/customHook.js';
 import { filters, svg } from '../../constants/index.js';
+import { selectFilters } from '../../redux/filters/selectors.js';
 
 const Filters = () => {
 
+    const isObjectsEqual = (obj1, obj2) => {
+       if (!obj1 || !obj2) return false
+        
+       const keys1 = Object.keys(obj1)
+       const keys2 = Object.keys(obj2)
+  
+      if (keys1.length !== keys2.length) return false
+
+      return keys1.every(key => obj1[key] === obj2[key])
+}
+
+
     const iterableFilters = Object.keys(filters)
 
-    const [selectedFilter, setSelectedFilter] = useState('A to Z')
+    const findFilterNameByObject = (currentFilterObj) => {
+       return Object.keys(filters).find(key => isObjectsEqual(filters[key], currentFilterObj)) || 'A to Z'
+}
+
+    const selectedFilter = useSelector(selectFilters)
+    const selectedFilterName = findFilterNameByObject(selectedFilter)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     const dropdownRef = useRef(null)
 
@@ -18,10 +36,7 @@ const Filters = () => {
     const dispatch = useDispatch()
 
     const handleChangeFilters = (filterName) => {
-        console.log("Selected filter:", filterName); 
-        console.log("Filter object:", filters[filterName]);
         dispatch(setFilters(filters[filterName]))
-        setSelectedFilter(filterName)
         setIsDropdownOpen(false)
     }
 
@@ -31,7 +46,7 @@ const Filters = () => {
         <div className={s.wrapper}>
             <p className={s.title}>Filters</p>
             <button onClick={toggleDropdown} className={s.green_btn}>
-                {selectedFilter}
+                {selectedFilterName}
                 <svg className={`${s.icon_arrow} ${isDropdownOpen ? s.open : ''}`} width={20} height={20}>
                     <use href={`${svg}#icon-arrow-down`} />
                 </svg>
