@@ -42,7 +42,7 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }
         <>
         <div className={s.container}>
             <div className={s.first_wrapper}>
-                <p className={s.logo}>psychologists.<span>services</span></p>
+                <Link to='/'><p className={s.logo}>psychologists.<span>services</span></p></Link>
             </div>
                  <div className={s.links_wrapper}>
                     <Link to='/' className={`${location.pathname === '/' ? s.active_link : ''}`}>Home</Link>

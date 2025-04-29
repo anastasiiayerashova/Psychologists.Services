@@ -7,23 +7,28 @@ const trackGrayOverride = {
     height: 4,
     borderRadius: 10,
   },
+   thumb: {
+    width: 8, 
+    height: 12,
+    borderRadius: 10,
+  },
 }
 
 const themeOptions = [
   {
     label: <div style={{ width: 15, height: 15, borderRadius: '50%', backgroundColor: '#54be96' }} />,
     value: 'green',
-    color: 'green',
+    color: '#54be96',
   },
   {
     label: <div style={{ width: 15, height: 15, borderRadius: '50%', backgroundColor: '#3470ff' }} />,
     value: 'blue',
-    color: 'blue',
+    color: '#3470ff',
   },
   {
     label: <div style={{ width: 15, height: 15, borderRadius: '50%', backgroundColor: '#fc832c' }} />,
     value: 'orangered',
-    color: 'orangered',
+    color: '#fc832c',
   },
 ]
 

@@ -10,7 +10,7 @@ const Hero = () => {
             <div className={s.first_wrapper}>
                 <h1 className={s.title}>The road to the <span>depths</span> of the human soul</h1>
                 <h2 className={s.subtitle}>We help you to reveal your potential, overcome challenges and find a guide in your own life with the help of our experienced psychologists.</h2>
-                <Link className={s.get_link}>Get started<span>
+                <Link to='/psychologists' className={s.get_link}>Get started<span>
                            <svg width={16} height={16}>
                                <use href={`${svg}#icon-get-arrow`} />
                             </svg>
