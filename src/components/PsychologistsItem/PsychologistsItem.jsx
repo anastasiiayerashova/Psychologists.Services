@@ -32,7 +32,10 @@ const PsychologistsItem = ({ data }) => {
 
    const handleToggleFavourite = () => {
       if (isAuth) {
-           dispatch(toggleFavourite(data))
+         dispatch(toggleFavourite(data))
+         showAlert(
+            'success', isFavourite ? `Psychologist ${data.name} removed from favourites` : `Psychologist ${data.name} added to favourites`
+         )
       }
       else {
          showAlert('error', 'You must be logged in to add to favorites')

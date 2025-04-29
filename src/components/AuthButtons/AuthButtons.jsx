@@ -2,12 +2,18 @@ import { useSelector } from 'react-redux'
 import s from './AuthButtons.module.css'
 import { selectIsAuth } from '../../redux/auth/slice.js'
 import { useModal } from '../../utils/ModalContext.js'
+import { motion } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { useClickOutside } from '../../utils/customHook.js'
 
 const AuthButtons = ({ handleLogout }) => {
     
-    const {openModal, showAlert} = useModal()
+    const { openModal, showAlert } = useModal()
+    const [pickerOpen, setPickerOpen] = useState(false)
+    const dropdownRef = useRef(null)
 
     const isAuth = useSelector(selectIsAuth)
+    useClickOutside(dropdownRef, () => setPickerOpen(false))
 
     const onLogoutClick = () => {
         handleLogout()
@@ -27,7 +33,28 @@ const AuthButtons = ({ handleLogout }) => {
             )
                 : 
             (
-                <button className={s.logOut_btn} onClick={onLogoutClick}>Log out</button>
+                    
+                    
+                    <div className={s.time_picker_wrapper}>
+                        <button className={s.logOut_btn} onClick={() => setPickerOpen(!pickerOpen)}>Log out</button>
+                        {pickerOpen && (
+                             <motion.div
+                              className={s.popover}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                ref={dropdownRef}
+                              
+                            >
+                              <p className={s.popover_title}>Are you sure?..</p>
+                              <div className={s.picker}>
+                                    
+                                <button type='button' className={s.yes_btn} onClick={onLogoutClick}>Yes</button>
+                                <button type='button' className={s.no_btn} onClick={() => setPickerOpen(!pickerOpen)}>No</button>
+                              </div>
+                            </motion.div>
+                        )}
+                    </div>
             )}
         </>
     )

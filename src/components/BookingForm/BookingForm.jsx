@@ -150,9 +150,9 @@ const BookingForm = ({ data, onClose }) => {
                 severity='success'
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 handleSnackbarClose={() => setOpenSnackbar(false)}
-                alertSx={{ backgroundColor: '#d4edda', height: 'auto', textAlign: 'left' }}
+                alertSx={{ height: 'auto', textAlign: 'left' }}
             >
-                {`Thank you ${bookedName}, your meeting time is ${bookedDate} !`}
+                {`Thank you ${bookedName}! Your meeting with ${name} is scheduled for ${bookedDate} !`}
             </CustomAlert>
         </div>    
     )
