@@ -9,6 +9,8 @@ import FavouriteButton from '../FavouriteButton/FavouriteButton.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectFavourites, toggleFavourite } from '../../redux/favourites/slice.js'
 import { selectIsAuth } from '../../redux/auth/slice.js'
+import { AnimatePresence, motion } from 'framer-motion'
+import { reviewsVariants } from '../../utils/animation.js'
 
 const PsychologistsItem = ({ data }) => {
   
@@ -40,7 +42,7 @@ const PsychologistsItem = ({ data }) => {
       else {
          showAlert('error', 'You must be logged in to add to favorites')
       }
-    }
+   }
   
   return (
     <li className={s.card}>
@@ -72,9 +74,18 @@ const PsychologistsItem = ({ data }) => {
               <div className={s.card_body_desc}>
                  <PsychologistsFeaturesList data={data} />
                  <p className={s.about}>{about}</p>
-                 <div className={`${s.reviewsWrapper} ${showReviews ? s.open : ''}`}>
-                      <Reviews data={data}/>
-                 </div>
+                     <AnimatePresence initial={false}>
+                        {showReviews && (
+                          <motion.div
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          variants={reviewsVariants}
+                          >
+                             <Reviews data={data}/>
+                          </motion.div>
+                        )}
+                     </AnimatePresence>
                  <button type='button' onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)} className={showReviews ? s.make : s.read}>
                      {showReviews ? 'Make an appointment' : 'Read more'}
                  </button>
@@ -85,9 +96,18 @@ const PsychologistsItem = ({ data }) => {
       <div className={s.card_body_mob}>
          <PsychologistsFeaturesList data={data} />
          <p className={s.about}>{about}</p>
-         <div className={`${s.reviewsWrapper} ${showReviews ? s.open : ''}`}>
-              <Reviews data={data}/>
-         </div>
+            <AnimatePresence initial={false}>
+               {showReviews && (
+                 <motion.div
+                 initial="hidden"
+                 animate="visible"
+                 exit="exit"
+                 variants={reviewsVariants}
+                 >
+                    <Reviews data={data}/>
+                 </motion.div>
+               )}
+            </AnimatePresence>
          <button type='button' onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)} className={showReviews ? s.make : s.read}>
               {showReviews ? 'Make an appointment' : 'Read more'}
           </button>

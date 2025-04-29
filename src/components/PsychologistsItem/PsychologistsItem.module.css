@@ -124,16 +124,6 @@
   row-gap: 4px;
 }
 
-.reviewsWrapper {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out;
-}
-
-.reviewsWrapper.open {
-  max-height: fit-content;
-}
-
 @media screen and (max-width: 375px) {
   .image {
     width: 60px;
