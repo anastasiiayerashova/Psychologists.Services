@@ -140,6 +140,10 @@
   }
 }
 
+.icon_exp {
+  color: var(--green);
+}
+
 @media screen and (min-width: 768px) {
   .container {
     padding: 78px 84px 100px 128px;

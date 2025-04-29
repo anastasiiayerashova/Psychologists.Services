@@ -7,7 +7,18 @@ import Box from '@mui/material/Box';
 function CircularProgressWithLabel(props) {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: '15px' }}>
-      <CircularProgress variant="determinate" {...props} color="success" sx={{borderRadius: '15px'}} size="3rem" thickness={4}/>
+      <CircularProgress
+        variant="determinate"
+        {...props}
+        color="success"
+        sx={{
+          color: 'var(--green)',
+          '& .MuiCircularProgress-circle': {
+            strokeLinecap: 'round',     
+          },
+        }}
+        size="3rem"
+        thickness={4} />
       <Box
         sx={{
           top: 0,

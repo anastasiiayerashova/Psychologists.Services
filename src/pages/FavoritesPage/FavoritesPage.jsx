@@ -77,16 +77,17 @@ const FavoritesPage = () => {
             if (newCount >= filteredList.length) {
                 setAllLoaded(true)
             }
-
+           
             return newCount
         })
     }
 
      useEffect(() => {
-        if (allLoaded && filteredList.length === visibleCout) {
+         if (allLoaded && filteredList.length !== 0 && !loading ) {
             setOpenSnackbarNotFound(true)
         }
-     }, [allLoaded, filteredList.length, visibleCout])
+     }, [allLoaded, loading, filteredList.length])
+    
     
     return (
         <section className={s.container}>
@@ -106,7 +107,7 @@ const FavoritesPage = () => {
                             Load more
                         </button>
                         ) 
-                        }
+                    }
                     <CustomAlert
                         severity='warning'
                         openSnackbar={openSnackbar}

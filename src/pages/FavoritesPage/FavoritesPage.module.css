@@ -7,7 +7,6 @@
   text-align: center;
   width: fit-content;
   border-radius: 14px;
-  border: 1px solid orange;
   margin-top: 14px;
 }
 
@@ -49,6 +48,10 @@
 @media screen and (min-width: 768px) {
   .container {
     padding: 64px 128px 100px 128px;
+  }
+
+  .not_found_text {
+    font-size: 14px;
   }
 }
 

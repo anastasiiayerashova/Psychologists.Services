@@ -43,14 +43,14 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }
         <div className={s.container}>
             <div className={s.first_wrapper}>
                 <p className={s.logo}>psychologists.<span>services</span></p>
-                <div className={s.links_wrapper}>
+            </div>
+                 <div className={s.links_wrapper}>
                     <Link to='/' className={`${location.pathname === '/' ? s.active_link : ''}`}>Home</Link>
                     <Link to='/psychologists' className={`${location.pathname === '/psychologists' ? s.active_link : ''}`}>Psychologists</Link>
                     {isAuth && (
                         <Link to='/favorites' className={`${location.pathname === '/favorites' ? s.active_link : ''}`}>Favorites</Link>
                     )}
                 </div>
-            </div>
                 {!isAuth && (
                     <div className={s.btn_wrapper}>
                         {showSwitch && <ControlledSwitch />}

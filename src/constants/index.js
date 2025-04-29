@@ -7,5 +7,5 @@ export const filters = {
         'Greater than 10$': { priceGreater: 10, sortBy: 'price_per_hour', direction: 'asc' },
         'Popular': { sortBy: 'rating', direction: 'desc' },
         'Not popular': { sortBy: 'rating', direction: 'asc' },
-        'Show all': { sortBy: 'name', direction: 'asc' }
+        'Show all': { sortBy: 'name', direction: 'asc', isDefault: true }
     }

@@ -6,10 +6,6 @@
   align-items: center;
 }
 
-.first_wrapper {
-  display: flex;
-}
-
 .logo {
   font-weight: 700;
   font-size: 16px;
@@ -112,7 +108,6 @@
 
   .links_wrapper {
     display: flex;
-    padding-left: 70px;
   }
 
   .btn_wrapper {
@@ -132,10 +127,6 @@
 }
 
 @media screen and (min-width: 1280px) {
-  .links_wrapper {
-    padding-left: 130px;
-  }
-
   .btn_wrapper {
     display: flex;
     column-gap: 28px;

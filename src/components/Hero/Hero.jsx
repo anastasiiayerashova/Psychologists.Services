@@ -1,6 +1,7 @@
 import s from './Hero.module.css'
 import { Link } from 'react-router-dom'
 import { svg } from '../../constants/index.js'
+import { RiCheckFill } from "react-icons/ri";
 
 const Hero = () => {
 
@@ -35,9 +36,7 @@ const Hero = () => {
                     </div>
                     <div className={s.icon_box_green}>
                         <div className={s.white_block}>
-                            <svg className={s.icon_check}>
-                               <use href={`${svg}#icon-experience-arrow`} />
-                            </svg>
+                            <RiCheckFill className={s.icon_exp} />
                         </div>
                         <div className={s.text_wrapper}>
                             <p>Experienced psychologists</p>

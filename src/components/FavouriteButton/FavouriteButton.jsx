@@ -1,50 +1,19 @@
 import s from './FavouriteButton.module.css'
-import { svg } from '../../constants/index.js'
-import { useEffect, useState } from 'react'
+import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { useSelector } from 'react-redux';
+import { selectIsAuth } from '../../redux/auth/slice.js';
 
 const FavouriteButton = ({ isFavourite, onClick }) => {
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'green')
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const updatedTheme = localStorage.getItem('theme');
-    
-      if (updatedTheme) {
-        setTheme(updatedTheme)
-      }
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      setTheme(savedTheme)
-    }
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-    }
-  }, [])
-
-  const isGreenTheme = theme === 'green'
+  const isAuth = useSelector(selectIsAuth)
     
   return (
     <button type="button" className={s.icon_btn} onClick={onClick}>
       {isFavourite ? (
-        isGreenTheme ? (
-          <svg className={s.icon}>
-             <use href={`${svg}#icon-heart-green`} />
-          </svg>
-        ) : (
-          <svg className={s.icon}>
-            <use href={`${svg}#icon-heart-orange`} />
-          </svg>
-        )
+        isAuth ? (<FaHeart className={s.heart} /> ) : (<FaRegHeart/>)
       ) : (
-        <svg className={s.icon} fill="none" stroke="black">
-           <use href={`${svg}#icon-heart-black`} />
-        </svg>
+        <FaRegHeart/>
       )}
     </button>
   );

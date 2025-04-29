@@ -43,6 +43,7 @@
 
 html {
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -63,6 +64,16 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+.green-theme {
+  --black: #191a15;
+  --white: #fbfbfb;
+  --gray: #fbfbfb;
+  --green: #54be96;
+  --green-hover: rgba(84, 190, 150, 0.2);
+  --blue: #4535af;
+  --light-green: rgba(84, 190, 150, 0.2);
+}
+
 .orangered-theme {
   --black: #191a15;
   --white: #fbfbfb;
@@ -71,6 +82,16 @@ body {
   --green-hover: rgba(55, 158, 124, 0.2);
   --blue: #54be96;
   --light-green: rgba(252, 131, 44, 0.2);
+}
+
+.blue-theme {
+  --black: #191a15;
+  --white: #fbfbfb;
+  --gray: #fbfbfb;
+  --green: #3470ff;
+  --green-hover: rgba(55, 158, 124, 0.2);
+  --blue: #54be96;
+  --light-green: rgba(52, 112, 255, 0.2);
 }
 
 *,
@@ -136,4 +157,10 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+@media screen and (min-width: 1280px) {
+  .track {
+    margin-right: 28px;
+  }
 }

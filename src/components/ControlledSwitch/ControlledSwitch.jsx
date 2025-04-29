@@ -1,104 +1,72 @@
-import Switch from '@mui/material/Switch';
 import { useState, useEffect } from 'react'
-import { styled } from '@mui/material/styles';
+import { CustomSwitcher } from "react-custom-switcher"
 
-const IOSSwitch = styled((props) => (
-  <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
-))(({ theme }) => ({
-  width: 42,
-  height: 26,
-  padding: 0,
-  '& .MuiSwitch-switchBase': {
-    padding: 0,
-    margin: 2,
-    transitionDuration: '300ms',
-    '&.Mui-checked': {
-      transform: 'translateX(16px)',
-      color: '#fff',
-      '& + .MuiSwitch-track': {
-        backgroundColor: 'var(--green)',
-        opacity: 1,
-        border: 0,
-        ...theme.applyStyles('dark', {
-          backgroundColor: '#2ECA45',
-        }),
-      },
-      '&.Mui-disabled + .MuiSwitch-track': {
-        opacity: 0.5,
-      },
-    },
-    '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: '#33cf4d',
-      border: '6px solid #fff',
-    },
-    '&.Mui-disabled .MuiSwitch-thumb': {
-      color: theme.palette.grey[100],
-      ...theme.applyStyles('dark', {
-        color: theme.palette.grey[600],
-      }),
-    },
-    '&.Mui-disabled + .MuiSwitch-track': {
-      opacity: 0.7,
-      ...theme.applyStyles('dark', {
-        opacity: 0.3,
-      }),
-    },
+const trackGrayOverride = {
+  track: {
+    backgroundColor: '#ccc',
+    height: 4,
+    borderRadius: 10,
   },
-  '& .MuiSwitch-thumb': {
-    boxSizing: 'border-box',
-    width: 22,
-    height: 22,
+}
+
+const themeOptions = [
+  {
+    label: <div style={{ width: 15, height: 15, borderRadius: '50%', backgroundColor: '#54be96' }} />,
+    value: 'green',
+    color: 'green',
   },
-  '& .MuiSwitch-track': {
-    borderRadius: 26 / 2,
-    backgroundColor: 'var(--green)',
-    opacity: 1,
-    transition: theme.transitions.create(['background-color'], {
-      duration: 500,
-    }),
-    ...theme.applyStyles('dark', {
-      backgroundColor: '#39393D',
-    }),
+  {
+    label: <div style={{ width: 15, height: 15, borderRadius: '50%', backgroundColor: '#3470ff' }} />,
+    value: 'blue',
+    color: 'blue',
   },
-}));
+  {
+    label: <div style={{ width: 15, height: 15, borderRadius: '50%', backgroundColor: '#fc832c' }} />,
+    value: 'orangered',
+    color: 'orangered',
+  },
+]
 
 const ControlledSwitch = () => {
 
-    const [checked, setChecked] = useState(() => {
-        const savedTheme = localStorage.getItem('theme')
+  const [selectedTheme, setSelectedTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'green'
+  })
 
-        return savedTheme ? savedTheme === 'green' : true
-    })
 
-    const handleChange = (event) => {
-        const isChecked = event.target.checked
-        setChecked(isChecked)
-        updateTheme(isChecked)
-        localStorage.setItem('theme', isChecked ? 'green' : 'orangered')
-        window.dispatchEvent(new Event('storage')) // вручную генерируем событие чтобы FavouriteButton отреагировал
-    }
-
-    const updateTheme = (isGreenTheme) => {
-        const root = document.documentElement
-
-         if (isGreenTheme) {
-            root.classList.remove('orangered-theme')
-         }
-         else {
-            root.classList.add('orangered-theme')
-        }
-    }
-
-    useEffect(() => {
-        updateTheme(checked)
-    }, [checked])
-
-    return (
-        <IOSSwitch
-            checked={checked}
-            onChange={handleChange}
-        />
-    )
+const handleChange = (value) => {
+  setSelectedTheme(value)
+  updateTheme(value)
+  localStorage.setItem('theme', value)
+  window.dispatchEvent(new Event('storage'))
 }
+  
+
+const updateTheme = (theme) => {
+  const root = document.documentElement
+  root.classList.remove('green-theme', 'blue-theme', 'orangered-theme')
+  root.classList.add(`${theme}-theme`)
+}
+  
+
+useEffect(() => {
+  updateTheme(selectedTheme)
+}, [selectedTheme])
+  
+
+return (
+    <div className='track'>
+        <CustomSwitcher
+        options={themeOptions}
+        value={selectedTheme}
+        variant='secondary'
+        overrides={trackGrayOverride}
+        containerWidth={120}
+        switchSize={30}
+        callback={handleChange}
+        />
+    </div>
+  )
+ }
 
 export default ControlledSwitch
