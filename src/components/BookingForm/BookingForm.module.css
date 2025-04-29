@@ -144,6 +144,10 @@
   margin-top: 22px;
 }
 
+.send_btn:hover {
+  background-color: var(--green-hover);
+}
+
 @media screen and (max-width: 375px) {
   .error {
     font-size: 8px;

@@ -40,6 +40,10 @@
   justify-self: center;
 }
 
+.load_btn:hover {
+  background-color: var(--green-hover);
+}
+
 @media screen and (max-width: 375px) {
   .not_found_text {
     font-size: 10px;

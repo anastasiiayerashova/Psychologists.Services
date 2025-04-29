@@ -88,6 +88,10 @@
   color: var(--white);
 }
 
+.log_btn:hover {
+  background-color: var(--green-hover);
+}
+
 .passwordHints {
   margin-top: 12px;
 }

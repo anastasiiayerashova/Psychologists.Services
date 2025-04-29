@@ -47,6 +47,10 @@
   align-self: flex-start;
 }
 
+.get_link:hover {
+  background-color: var(--green-hover);
+}
+
 .img_wrapper {
   padding: 0 25px;
   position: relative;

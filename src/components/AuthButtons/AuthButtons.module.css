@@ -31,10 +31,13 @@
   letter-spacing: -0.01em;
 }
 
+.reg_btn:hover {
+  background-color: var(--green-hover);
+}
+
 .popover {
   position: absolute;
   background-color: #ffffff;
-  /* width: 151px; */
   max-width: 150px;
   max-height: 100px;
   padding: 10px 20px;
@@ -47,6 +50,7 @@
   align-items: center;
   top: 110%;
   left: -10%;
+  min-width: 130px;
   font-family: 'Inter', sans-serif;
 }
 
@@ -104,13 +108,13 @@
 .yes_btn {
   border: 1px solid #f8d7da;
   color: #d32f2f;
+  cursor: pointer;
 }
 
 .no_btn {
-  /* background-color: #dff0d8;
-  color: #2e7d32; */
   background-color: var(--green);
   color: var(--white);
+  cursor: pointer;
 }
 
 .picker::-webkit-scrollbar {

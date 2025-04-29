@@ -43,7 +43,7 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
                         <p className={s.user_name}>{userName}</p>   
                     </div>
                     )}
-                  <button onClick={isUserMenuOpen ? toggleUserMenu : toggleNavMenu} className={s.mob_menu_close_btn}>
+                  <button type='button' onClick={isUserMenuOpen ? toggleUserMenu : toggleNavMenu} className={s.mob_menu_close_btn}>
                      <svg className={s.icon_check} width={18} height={18}>
                         <use href={`${svg}#icon-x`} />
                      </svg>

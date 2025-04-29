@@ -27,8 +27,8 @@ const AuthButtons = ({ handleLogout }) => {
         <>
             {!isAuth ? (
              <>
-                  <button className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
-                  <button className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
+                  <button type='button' className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
+                  <button type='button' className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
              </>
             )
                 : 
@@ -36,19 +36,17 @@ const AuthButtons = ({ handleLogout }) => {
                     
                     
                     <div className={s.time_picker_wrapper}>
-                        <button className={s.logOut_btn} onClick={() => setPickerOpen(!pickerOpen)}>Log out</button>
+                        <button type='button' className={s.logOut_btn} onClick={() => setPickerOpen(!pickerOpen)}>Log out</button>
                         {pickerOpen && (
                              <motion.div
                               className={s.popover}
                               initial={{ opacity: 0, y: 10 }}
                               animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 10 }}
-                                ref={dropdownRef}
-                              
+                              exit={{ opacity: 0, y: 10 }}
+                              ref={dropdownRef}
                             >
                               <p className={s.popover_title}>Are you sure?..</p>
-                              <div className={s.picker}>
-                                    
+                              <div className={s.picker}>  
                                 <button type='button' className={s.yes_btn} onClick={onLogoutClick}>Yes</button>
                                 <button type='button' className={s.no_btn} onClick={() => setPickerOpen(!pickerOpen)}>No</button>
                               </div>

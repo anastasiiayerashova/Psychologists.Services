@@ -2,7 +2,7 @@ import s from './SignUpForm.module.css'
 import { schema } from '../../validation/signUpSchema.js'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
 import { svg } from '../../constants/index.js';
@@ -11,6 +11,7 @@ import CustomAlert from '../CustomAlert/CustomAlert.jsx';
 import useFirebaseError from '../../utils/firebaseErrorsHook.js';
 import { passwordValidation } from '../../validation/passwordValidation.js';
 import PasswordHint from '../PasswordHint/PasswordHint.jsx';
+import { selectFavourites } from '../../redux/favourites/slice.js';
 
 const SignUpForm = ({ onClose }) => {
         
@@ -52,9 +53,9 @@ const SignUpForm = ({ onClose }) => {
       const onSubmit = async (values) => {
         try {
            await dispatch(signUpUser({ values })).unwrap()
-           reset()
-           setSuccessMessage('You have successfully signed up!')
+           setSuccessMessage(`Welcome, ${values.name}, you have successfully signed up!`)
            setOpenSnackbar(true)
+           reset()
            setTimeout(() => {
               onClose()
            }, 2000)

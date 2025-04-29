@@ -73,12 +73,12 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }
                 )}
                 <div className={s.menu_btns}>
                     {showSwitch && <ControlledSwitch />}
-                <button onClick={toggleUserMenu}>
+                <button type='button' onClick={toggleUserMenu}>
                     <svg width={16} height={16}>
                         <use href={`${svg}#icon-user-mob`} />
                     </svg>
                 </button>
-                <button className={s.menu_burger} onClick={toggleNavMenu}>
+                <button type='button' className={s.menu_burger} onClick={toggleNavMenu}>
                     <svg width={28} height={28}>
                         <use href={`${svg}#icon-menu`} />
                     </svg>

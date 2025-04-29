@@ -21,3 +21,14 @@ export const reviewsVariants = {
     },
   },
 }
+
+export const layoutVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  enter: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0.8 },
+}
+
+export const layoutTransition = {
+  duration: 0.6,
+  ease: 'easeInOut',
+}

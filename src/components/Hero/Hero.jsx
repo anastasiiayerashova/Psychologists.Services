@@ -2,10 +2,12 @@ import s from './Hero.module.css'
 import { Link } from 'react-router-dom'
 import { svg } from '../../constants/index.js'
 import { RiCheckFill } from "react-icons/ri";
+import AnimatedLayout from '../AnimatedLayout.jsx';
 
 const Hero = () => {
 
     return (
+        <AnimatedLayout>
         <section className={s.container}>
             <div className={s.first_wrapper}>
                 <h1 className={s.title}>The road to the <span>depths</span> of the human soul</h1>
@@ -45,7 +47,8 @@ const Hero = () => {
                     </div>
                 </div>
             </div>
-        </section>
+            </section>
+            </AnimatedLayout>
     )
 }
 

@@ -51,9 +51,9 @@ const SignInForm = ({ onClose }) => {
   const onSubmit = async (values) => {
     try {
       await dispatch(signInUser({ values })).unwrap()
-      reset()
-      setSuccessMessage('You have successfully logged in!')
+      setSuccessMessage(`Welcome, ${values.email}, you have successfully logged in!`)
       setOpenSnackbar(true)
+      reset()
       setTimeout(() => {
           onClose()
       }, 2000)

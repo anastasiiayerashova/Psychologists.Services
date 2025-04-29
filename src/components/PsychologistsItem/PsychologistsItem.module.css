@@ -118,6 +118,10 @@
   align-self: center;
 }
 
+.make:hover {
+  background-color: var(--green-hover);
+}
+
 .header_wrap {
   display: flex;
   flex-direction: column;

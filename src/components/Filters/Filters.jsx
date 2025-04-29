@@ -5,6 +5,7 @@ import { setFilters } from '../../redux/filters/slice.js';
 import { useClickOutside } from '../../utils/customHook.js';
 import { filters, svg } from '../../constants/index.js';
 import { selectFilters } from '../../redux/filters/selectors.js';
+import { motion } from 'framer-motion';
 
 const Filters = () => {
 
@@ -45,14 +46,16 @@ const Filters = () => {
     return (
         <div className={s.wrapper}>
             <p className={s.title}>Filters</p>
-            <button onClick={toggleDropdown} className={s.green_btn}>
+            <button type='button' onClick={toggleDropdown} className={s.green_btn}>
                 {selectedFilterName}
                 <svg className={`${s.icon_arrow} ${isDropdownOpen ? s.open : ''}`} width={20} height={20}>
                     <use href={`${svg}#icon-arrow-down`} />
                 </svg>
             </button>
             {isDropdownOpen && (
-                <div className={`${s.list_wrap} ${isDropdownOpen ? s.open : ''}`} ref={dropdownRef}>
+                <motion.div className={`${s.list_wrap} ${isDropdownOpen ? s.open : ''}`} ref={dropdownRef} initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: 10 }}>
                     <ul className={s.list}>
                     {iterableFilters.map((filter) => (
                         <li className={`${s.list_item} ${selectedFilterName === filter ? s.active : ''}`} key={filter} onClick={() => handleChangeFilters(filter)}>
@@ -60,7 +63,7 @@ const Filters = () => {
                         </li>
                     ))}
                     </ul>
-                </div>
+                </motion.div>
             )}
         </div>
     )

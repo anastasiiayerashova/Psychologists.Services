@@ -31,6 +31,10 @@
   margin-bottom: 9px;
 }
 
+.green_btn:hover {
+  background-color: var(--green-hover);
+}
+
 .icon_arrow {
   transition: transform 0.3s ease;
 }
@@ -50,7 +54,7 @@
   opacity: 0;
   transform: scaleY(0.95);
   transform-origin: top;
-  transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  transition: max-height 0.3s ease, transform 0.3s ease;
   width: 100%;
   box-sizing: border-box;
   position: absolute;
@@ -60,8 +64,7 @@
 
 .list_wrap.open {
   max-height: 216px;
-  opacity: 1;
-  transform: scaleY(1);
+  transform: scale(1);
 }
 
 .list {
