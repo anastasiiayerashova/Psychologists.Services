@@ -8,6 +8,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase.js';
 import { logoutUser, setUser } from '../redux/auth/slice.js';
 import PrivateRoute from './PrivateRoute.jsx';
+import { getFavouritesPsychologists } from '../redux/auth/operations.js';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const FavoritesPage = lazy(() => import('../pages/FavoritesPage/FavoritesPage'));
@@ -28,6 +29,7 @@ function App() {
           id: user.uid,
           token: await user.getIdToken()
         }))
+        dispatch(getFavouritesPsychologists(user.uid))
       }
       else {
         dispatch(logoutUser())

@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { signUpUser, signInUser, signOutUser } from "./operations.js";
+import { signUpUser, signInUser, signOutUser, addFavouritePsychologist, removeFavouritePsychologist, getFavouritesPsychologists } from "./operations.js";
 
 const initialState = {
     user: {
@@ -7,6 +7,7 @@ const initialState = {
         email: null,
         id: null,
     },
+    favouritesData: [],
     isAuth: false,
     error: null,
     loading: false,
@@ -17,11 +18,16 @@ const slice = createSlice({
     name: 'auth',
     initialState,
     selectors: {
+        selectFavouritesData: state => state.favouritesData,
         selectIsAuth: state => state.isAuth,
         selectError: state => state.error,
         selectName: state => state.user.name,
+        selectUserId: state => state.user.id
     },
     reducers: {
+        resetFavouritesData: (state, { payload }) => {
+            state.favouritesData = []
+        },
         setUser: (state, { payload }) => {
             state.user = {
                 name: payload.name,
@@ -80,6 +86,18 @@ const slice = createSlice({
                 state.error = null
                 state.loading = false
             })
+            .addCase(addFavouritePsychologist.fulfilled, (state, { payload }) => {
+                if (!state.favouritesData.includes(payload)) {
+                    state.favouritesData.push(payload)
+                }
+            })
+            .addCase(removeFavouritePsychologist.fulfilled, (state, { payload }) => {
+                state.favouritesData = state.favouritesData.filter(psychologist => psychologist.id !== payload)
+            })
+            .addCase(getFavouritesPsychologists.fulfilled, (state, { payload }) => {
+                // state.favouritesData = payload.map((psychologist) => psychologist.id)
+                state.favouritesData = payload
+            })
             .addMatcher(isAnyOf(signUpUser.pending, signInUser.pending, signOutUser.pending), (state) => {
                 state.loading = true
                 state.error = null
@@ -94,5 +112,5 @@ const slice = createSlice({
 })
 
 export const authReducer = slice.reducer
-export const { setUser, logoutUser } = slice.actions
-export const {selectIsAuth, selectError, selectName} = slice.selectors
+export const { setUser, logoutUser, resetFavouritesData } = slice.actions
+export const {selectIsAuth, selectError, selectName, selectUserId, selectFavouritesData} = slice.selectors

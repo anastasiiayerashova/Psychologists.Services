@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 import { CustomSwitcher } from "react-custom-switcher"
+import { doc, updateDoc } from "firebase/firestore";
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../../redux/auth/slice.js';
+import { db } from '../../config/firebase.js';
 
 const trackGrayOverride = {
   track: {
@@ -34,16 +38,23 @@ const themeOptions = [
 
 const ControlledSwitch = () => {
 
-  const [selectedTheme, setSelectedTheme] = useState(() => {
+const [selectedTheme, setSelectedTheme] = useState(() => {
     return localStorage.getItem('theme') || 'green'
   })
 
+const userId = useSelector(selectUserId)
 
-const handleChange = (value) => {
+
+const handleChange = async (value) => {
   setSelectedTheme(value)
   updateTheme(value)
   localStorage.setItem('theme', value)
   window.dispatchEvent(new Event('storage'))
+
+  if (userId) {
+    const userRef = doc(db, 'users', userId)
+    await updateDoc(userRef, {theme: value})
+  }
 }
   
 

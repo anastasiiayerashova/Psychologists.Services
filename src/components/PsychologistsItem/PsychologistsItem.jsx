@@ -8,9 +8,10 @@ import { ModalContext, useModal } from '../../utils/ModalContext.js'
 import FavouriteButton from '../FavouriteButton/FavouriteButton.jsx'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectFavourites, toggleFavourite } from '../../redux/favourites/slice.js'
-import { selectIsAuth } from '../../redux/auth/slice.js'
+import { selectFavouritesData, selectIsAuth, selectUserId } from '../../redux/auth/slice.js'
 import { AnimatePresence, motion } from 'framer-motion'
 import { reviewsVariants } from '../../utils/animation.js'
+import { addFavouritePsychologist, getFavouritesPsychologists, removeFavouritePsychologist } from '../../redux/auth/operations.js'
 
 const PsychologistsItem = ({ data }) => {
   
@@ -21,7 +22,8 @@ const PsychologistsItem = ({ data }) => {
    const { openModal } = useModal()
    
    const isAuth = useSelector(selectIsAuth)
-   const {showAlert} = useContext(ModalContext)
+   const { showAlert } = useContext(ModalContext)
+   const userId = useSelector(selectUserId)
    
    const handleMakeAppointment = () => {
         openModal('booking', data)
@@ -29,18 +31,35 @@ const PsychologistsItem = ({ data }) => {
    
    const dispatch = useDispatch()
 
-   const favourites = useSelector(selectFavourites)
+   const favourites = useSelector(selectFavouritesData)
    const isFavourite = favourites.some(favourite => favourite.id === id)
 
    const handleToggleFavourite = () => {
-      if (isAuth) {
-         dispatch(toggleFavourite(data))
-         showAlert(
-            'success', isFavourite ? `Psychologist ${data.name} removed from favourites` : `Psychologist ${data.name} added to favourites`
-         )
+      if (!isAuth) {
+         showAlert('error', 'You must be logged in to add to favorites')
+         return
+      }
+      
+
+      if (isFavourite) {
+         dispatch(removeFavouritePsychologist({ userId, psychologistId: id }))
+            .unwrap()
+            .then(() => {
+               showAlert('success', `Psychologist ${name} removed from favourites`)
+            })
+            .catch((e) => {
+            console.log(e.message)
+         })
       }
       else {
-         showAlert('error', 'You must be logged in to add to favorites')
+         dispatch(addFavouritePsychologist({ userId, psychologistId: id }))
+            .unwrap()
+            .then(() => {
+               showAlert('success', `Psychologist ${name} added to favourites`)
+            })
+            .catch((e) => {
+            console.log(e.message)
+         })
       }
    }
   

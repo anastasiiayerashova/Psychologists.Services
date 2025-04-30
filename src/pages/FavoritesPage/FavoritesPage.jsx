@@ -1,93 +1,102 @@
 import s from './FavoritesPage.module.css'
 import Filters from '../../components/Filters/Filters.jsx'
 import Loader from '../../components/Loader/Loader.jsx'
-import { useSelector } from 'react-redux'
-import { selectFavourites } from '../../redux/favourites/slice.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useMemo } from 'react'
 import { selectFilters } from '../../redux/filters/selectors.js'
 import CustomAlert from '../../components/CustomAlert/CustomAlert.jsx'
 import PsychologistsList from '../../components/PsychologistsList/PsychologistsList.jsx'
 import { useEffect, useState } from 'react'
+import { resetFavouritesData, selectFavouritesData, selectUserId } from '../../redux/auth/slice.js'
+import { getFavouritesPsychologists } from '../../redux/auth/operations.js'
+import { resetList } from '../../redux/psychologists/slice.js'
 
 const FavoritesPage = () => {
 
-    const favourites = useSelector(selectFavourites)
+    const favourites = useSelector(selectFavouritesData)
+    const userId = useSelector(selectUserId)
     const filters = useSelector(selectFilters)
-    const [filteredList, setFilteredList] = useState([])
+    const dispatch = useDispatch()
+
     const [loading, setLoading] = useState(false)
     const [openSnackbar, setOpenSnackbar] = useState(false)
-    const [visibleCout, setVisibleCount] = useState(3)
+    const [visibleCount, setVisibleCount] = useState(3)
     const [allLoaded, setAllLoaded] = useState(false)
     const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState(false)
+   
 
     useEffect(() => {
-        setLoading(true)
-
-        const timeId = setTimeout(() => {
-            filterFavourites()
-            setVisibleCount(3)
-            setAllLoaded(false)
-            setLoading(false)
-        }, 300)
-
-        return () => clearTimeout(timeId)
-    }, [favourites, filters])
-
-
-    const filterFavourites = () => {
-        let updateList = [...favourites]
-
-        if (filters.priceLess) {
-            updateList = updateList.filter(item => item.price_per_hour < filters.priceLess)
-        }
-
-        if (filters.priceGreater) {
-            updateList = updateList.filter(item => item.price_per_hour > filters.priceGreater)
-        }
-
-        if (filters.sortBy) {
-            updateList.sort((a, b) => {
-                if (filters.sortBy === 'name') {
-                    return filters.direction === 'asc' ?
-                        a.name.localeCompare(b.name)
-                        :
-                        b.name.localeCompare(a.name)
-                }
-                else if (filters.sortBy === 'price_per_hour' || filters.sortBy === 'rating') {
-                    return filters.direction === 'asc' ?
-                        a[filters.sortBy] - b[filters.sortBy]
-                        :
-                        b[filters.sortBy] - a[filters.sortBy]
-                }
-                return 0
+        if (userId) {
+            setLoading(true)
+            dispatch(getFavouritesPsychologists(userId))
+                .unwrap()
+                .finally(() => {
+                setLoading(false)
             })
         }
+    }, [dispatch, userId])
 
-        setFilteredList(updateList)
-        setOpenSnackbar(false)
 
-        if (updateList.length === 0 && favourites.length > 0) {
-            setOpenSnackbar(true)
-        }
+    const filteredList = useMemo(() => {
+    let list = [...favourites]
+
+    if (filters.priceLess) {
+      list = list.filter(item => item.price_per_hour < filters.priceLess)
     }
 
-    const handleClick = () => {
-        setVisibleCount(prev => {
-            const newCount = prev + 3
-
-            if (newCount >= filteredList.length) {
-                setAllLoaded(true)
-            }
-           
-            return newCount
-        })
+    if (filters.priceGreater) {
+      list = list.filter(item => item.price_per_hour > filters.priceGreater)
     }
 
-     useEffect(() => {
-         if (allLoaded && filteredList.length !== 0 && !loading ) {
-            setOpenSnackbarNotFound(true)
+    if (filters.sortBy) {
+      list.sort((a, b) => {
+        if (filters.sortBy === 'name') {
+          return filters.direction === 'asc'
+            ? a.name.localeCompare(b.name)
+            : b.name.localeCompare(a.name)
+        } else {
+          return filters.direction === 'asc'
+            ? a[filters.sortBy] - b[filters.sortBy]
+            : b[filters.sortBy] - a[filters.sortBy]
         }
-     }, [allLoaded, loading, filteredList.length])
+      })
+    }
+
+    if (list.length === 0 && favourites.length > 0) {
+      setOpenSnackbar(true)
+    }
+    else {
+      setOpenSnackbar(false)
+    }
+
+    return list
+    }, [favourites, filters])
     
+
+    useEffect(() => {
+      setVisibleCount(3)
+      setAllLoaded(false)
+      setOpenSnackbarNotFound(false)
+    }, [filters])
+
+    
+    useEffect(() => {
+    if (visibleCount >= filteredList.length && filteredList.length !== 0) {
+      setAllLoaded(true)
+    }
+    }, [visibleCount, filteredList])
+
+    
+    useEffect(() => {
+    if (allLoaded && filteredList.length >= visibleCount && !loading) {
+      setOpenSnackbarNotFound(true)
+    }
+      }, [allLoaded, filteredList.length, loading])
+    
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 3, filteredList.length))
+  }
     
     return (
         <section className={s.container}>
@@ -100,10 +109,10 @@ const FavoritesPage = () => {
                 </div>
             ) : (
                 <>
-                    <PsychologistsList list={filteredList.slice(0, visibleCout)} />
+                    <PsychologistsList list={filteredList.slice(0, visibleCount)} />
                         
-                    {filteredList.length !== 0 && !loading && visibleCout < filteredList.length && (
-                        <button type="button" className={s.load_btn} onClick={handleClick}>
+                    {filteredList.length > visibleCount && (
+                        <button type="button" className={s.load_btn} onClick={handleLoadMore}>
                             Load more
                         </button>
                         ) 
