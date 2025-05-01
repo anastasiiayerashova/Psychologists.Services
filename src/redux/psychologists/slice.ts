@@ -35,7 +35,7 @@ const slice = createSlice({
                 state.loading = false
                 state.list = [...state.list, ...payload.data]
                 state.lastVisibleDoc = payload.lastVisibleDoc
-                state.hasMore = payload.data.length > 0
+                state.hasMore = payload.data.length === payload.limit
             })
             .addCase(getPsychologists.rejected, (state, { payload }) => {
                 state.loading = false

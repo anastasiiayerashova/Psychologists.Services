@@ -14,9 +14,12 @@ const slice = createSlice({
             console.log("Before setting filters:", state.filter);
             state.filter = payload;
             console.log("After setting filters:", state.filter);
+        },
+        resetFilters: (state) => {
+            state.filter = {}
         }
     }
 })
 
-export const { setFilters } = slice.actions
+export const { setFilters, resetFilters } = slice.actions
 export const filtersReducer = slice.reducer

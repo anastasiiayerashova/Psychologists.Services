@@ -9,6 +9,7 @@ import { logoutUser, setUser } from '../redux/auth/slice.ts';
 import PrivateRoute from './PrivateRoute.tsx';
 import { getFavouritesPsychologists } from '../redux/auth/operations.ts';
 import { AppDispatch } from '../redux/store.ts';
+import { resetFilters } from '../redux/filters/slice.ts';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const FavoritesPage = lazy(() => import('../pages/FavoritesPage/FavoritesPage'));
@@ -23,6 +24,7 @@ function App() {
     const unsubscribed = onAuthStateChanged(auth, async (user) => {
 
       if (user) {
+        dispatch(resetFilters())
         dispatch(setUser({
           name: user.displayName,
           email: user.email,
@@ -38,7 +40,7 @@ function App() {
 
     return () => unsubscribed()
   }, [dispatch])
-  
+
 
   return (
     <SharedLayout>

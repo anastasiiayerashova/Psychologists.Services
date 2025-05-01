@@ -9,6 +9,7 @@ import PsychologistsList from '../../components/PsychologistsList/PsychologistsL
 import Loader from '../../components/Loader/Loader.tsx'
 import CustomAlert from '../../components/CustomAlert/CustomAlert.tsx'
 import { AppDispatch } from '../../redux/store.ts'
+import { resetFilters } from '../../redux/filters/slice.ts'
 
 const PsychologistsPage = () => {
 
@@ -43,6 +44,12 @@ const PsychologistsPage = () => {
             setOpenSnackbarNotFound(true)
         }
     }, [hasMore, loading, list, filters])
+
+    useEffect(() => {
+         if (list.length > 0 && openSnackbarNotFound) {
+            setOpenSnackbarNotFound(false)
+        }
+    }, [list, openSnackbarNotFound])
 
     return (
         <section className={s.container}>

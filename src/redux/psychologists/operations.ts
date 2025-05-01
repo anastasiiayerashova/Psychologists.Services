@@ -49,7 +49,8 @@ export const getPsychologists = createAsyncThunk<GetPsychologistResponse, GetPsy
             
             return {
                 data: psychologists,
-                lastVisibleDoc: newLastVisibleDoc
+                lastVisibleDoc: newLastVisibleDoc,
+                limit: limitValue
             }
         }
         catch (e) {

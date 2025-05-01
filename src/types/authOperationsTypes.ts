@@ -43,6 +43,7 @@ export type RemoveFavouritePsychologistCredentials = {
 export type GetPsychologistResponse = {
     data: IPsychologist[]
     lastVisibleDoc: string | null
+    limit: number
 }
 
 export interface GetPsychologistsArgs {

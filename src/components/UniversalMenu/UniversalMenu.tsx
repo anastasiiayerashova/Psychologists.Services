@@ -8,6 +8,7 @@ import AuthButtons from '../AuthButtons/AuthButtons.tsx'
 import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.tsx'
 import { UniversalMenuProps } from '../../types/PropsTypes.ts'
 import { AppDispatch } from '../../redux/store.ts'
+import { resetFilters } from '../../redux/filters/slice.ts'
 
 const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, setIsUserMenuOpen, showAlert }: UniversalMenuProps) => {
     
@@ -19,6 +20,7 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
 
     const handleLogout = async () => {
         await dispatch(signOutUser())
+        dispatch(resetFilters())
         setIsUserMenuOpen?.(false)
         navigate('/')
     }
