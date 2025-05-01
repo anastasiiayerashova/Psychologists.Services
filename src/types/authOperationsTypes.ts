@@ -59,7 +59,7 @@ export interface User {
 
 export interface AuthState {
     user: User
-    favouritesData: any[]
+    favouritesData: IPsychologist[]
     isAuth: boolean
     error: string | null
     loading: boolean

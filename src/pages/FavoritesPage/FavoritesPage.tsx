@@ -27,7 +27,6 @@ const FavoritesPage = () => {
 
     useEffect(() => {
       if (userId) {
-            // dispatch(resetFilters())
             setLoading(true)
             dispatch(getFavouritesPsychologists(userId))
                 .unwrap()
@@ -59,8 +58,8 @@ const FavoritesPage = () => {
             : b.name.localeCompare(a.name)
         } else {
           return filters.direction === 'asc'
-            ? a[sortBy] - b[sortBy]
-            : b[sortBy] - a[sortBy]
+            ? (a[sortBy] as number) - (b[sortBy] as number)
+            : (b[sortBy] as number) - (a[sortBy] as number)
         }
       })
     }
