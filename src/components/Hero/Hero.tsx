@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { svg } from '../../constants/index.ts'
 import { RiCheckFill } from "react-icons/ri";
 import AnimatedLayout from '../AnimatedLayout.tsx';
+import { leftSlide, rightSlide } from '../../utils/animation.ts';
+import { motion } from 'framer-motion';
 
 const Hero = () => {
 
@@ -10,8 +12,8 @@ const Hero = () => {
         <AnimatedLayout>
         <section className={s.container}>
             <div className={s.first_wrapper}>
-                <h1 className={s.title}>The road to the <span>depths</span> of the human soul</h1>
-                <h2 className={s.subtitle}>We help you to reveal your potential, overcome challenges and find a guide in your own life with the help of our experienced psychologists.</h2>
+                <motion.h1 variants={leftSlide} initial='hidden' animate='visible' className={s.title}>The road to the <span>depths</span> of the human soul</motion.h1>
+                <motion.h2 variants={rightSlide} initial='hidden' animate='visible' className={s.subtitle}>We help you to reveal your potential, overcome challenges and find a guide in your own life with the help of our experienced psychologists.</motion.h2>
                 <Link to='/psychologists' className={s.get_link}>Get started<span>
                            <svg width={16} height={16}>
                                <use href={`${svg}#icon-get-arrow`} />

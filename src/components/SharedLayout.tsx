@@ -11,6 +11,7 @@ import { SharedLayoutProps } from "../types/PropsTypes.ts"
 import { AlertOptionsType } from "../types/types.ts"
 import { AlertColor } from "@mui/material"
 import { IPsychologist } from "../types/IPsychologist.ts"
+import ClickSpark from "../blocks/Animations/ClickSpark/ClickSpark.tsx"
 
 const SharedLayout = ({ children }: SharedLayoutProps) => {
     
@@ -62,18 +63,24 @@ const SharedLayout = ({ children }: SharedLayoutProps) => {
     
     return (
         <ModalContext.Provider value={{openModal, showAlert}}>
-        <>
+        <ClickSpark sparkColor='#E9A5F1'
+            sparkSize={10}
+            sparkRadius={15}
+            sparkCount={8}
+            duration={400}>
             <header>
                 <Header
                     toggleUserMenu={toggleUserMenu}
                     toggleNavMenu={toggleNavMenu}
                     isUserMenuOpen={isUserMenuOpen}
                     isNavMenuOpen={isNavMenuOpen}
-            />
+                />
             </header>
+                
             <main>
                 <Suspense fallback={null}>{children}</Suspense>
             </main>
+            
             <UniversalMenu
                 isUserMenuOpen={isUserMenuOpen}
                 isNavMenuOpen={isNavMenuOpen}
@@ -100,7 +107,7 @@ const SharedLayout = ({ children }: SharedLayoutProps) => {
                       {alertOptions.message}
                     </CustomAlert>
                 )}
-        </>
+        </ClickSpark>
         </ModalContext.Provider>
     )
 }
