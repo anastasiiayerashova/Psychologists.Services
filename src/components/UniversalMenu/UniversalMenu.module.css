@@ -113,7 +113,7 @@
   & button {
     border-radius: 30px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.25;
     letter-spacing: -0.01em;
     padding: 14px 40px;
@@ -123,7 +123,7 @@
 .content a {
   position: relative;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--black);
@@ -151,11 +151,28 @@
   color: var(--white);
 }
 
+@media screen and (min-width: 375px) {
+  .content {
+    & button {
+      font-size: 16px;
+    }
+  }
+  .content a {
+    font-size: 16px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .user_name {
     font-size: 16px;
     line-height: 1.25;
     letter-spacing: -0.01em;
     max-width: 120px;
+  }
+
+  .content {
+    & button {
+      font-size: 18px;
+    }
   }
 }

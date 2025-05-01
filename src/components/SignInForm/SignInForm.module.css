@@ -6,7 +6,7 @@
 .title_wrap {
   display: flex;
   flex-direction: column;
-  row-gap: 30px;
+  row-gap: 20px;
   text-align: center;
   margin-bottom: 40px;
 }
@@ -20,7 +20,7 @@
 
 .subtitle {
   font-weight: 400;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.33333;
   text-align: center;
   color: rgba(25, 26, 21, 0.5);
@@ -40,7 +40,7 @@
 .input_group input {
   padding: 16px 0 16px 18px;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.25;
   border: 1px solid rgba(25, 26, 21, 0.1);
   border-radius: 12px;
@@ -80,7 +80,7 @@
   margin-top: 22px;
   border-radius: 30px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.25;
   letter-spacing: -0.01em;
   padding: 16px 0;
@@ -94,6 +94,16 @@
 
 .passwordHints {
   margin-top: 12px;
+}
+
+@media screen and (min-width: 375px) {
+  .log_btn {
+    font-size: 16px;
+  }
+
+  .input_group input {
+    font-size: 16px;
+  }
 }
 
 @media screen and (min-width: 768px) {
