@@ -3,13 +3,13 @@ import Avatar from '@mui/material/Avatar';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState, useId, useRef } from 'react';
-import { schema } from '../../validation/bookingSchema.ts';
-import { svg } from '../../constants/index.ts';
-import TimePicker from '../TimePicker/TimePicker.tsx';
-import { useClickOutside } from '../../utils/customHook.ts';
-import CustomAlert from '../CustomAlert/CustomAlert.tsx';
-import { BookingFormProps } from '../../types/PropsTypes.ts';
-import { BookingFormData } from '../../types/types.ts';
+import { schema } from '../../../validation/bookingSchema.ts';
+import { svg } from '../../../constants/index.ts';
+import TimePicker from '../../TimePicker/TimePicker.tsx';
+import { useClickOutside } from '../../../hooks/useClickOutsideHook.ts';
+import CustomAlert from '../../CustomAlert/CustomAlert.tsx';
+import { BookingFormProps } from '../../../types/PropsTypes.ts';
+import { BookingFormData } from '../../../types/types.ts';
 
 const BookingForm = ({ data, onClose }: BookingFormProps) => {
     

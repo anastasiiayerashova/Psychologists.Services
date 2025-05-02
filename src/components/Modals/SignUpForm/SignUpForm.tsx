@@ -1,19 +1,19 @@
 import s from './SignUpForm.module.css'
-import { schema } from '../../validation/signUpSchema.ts'
+import { schema } from '../../../validation/signUpSchema.ts'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
-import { svg } from '../../constants/index.ts';
-import { signUpUser } from '../../redux/auth/operations.ts';
-import CustomAlert from '../CustomAlert/CustomAlert.tsx';
-import useFirebaseError from '../../utils/firebaseErrorsHook.ts';
-import { passwordValidation } from '../../validation/passwordValidation.ts';
-import PasswordHint from '../PasswordHint/PasswordHint.tsx';
-import { AppDispatch } from '../../redux/store.ts';
-import { SignUpFormProps } from '../../types/PropsTypes.ts';
-import { SignUpFormData } from '../../types/types.ts';
+import { svg } from '../../../constants/index.ts';
+import { signUpUser } from '../../../redux/auth/operations.ts';
+import CustomAlert from '../../CustomAlert/CustomAlert.tsx';
+import useFirebaseError from '../../../hooks/firebaseErrorsHook.ts';
+import { passwordValidation } from '../../../validation/passwordValidation.ts';
+import PasswordHint from '../../PasswordHint/PasswordHint.tsx';
+import { AppDispatch } from '../../../redux/store.ts';
+import { SignUpFormProps } from '../../../types/PropsTypes.ts';
+import { SignUpFormData } from '../../../types/types.ts';
 
 const SignUpForm = ({ onClose }: SignUpFormProps) => {
         

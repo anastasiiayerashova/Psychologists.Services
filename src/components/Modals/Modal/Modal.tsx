@@ -1,7 +1,7 @@
 import ReactModal from 'react-modal';
 import s from './Modal.module.css';
-import { svg } from '../../constants/index.ts';
-import { ModalProps } from '../../types/PropsTypes.ts';
+import { svg } from '../../../constants/index.ts';
+import { ModalProps } from '../../../types/PropsTypes.ts';
 
 export default function Modal({ onClose, children }: ModalProps) {
 

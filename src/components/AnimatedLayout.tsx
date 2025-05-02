@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { layoutVariants, layoutTransition } from "../utils/animation.ts"
+import { layoutVariants, layoutTransition } from "../styles/animation.ts"
 import { AnimatedLayoutProps } from "../types/PropsTypes.ts"
 
 const AnimatedLayout = ({ children }: AnimatedLayoutProps) => {

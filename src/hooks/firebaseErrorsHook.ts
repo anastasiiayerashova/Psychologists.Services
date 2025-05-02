@@ -1,4 +1,4 @@
-import { firebaseErrorMessages } from "./firebaseErrorMessages.ts";
+import { firebaseErrorMessages } from "../utils/firebaseErrorMessages.ts";
 import { FirebaseError } from "firebase/app";
 
 type FirebaseErrorCodes = keyof typeof firebaseErrorMessages

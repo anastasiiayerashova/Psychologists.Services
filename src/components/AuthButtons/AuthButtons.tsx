@@ -4,7 +4,7 @@ import { selectIsAuth } from '../../redux/auth/slice.ts'
 import { useModal } from '../../utils/ModalContext.ts'
 import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
-import { useClickOutside } from '../../utils/customHook.ts'
+import { useClickOutside } from '../../hooks/useClickOutsideHook.ts'
 import { AuthButtonsProps } from '../../types/PropsTypes.ts'
 
 const AuthButtons = ({ handleLogout }: AuthButtonsProps) => {

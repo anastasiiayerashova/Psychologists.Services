@@ -2,7 +2,7 @@ import s from './Filters.module.css'
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilters } from '../../redux/filters/slice.ts';
-import { useClickOutside } from '../../utils/customHook.ts';
+import { useClickOutside } from '../../hooks/useClickOutsideHook.ts';
 import { filters, svg } from '../../constants/index.ts';
 import { selectFilters } from '../../redux/filters/selectors.ts';
 import { motion } from 'framer-motion';
