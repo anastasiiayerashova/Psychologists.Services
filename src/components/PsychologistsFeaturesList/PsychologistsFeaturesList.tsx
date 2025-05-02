@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import React, { useEffect, useRef } from 'react';
 
 gsap.registerPlugin(SplitText, ScrollTrigger)
+gsap.config({ nullTargetWarn: false })
 
 const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => {
     
@@ -17,6 +18,7 @@ const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => 
     const initRef = useRef<HTMLParagraphElement | null>(null)
 
        useEffect(() => {
+           const runAnimation = () => {
            const splitExp = new SplitText(experienceRef.current, { type: 'chars, words' })
            const splitLic = new SplitText(licenseRef.current, { type: 'chars, words' })
            const splitSpec = new SplitText(specRef.current, { type: 'chars, words' })
@@ -43,17 +45,24 @@ const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => 
                 })
             }
            
-           animate(splitExp, experienceRef)
-           animate(splitLic, licenseRef)
-           animate(splitSpec, specRef)
-           animate(splitInit, initRef)
+            animate(splitExp, experienceRef)
+            animate(splitLic, licenseRef)
+            animate(splitSpec, specRef)
+            animate(splitInit, initRef)
       
-           return () => {
+            return () => {
               splitExp.revert()
               splitLic.revert()
               splitSpec.revert()
               splitInit.revert()
             }
+           }
+           
+           if (document.fonts && document.fonts.ready) {
+              document.fonts.ready.then(runAnimation)
+           } else {
+              runAnimation()
+        }  
         }, [])
     
   return (

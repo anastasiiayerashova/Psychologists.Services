@@ -10,6 +10,7 @@ import { selectFavouritesData, selectUserId } from '../../redux/auth/slice.ts'
 import { getFavouritesPsychologists } from '../../redux/auth/operations.ts'
 import { AppDispatch } from '../../redux/store.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
+import { resetFilters } from '../../redux/filters/slice.ts'
 
 const FavoritesPage = () => {
 
@@ -27,6 +28,7 @@ const FavoritesPage = () => {
 
     useEffect(() => {
       if (userId) {
+            dispatch(resetFilters())
             setLoading(true)
             dispatch(getFavouritesPsychologists(userId))
                 .unwrap()
