@@ -14,6 +14,7 @@ const Hero = () => {
     const subtitleRef = useRef<HTMLHeadingElement | null>(null)
 
     useEffect(() => {
+        const runAnimation = () => {
         const splitTitle = new SplitText(titleRef.current, { type: 'chars, words' })
         const splitSubtitle = new SplitText(subtitleRef.current, { type: 'chars, words' })
         
@@ -33,11 +34,17 @@ const Hero = () => {
             stagger: 0.03,
             delay: 0.5, 
         })
-
-        return () => {
+            
+         return () => {
             splitTitle.revert()
             splitSubtitle.revert()
+        }    
         }
+        if (document.fonts && document.fonts.ready) {
+           document.fonts.ready.then(runAnimation)
+        } else {
+           runAnimation()
+        }  
     }, [])
 
     return (
