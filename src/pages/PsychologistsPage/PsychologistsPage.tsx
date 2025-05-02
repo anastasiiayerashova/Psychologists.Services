@@ -53,7 +53,7 @@ const PsychologistsPage = () => {
     return (
         <section className={s.container}>
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
-            <Filters />
+            <Filters context='psychologist'/>
 
            {isFirstLoad ? (
                 <div className={s.load_wrap}>

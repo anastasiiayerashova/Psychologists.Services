@@ -5,6 +5,7 @@ import Fade from '@mui/material/Fade';
 import { TransitionProps } from '@mui/material/transitions'
 import { AlertProps } from '../../types/PropsTypes.ts';
 
+
 function FadeTransition(props: TransitionProps & { children: React.ReactElement }) {
   return <Fade {...props} />;
 }

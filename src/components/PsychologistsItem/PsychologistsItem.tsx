@@ -16,8 +16,8 @@ import { AppDispatch, RootState } from '../../redux/store.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
 gsap.registerPlugin(ScrollTrigger)
+
 
 const PsychologistsItem = ({ data }: PsychologistItemProps) => {
   
@@ -27,8 +27,8 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
 
    const { openModal, showAlert } = useModal()
    
-   const isAuth = useSelector(selectIsAuth)
-   const userId = useSelector(selectUserId) 
+   const isAuth = useSelector<RootState, boolean>(selectIsAuth)
+   const userId = useSelector<RootState, string | null>(selectUserId) 
    const aboutRef = useRef<HTMLParagraphElement | null>(null)
    
    const handleMakeAppointment = () => {

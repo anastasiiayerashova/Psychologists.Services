@@ -4,9 +4,9 @@ import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import React, { useEffect, useRef } from 'react';
-
 gsap.registerPlugin(SplitText, ScrollTrigger)
 gsap.config({ nullTargetWarn: false })
+
 
 const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => {
     
@@ -32,12 +32,12 @@ const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => 
                 // duration: 0.03,
                 // ease: 'power4.out',
                 // stagger: { each: 0.05 },
-                  x: 50,
-                  opacity: 0,
-                  duration: 0.8,
-                  ease: 'power4.out',
-                  stagger: 0.03,
-                  scrollTrigger: {
+                   x: 50,
+                   opacity: 0,
+                   duration: 0.8,
+                   ease: 'power4.out',
+                   stagger: 0.03,
+                   scrollTrigger: {
                      trigger: triggerRef.current, 
                      start: 'top 90%', 
                      toggleActions: 'play none none none',
@@ -57,7 +57,7 @@ const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => 
               splitInit.revert()
             }
            }
-           
+
            if (document.fonts && document.fonts.ready) {
               document.fonts.ready.then(runAnimation)
            } else {

@@ -1,6 +1,7 @@
 import { IPsychologist } from "./IPsychologist"
 import { FilterType } from "./types"
 
+
 export type SignInUserCredentials = {
     values: {
         email: string
@@ -8,12 +9,14 @@ export type SignInUserCredentials = {
     }
 }
 
+
 export type SignInUserResponse = {
     name: string | null
     email: string | null
     id: string
     token: string
 }
+
 
 export type SignUpUserCredentials = {
     values: {
@@ -23,6 +26,7 @@ export type SignUpUserCredentials = {
     }
 }
 
+
 export type SignUpUserResponse = {
     name: string | null
     email: string | null
@@ -30,15 +34,18 @@ export type SignUpUserResponse = {
     token: string
 }
 
+
 export type AddFavouritePsychologistCredentials = {
     userId: string
     psychologistId: string
 }
 
+
 export type RemoveFavouritePsychologistCredentials = {
-  userId: string
-  psychologistId: string
+    userId: string
+    psychologistId: string
 }
+
 
 export type GetPsychologistResponse = {
     data: IPsychologist[]
@@ -46,16 +53,19 @@ export type GetPsychologistResponse = {
     limit: number
 }
 
+
 export interface GetPsychologistsArgs {
     filters?: FilterType
     lastVisibleDoc?: string | null
 }
+
 
 export interface User {
     name: string | null
     email: string | null
     id: string | null
 }
+
 
 export interface AuthState {
     user: User
@@ -66,13 +76,17 @@ export interface AuthState {
     token: string | null
 }
 
+
 export interface SetUserPayload extends User {
-  token: string
+    token: string
 }
+
 
 export interface FiltersState {
     filter: FilterType
+    favouritesFilter: FilterType
 }
+
 
 export interface PsychologistsState {
     list: IPsychologist[]
@@ -81,5 +95,3 @@ export interface PsychologistsState {
     loading: boolean
     error: string | null
 }
-
-

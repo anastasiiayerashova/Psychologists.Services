@@ -2,15 +2,18 @@ import { AlertColor, SnackbarOrigin } from "@mui/material"
 import React, { ReactNode, Ref } from "react"
 import { IPsychologist } from "./IPsychologist"
 
+
 export type AuthButtonsProps = {
     handleLogout?: () => Promise<void>
     showAlert?: (severity: AlertColor, message: string) => void
 }
 
+
 export type BookingFormProps = {
     data: Pick<IPsychologist, 'name' | 'avatar_url'>
     onClose: () => void
 }
+
 
 export interface AlertProps {
     children: ReactNode
@@ -21,10 +24,17 @@ export interface AlertProps {
     anchorOrigin: SnackbarOrigin
 }
 
+
 export type FavouriteButtonProps = {
-  isFavourite: boolean
-  onClick: () => void
+    isFavourite: boolean
+    onClick: () => void
 }
+
+
+export type FiltersProps = {
+    context: 'psychologist' | 'favourites'
+}
+
 
 export type HeaderProps = {
     toggleUserMenu: () => void
@@ -33,47 +43,58 @@ export type HeaderProps = {
     isNavMenuOpen: boolean
 }
 
+
 export type CircularProgressWithLabelProps = {
-  value: number
+    value: number
 }
+
 
 export type ModalProps = {
-  onClose: () => void
-  children: ReactNode
+    onClose: () => void
+    children: ReactNode
 }
+
 
 export type PasswordHintProps = {
-   condition: boolean
-   text: string
+    condition: boolean
+    text: string
 }
+
 
 export type PsychologistAvatarProps = {
-  data: Pick<IPsychologist, 'name' | 'avatar_url'>
+    data: Pick<IPsychologist, 'name' | 'avatar_url'>
 }
 
+
 export type PsychologistsFeaturesListProps = {
-  data: Pick<IPsychologist, 'experience' | 'specialization' | 'initial_consultation' | 'license'>
+    data: Pick<IPsychologist, 'experience' | 'specialization' | 'initial_consultation' | 'license'>
 }
+
 
 export type PsychologistItemProps = {
     data: IPsychologist
 }
 
+
 export type PsychologistsListProps = {
     list: IPsychologist[]
 }
+
 
 export type ReviewsProps = {
     data: Pick<IPsychologist, 'reviews'>
 }
 
+
 export type SignInFormProps = {
     onClose: () => void
 }
 
+
 export type SignUpFormProps = {
     onClose: () => void
 }
+
 
 export type TimePickerProps = {
     selectedHour: string
@@ -81,6 +102,7 @@ export type TimePickerProps = {
     handleSelect: (hour: string, minute: string) => void
     ref: Ref<HTMLDivElement>
 }
+
 
 export type UniversalMenuProps = {
     isUserMenuOpen: boolean
@@ -91,15 +113,18 @@ export type UniversalMenuProps = {
     showAlert?: (severity: AlertColor, message: string) => void
 }
 
+
 export type AnimatedLayoutProps = {
     children: ReactNode
 }
+
 
 export type PrivateRouteProps = {
     component: React.ComponentType
     redirectTo?: string
     redirectToAuth?: string
 }
+
 
 export type SharedLayoutProps = {
     children: ReactNode

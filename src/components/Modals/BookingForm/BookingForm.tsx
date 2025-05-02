@@ -11,6 +11,7 @@ import CustomAlert from '../../CustomAlert/CustomAlert.tsx';
 import { BookingFormProps } from '../../../types/PropsTypes.ts';
 import { BookingFormData } from '../../../types/types.ts';
 
+
 const BookingForm = ({ data, onClose }: BookingFormProps) => {
     
     const { name, avatar_url } = data

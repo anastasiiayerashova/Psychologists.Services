@@ -9,14 +9,15 @@ import { signOutUser } from '../../redux/auth/operations.ts';
 import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.tsx';
 import { useState, useEffect } from 'react';
 import { HeaderProps } from '../../types/PropsTypes.ts';
-import { AppDispatch } from '../../redux/store.ts';
+import { AppDispatch, RootState } from '../../redux/store.ts';
+
 
 const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }: HeaderProps) => {
     
     const location = useLocation()
     const dispatch = useDispatch<AppDispatch>()
-    const isAuth = useSelector(selectIsAuth)
-    const userName = useSelector(selectName)
+    const isAuth = useSelector<RootState, boolean>(selectIsAuth)
+    const userName = useSelector<RootState, string | null>(selectName)
     const navigate = useNavigate()
     const [showSwitch, setShowSwitch] = useState<boolean>(false)
 

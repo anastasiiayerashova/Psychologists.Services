@@ -2,6 +2,7 @@ import { TimePickerProps } from '../../types/PropsTypes'
 import s from './TimePicker.module.css'
 import { motion } from 'framer-motion'
 
+
 const TimePicker = ({ selectedHour, selectedMinute, handleSelect, ref }: TimePickerProps) => {
 
     const hours = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))

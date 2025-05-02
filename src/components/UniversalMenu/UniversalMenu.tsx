@@ -7,14 +7,15 @@ import { signOutUser } from '../../redux/auth/operations.ts'
 import AuthButtons from '../AuthButtons/AuthButtons.tsx'
 import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.tsx'
 import { UniversalMenuProps } from '../../types/PropsTypes.ts'
-import { AppDispatch } from '../../redux/store.ts'
+import { AppDispatch, RootState } from '../../redux/store.ts'
 import { resetFilters } from '../../redux/filters/slice.ts'
+
 
 const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, setIsUserMenuOpen, showAlert }: UniversalMenuProps) => {
     
     const location = useLocation()
-    const isAuth = useSelector(selectIsAuth)
-    const userName = useSelector(selectName)
+    const isAuth = useSelector<RootState, boolean>(selectIsAuth)
+    const userName = useSelector<RootState, string | null>(selectName)
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
 

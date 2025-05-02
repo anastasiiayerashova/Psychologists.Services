@@ -2,21 +2,20 @@ import s from './FavoritesPage.module.css'
 import Filters from '../../components/Filters/Filters.tsx'
 import Loader from '../../components/Loader/Loader.tsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFilters } from '../../redux/filters/selectors.ts'
+import { selectFavouritesFilters } from '../../redux/filters/selectors.ts'
 import CustomAlert from '../../components/CustomAlert/CustomAlert.tsx'
 import PsychologistsList from '../../components/PsychologistsList/PsychologistsList.tsx'
 import { useEffect, useState, useMemo } from 'react'
-import { selectFavouritesData, selectUserId } from '../../redux/auth/slice.ts'
+import { resetFavouritesList, selectFavouritesData, selectUserId } from '../../redux/auth/slice.ts'
 import { getFavouritesPsychologists } from '../../redux/auth/operations.ts'
 import { AppDispatch } from '../../redux/store.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
-import { resetFilters } from '../../redux/filters/slice.ts'
 
 const FavoritesPage = () => {
 
     const favourites = useSelector(selectFavouritesData)
     const userId = useSelector(selectUserId)
-    const filters = useSelector(selectFilters)
+    const filters = useSelector(selectFavouritesFilters)
     const dispatch = useDispatch<AppDispatch>()
 
     const [loading, setLoading] = useState<boolean>(false)
@@ -28,7 +27,7 @@ const FavoritesPage = () => {
 
     useEffect(() => {
       if (userId) {
-            dispatch(resetFilters())
+            dispatch(resetFavouritesList())
             setLoading(true)
             dispatch(getFavouritesPsychologists(userId))
                 .unwrap()
@@ -105,7 +104,7 @@ const FavoritesPage = () => {
     return (
         <section className={s.container}>
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
-            <Filters />
+            <Filters context='favourites'/>
 
            {loading ? (
                 <div className={s.load_wrap}>

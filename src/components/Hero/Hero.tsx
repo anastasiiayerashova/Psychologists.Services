@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useEffect, useRef } from 'react';
 
+
 gsap.registerPlugin(SplitText)
 
 const Hero = () => {

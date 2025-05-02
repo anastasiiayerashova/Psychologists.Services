@@ -7,6 +7,7 @@ import { useRef, useState } from 'react'
 import { useClickOutside } from '../../hooks/useClickOutsideHook.ts'
 import { AuthButtonsProps } from '../../types/PropsTypes.ts'
 
+
 const AuthButtons = ({ handleLogout }: AuthButtonsProps) => {
     
     const { openModal, showAlert } = useModal()

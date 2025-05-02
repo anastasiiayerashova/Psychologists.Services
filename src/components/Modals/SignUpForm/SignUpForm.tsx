@@ -15,6 +15,7 @@ import { AppDispatch } from '../../../redux/store.ts';
 import { SignUpFormProps } from '../../../types/PropsTypes.ts';
 import { SignUpFormData } from '../../../types/types.ts';
 
+
 const SignUpForm = ({ onClose }: SignUpFormProps) => {
         
         const dispatch = useDispatch<AppDispatch>()

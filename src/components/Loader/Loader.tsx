@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { CircularProgressWithLabelProps } from '../../types/PropsTypes';
 
+
 function CircularProgressWithLabel({value}: CircularProgressWithLabelProps) {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: '15px' }}>

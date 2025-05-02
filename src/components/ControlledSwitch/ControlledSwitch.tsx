@@ -1,15 +1,11 @@
-import { useState, useEffect, JSX } from 'react'
+import { useState, useEffect } from 'react'
 import { CustomSwitcher } from "react-custom-switcher"
 import { doc, updateDoc } from "firebase/firestore";
 import { useSelector } from 'react-redux';
 import { selectUserId } from '../../redux/auth/slice.ts';
 import { db } from '../../config/firebase.ts';
+import { ThemeOption } from '../../types/types.ts';
 
-type ThemeOption = {
-  label: JSX.Element
-  value: string
-  color: string
-}
 
 const themeOptions: ThemeOption[] = [
   {

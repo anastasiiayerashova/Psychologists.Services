@@ -27,7 +27,7 @@ const slice = createSlice({
         selectUserId: state => state.user.id
     },
     reducers: {
-        resetFavouritesData: (state) => {
+        resetFavouritesList: (state) => {
             state.favouritesData = []
         },
         setUser: (state, { payload }: {payload: User & {token: string}}) => {
@@ -113,5 +113,5 @@ const slice = createSlice({
 })
 
 export const authReducer = slice.reducer
-export const { setUser, logoutUser, resetFavouritesData } = slice.actions
+export const { setUser, logoutUser, resetFavouritesList } = slice.actions
 export const {selectIsAuth, selectError, selectName, selectUserId, selectFavouritesData} = slice.selectors

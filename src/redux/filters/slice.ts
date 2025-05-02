@@ -3,7 +3,8 @@ import { FiltersState } from "../../types/authOperationsTypes";
 import { FilterType } from "../../types/types";
 
 const initialState: FiltersState = {
-    filter: {}
+    filter: {},
+    favouritesFilter: {}
 }
 
 const slice = createSlice({
@@ -17,9 +18,15 @@ const slice = createSlice({
         },
         resetFilters: (state) => {
             state.filter = {}
+        },
+        setFavouritesFilter: (state, { payload }: PayloadAction<FilterType>) => {
+            state.favouritesFilter = payload
+        },
+        resetFavouritesFilters: (state) => {
+            state.favouritesFilter = {}
         }
     }
 })
 
-export const { setFilters, resetFilters } = slice.actions
+export const { setFilters, resetFilters, setFavouritesFilter, resetFavouritesFilters } = slice.actions
 export const filtersReducer = slice.reducer

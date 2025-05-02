@@ -3,6 +3,7 @@ import { Avatar } from '@mui/material'
 import { svg } from '../../constants/index.ts'
 import { ReviewsProps } from '../../types/PropsTypes.ts'
 
+
 const Reviews = ({ data }: ReviewsProps) => {
     
     const { reviews } = data

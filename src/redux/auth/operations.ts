@@ -116,8 +116,21 @@ export const removeFavouritePsychologist = createAsyncThunk<string, RemoveFavour
     async ({ userId, psychologistId }, thunkAPI) => {
         try {
             const userRef = doc(db, 'users', userId)
+            const userSnap = await getDoc(userRef)
+
+            if (!userSnap.exists()) {
+                throw new Error('User not found')
+            }
+
+            const currentFavourites = userSnap.data().favourites || []
+            const psychologistToRemove = currentFavourites.find((p: IPsychologist) => p.id === psychologistId)
+
+            if (!psychologistToRemove) {
+                throw new Error('Psychologist not found in favourites')
+            }
+            
             await updateDoc(userRef, {
-                favourites: arrayRemove({id: psychologistId})
+                favourites: arrayRemove(psychologistToRemove)
             })
 
             return psychologistId
