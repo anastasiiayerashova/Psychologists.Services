@@ -3,7 +3,7 @@ import { svg } from '../../constants/index.ts'
 import PsychologistsFeaturesList from '../PsychologistsFeaturesList/PsychologistsFeaturesList.tsx'
 import PsychologistAvatar from '../PsychologistAvatar/PsychologistAvatar.tsx'
 import Reviews from '../Reviews/Reviews.tsx'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useModal } from '../../utils/ModalContext.ts'
 import FavouriteButton from '../FavouriteButton/FavouriteButton.tsx'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,6 +14,10 @@ import { addFavouritePsychologist, removeFavouritePsychologist } from '../../red
 import { PsychologistItemProps } from '../../types/PropsTypes.ts'
 import { AppDispatch, RootState } from '../../redux/store.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const PsychologistsItem = ({ data }: PsychologistItemProps) => {
   
@@ -25,6 +29,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
    
    const isAuth = useSelector(selectIsAuth)
    const userId = useSelector(selectUserId) 
+   const aboutRef = useRef<HTMLParagraphElement | null>(null)
    
    const handleMakeAppointment = () => {
         openModal('booking', data)
@@ -67,6 +72,20 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
          })
       }
    }
+
+   useEffect(() => {
+      gsap.from(aboutRef.current, {
+          y: 100,                 
+          autoAlpha: 0,          
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+             trigger: aboutRef.current,
+             start: 'top 90%',
+             toggleActions: 'play none none none',
+          },
+      })
+   }, [])
   
   return (
     <li className={s.card}>
@@ -97,7 +116,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
 
               <div className={s.card_body_desc}>
                  <PsychologistsFeaturesList data={data} />
-                 <p className={s.about}>{about}</p>
+                 <p ref={aboutRef} className={s.about}>{about}</p>
                      <AnimatePresence initial={false}>
                         {showReviews && (
                           <motion.div

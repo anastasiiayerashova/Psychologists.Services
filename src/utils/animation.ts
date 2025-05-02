@@ -9,7 +9,7 @@ export const reviewsVariants = {
     height: 'auto',
     overflow: 'visible',
     transition: {
-      duration: 0.4,
+      duration: 0.3,
     },
   },
   exit: {
@@ -29,24 +29,24 @@ export const layoutVariants = {
 }
 
 export const layoutTransition = {
-  duration: 0.6,
-  ease: 'easeInOut',
+  duration: 0.3,
+  ease: 'easeIn',
 }
 
 export const leftSlide = {
-  hidden: { x: -200, opacity: 0 },
+  hidden: { x: -250, opacity: 0 },
   visible: {
-    x: 0,
+    y: 0,
     opacity: 1,
-    transition: { duration: 0.3, ease: 'easeOut' },
+    transition: { duration: 0.3, ease: 'easeIn' },
   },
 };
 
 export const rightSlide = {
-  hidden: { x: 200, opacity: 0 },
+  hidden: { x: 250, opacity: 0 },
   visible: {
     x: 0,
     opacity: 1,
-    transition: { duration: 0.3, ease: 'easeOut' },
+    transition: { duration: 0.3, ease: 'easeIn' },
   },
 };

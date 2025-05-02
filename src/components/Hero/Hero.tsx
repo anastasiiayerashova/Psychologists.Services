@@ -2,18 +2,49 @@ import s from './Hero.module.css'
 import { Link } from 'react-router-dom'
 import { svg } from '../../constants/index.ts'
 import { RiCheckFill } from "react-icons/ri";
-import AnimatedLayout from '../AnimatedLayout.tsx';
-import { leftSlide, rightSlide } from '../../utils/animation.ts';
-import { motion } from 'framer-motion';
+import { gsap } from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { useEffect, useRef } from 'react';
+
+gsap.registerPlugin(SplitText)
 
 const Hero = () => {
 
+    const titleRef = useRef<HTMLHeadingElement | null>(null)
+    const subtitleRef = useRef<HTMLHeadingElement | null>(null)
+
+    useEffect(() => {
+        const splitTitle = new SplitText(titleRef.current, { type: 'chars, words' })
+        const splitSubtitle = new SplitText(subtitleRef.current, { type: 'chars, words' })
+        
+        gsap.from(splitTitle.chars, {
+            x: 100,
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power4.out',
+            stagger: 0.05,
+        })
+
+        gsap.from(splitSubtitle.chars, {
+            x: -100,
+            opacity: 0,
+            duration: 0.6,
+            ease: 'power4.out',
+            stagger: 0.03,
+            delay: 0.5, 
+        })
+
+        return () => {
+            splitTitle.revert()
+            splitSubtitle.revert()
+        }
+    }, [])
+
     return (
-        <AnimatedLayout>
         <section className={s.container}>
             <div className={s.first_wrapper}>
-                <motion.h1 variants={leftSlide} initial='hidden' animate='visible' className={s.title}>The road to the <span>depths</span> of the human soul</motion.h1>
-                <motion.h2 variants={rightSlide} initial='hidden' animate='visible' className={s.subtitle}>We help you to reveal your potential, overcome challenges and find a guide in your own life with the help of our experienced psychologists.</motion.h2>
+                <h1 ref={titleRef} className={s.title}>The road to the <span>depths</span> of the human soul</h1>
+                <h2 ref={subtitleRef} className={s.subtitle}>We help you to reveal your potential, overcome challenges and find a guide in your own life with the help of our experienced psychologists.</h2>
                 <Link to='/psychologists' className={s.get_link}>Get started<span>
                            <svg width={16} height={16}>
                                <use href={`${svg}#icon-get-arrow`} />
@@ -49,8 +80,7 @@ const Hero = () => {
                     </div>
                 </div>
             </div>
-            </section>
-            </AnimatedLayout>
+        </section>  
     )
 }
 
