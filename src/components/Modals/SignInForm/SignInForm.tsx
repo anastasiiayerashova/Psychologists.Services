@@ -1,7 +1,7 @@
 import s from './SignInForm.module.css'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useId, useEffect } from 'react';
 import { svg } from '../../../constants/index.ts';
@@ -12,8 +12,10 @@ import useFirebaseError from '../../../hooks/firebaseErrorsHook.ts';
 import { passwordValidation } from '../../../validation/passwordValidation.ts';
 import PasswordHint from '../../PasswordHint/PasswordHint.tsx';
 import { SignInFormProps } from '../../../types/PropsTypes.ts';
-import { AppDispatch } from '../../../redux/store.ts';
+import { AppDispatch, RootState } from '../../../redux/store.ts';
 import { SignInFormData } from '../../../types/types.ts';
+import { selectLoading } from '../../../redux/auth/slice.ts';
+import Loader from '../../Loader/Loader.tsx';
 
 
 const SignInForm = ({ onClose }: SignInFormProps) => {
@@ -30,6 +32,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
     const [successMessage, setSuccessMessage] = useState<string>('')
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [password, setPassword] = useState<string>('')
+    const loading = useSelector<RootState, boolean>(selectLoading)
   
     const { getErrorMessage } = useFirebaseError()
     const {isPasswordValid, hasMinLength, hasMaxLength, hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar} = passwordValidation(password)
@@ -110,8 +113,10 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
                   </svg>
                 )}
               </button>
-                </div>
-                    <button type='submit' className={s.log_btn}>Log In</button>
+              </div>
+          {loading ? (<Loader />) : (
+            <button type='submit' className={s.log_btn}>Log In</button>
+                    )}
             </form>
         
         {openSnackbar && (

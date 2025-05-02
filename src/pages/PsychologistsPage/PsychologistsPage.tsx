@@ -63,11 +63,17 @@ const PsychologistsPage = () => {
                 <>
                     <PsychologistsList list={list} />
                         
-                    {hasMore && !loading && (
-                        <button type="button" className={s.load_btn} onClick={handleLoadMore}>
-                            Load more
-                        </button>
-                    )}
+                        {hasMore ? (
+                            loading ? (
+                                <div className={s.load_wrap_btn}>
+                                    <Loader />
+                                </div>
+                            ) : (
+                                <button type="button" className={s.load_btn} onClick={handleLoadMore}>
+                                     Load more
+                                </button>
+                            )
+                        ) : null}
                         
                     <CustomAlert
                         severity='info'

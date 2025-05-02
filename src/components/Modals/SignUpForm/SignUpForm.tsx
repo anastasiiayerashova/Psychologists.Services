@@ -2,7 +2,7 @@ import s from './SignUpForm.module.css'
 import { schema } from '../../../validation/signUpSchema.ts'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useId } from 'react';
 import { svg } from '../../../constants/index.ts';
@@ -11,9 +11,11 @@ import CustomAlert from '../../CustomAlert/CustomAlert.tsx';
 import useFirebaseError from '../../../hooks/firebaseErrorsHook.ts';
 import { passwordValidation } from '../../../validation/passwordValidation.ts';
 import PasswordHint from '../../PasswordHint/PasswordHint.tsx';
-import { AppDispatch } from '../../../redux/store.ts';
+import { AppDispatch, RootState } from '../../../redux/store.ts';
 import { SignUpFormProps } from '../../../types/PropsTypes.ts';
 import { SignUpFormData } from '../../../types/types.ts';
+import { selectLoading } from '../../../redux/auth/slice.ts';
+import Loader from '../../Loader/Loader.tsx';
 
 
 const SignUpForm = ({ onClose }: SignUpFormProps) => {
@@ -31,6 +33,7 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
         const [successMessage, setSuccessMessage] = useState<string>('')
         const [errorMessage, setErrorMessage] = useState<string>('')
         const [password, setPassword] = useState<string>('')
+        const loading = useSelector<RootState, boolean>(selectLoading)
 
         const { getErrorMessage } = useFirebaseError()
         const {isPasswordValid, hasMinLength, hasMaxLength, hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar} = passwordValidation(password)
@@ -116,8 +119,10 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
                       </svg>
                     )}
                   </button>
-                    </div>
-                        <button type='submit' className={s.log_btn}>Sign Up</button>
+                  </div>
+              {loading ? (<Loader />) : (
+                <button type='submit' className={s.log_btn}>Sign Up</button>
+                        )}
                 </form>
             
                 {openSnackbar && (

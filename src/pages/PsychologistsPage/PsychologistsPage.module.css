@@ -26,6 +26,12 @@
   align-items: center;
 }
 
+.load_wrap_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .load_btn {
   padding: 14px 48px;
   color: var(--white);
