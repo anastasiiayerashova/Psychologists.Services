@@ -39,6 +39,12 @@
   justify-self: center;
 }
 
+.load_wrap_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 375px) {
   .not_found_text {
     font-size: 10px;

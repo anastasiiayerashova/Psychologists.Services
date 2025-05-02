@@ -23,8 +23,9 @@ const FavoritesPage = () => {
     const [visibleCount, setVisibleCount] = useState<number>(3)
     const [allLoaded, setAllLoaded] = useState<boolean>(false)
     const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
    
-
+  
     useEffect(() => {
       if (userId) {
             dispatch(resetFavouritesList())
@@ -98,7 +99,11 @@ const FavoritesPage = () => {
     
 
   const handleLoadMore = () => {
-    setVisibleCount(prev => Math.min(prev + 3, filteredList.length))
+    setIsLoading(true)
+    setTimeout(() => {
+      setVisibleCount(prev => Math.min(prev + 3, filteredList.length))
+      setIsLoading(false)
+    }, 500)
   }
     
     return (
@@ -115,9 +120,15 @@ const FavoritesPage = () => {
                     <PsychologistsList list={filteredList.slice(0, visibleCount)} />
                         
                     {filteredList.length > visibleCount && (
-                        <button type="button" className={s.load_btn} onClick={handleLoadMore}>
-                            Load more
-                        </button>
+                        isLoading ? (
+                            <div className={s.load_wrap_btn}>
+                                <Loader />
+                            </div>
+                        ) : (
+                                <button type="button" className={s.load_btn} onClick={handleLoadMore}>
+                                    Load more
+                                </button>
+                            )
                         ) 
                     }
                     <CustomAlert
