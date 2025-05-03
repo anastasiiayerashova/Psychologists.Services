@@ -138,7 +138,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
 
       <div className={s.card_body_mob}>
          <PsychologistsFeaturesList data={data} />
-         <p className={s.about}>{about}</p>
+         <p ref={aboutRef} className={s.about}>{about}</p>
             <AnimatePresence initial={false}>
                {showReviews && (
                  <motion.div
