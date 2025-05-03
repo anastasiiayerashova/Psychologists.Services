@@ -2,7 +2,7 @@ import Filters from '../../components/Filters/Filters.tsx'
 import { selectFilters } from '../../redux/filters/selectors.ts'
 import s from './PsychologistsPage.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition, useRef } from 'react'
 import { selectList, selectLoading, resetList, selectLastVisibleDoc, selectHasMore } from '../../redux/psychologists/slice.ts'
 import { getPsychologists } from '../../redux/psychologists/operations.ts'
 import PsychologistsList from '../../components/PsychologistsList/PsychologistsList.tsx'
@@ -12,6 +12,7 @@ import { AppDispatch, RootState } from '../../redux/store.ts'
 import { FilterType } from '../../types/types.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
 import { Helmet } from 'react-helmet-async'
+import gsap from 'gsap'
 
 const PsychologistsPage = () => {
 
@@ -24,13 +25,28 @@ const PsychologistsPage = () => {
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
     const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
     const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState<boolean>(false)
+    const listRef = useRef<HTMLDivElement>(null)
+
+    const [isPending, startTransition] = useTransition()
 
     useEffect(() => {
-        dispatch(resetList())
-        dispatch(getPsychologists({ filters })).finally(() => {
-            setIsFirstLoad(false)
+        startTransition(() => {
+             dispatch(resetList())
+             dispatch(getPsychologists({ filters })).finally(() => {
+             setIsFirstLoad(false)
         })
+    })
     }, [filters, dispatch])
+
+    useEffect(() => {
+        if (!loading && list.length > 0 && listRef.current) {
+            gsap.fromTo(
+               listRef.current,
+               { opacity: 0, y: 40 },
+               { opacity: isPending ? 0.5 : 1, y: 0, duration: 1.5, delay: 0.4, ease: 'power4.out' }
+            )
+        }
+    }, [list, loading, isPending])
 
     const handleLoadMore = () => {
         setOpenSnackbar(false)
@@ -71,7 +87,7 @@ const PsychologistsPage = () => {
                     <Loader />
                 </div>
             ) : (
-                <>
+                <div ref={listRef}>
                     <PsychologistsList list={list} />
                         
                         {hasMore ? (
@@ -106,7 +122,7 @@ const PsychologistsPage = () => {
                         No psychologists found for the selected filters
                     </CustomAlert>
                     
-                </>
+                </div>
             )}
         </section>
     )

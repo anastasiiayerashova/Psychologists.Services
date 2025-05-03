@@ -1,5 +1,5 @@
 import s from './Filters.module.css'
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFavouritesFilter, setFilters } from '../../redux/filters/slice.ts';
 import { useClickOutside } from '../../hooks/useClickOutsideHook.ts';
@@ -10,9 +10,27 @@ import { FilterType, FilterName } from '../../types/types.ts';
 import { selectFavouritesFilters } from '../../redux/filters/selectors.ts';
 import { RootState } from '../../redux/store.ts';
 import { FiltersProps } from '../../types/PropsTypes.ts';
+import gsap from 'gsap'
 
 
-const Filters = ({context}: FiltersProps) => {
+const Filters = ({ context }: FiltersProps) => {
+    
+    const filterRef = useRef<HTMLButtonElement>(null)
+    const textRef = useRef<HTMLParagraphElement>(null)
+
+    useEffect(() => {
+         gsap.fromTo(
+      textRef.current,
+      { opacity: 0, y: -40 },
+      { opacity: 1, y: 0, duration: 1, delay: 0.2, ease: 'power2.out' }
+        )
+        
+         gsap.fromTo(
+      filterRef.current,
+      { opacity: 0, y: -30 },
+      { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power2.out' }
+    )
+    }, [context])
 
     const isObjectsEqual = (obj1: FilterType | undefined, obj2: FilterType | undefined): boolean => {
        if (!obj1 || !obj2) return false
@@ -55,9 +73,9 @@ const Filters = ({context}: FiltersProps) => {
     useClickOutside(dropdownRef, () => setIsDropdownOpen(false))
 
     return (
-        <div className={s.wrapper}>
-            <p className={s.title}>Filters</p>
-            <button type='button' onClick={toggleDropdown} className={s.green_btn}>
+        <div  className={s.wrapper}>
+            <p ref={textRef} className={s.title}>Filters</p>
+            <button ref={filterRef} type='button' onClick={toggleDropdown} className={s.green_btn}>
                 {selectedFilterName}
                 <svg className={`${s.icon_arrow} ${isDropdownOpen ? s.open : ''}`} width={20} height={20}>
                     <use href={`${svg}#icon-arrow-down`} />
