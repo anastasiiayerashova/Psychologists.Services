@@ -11,6 +11,7 @@ import CustomAlert from '../../components/CustomAlert/CustomAlert.tsx'
 import { AppDispatch, RootState } from '../../redux/store.ts'
 import { FilterType } from '../../types/types.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
+import { Helmet } from 'react-helmet-async'
 
 const PsychologistsPage = () => {
 
@@ -55,6 +56,13 @@ const PsychologistsPage = () => {
 
     return (
         <section className={s.container}>
+            <Helmet>
+               <title>psychologists.services | find your psychologist</title>
+               <meta
+                  name="description"
+                  content="Browse and filter psychologists by price, popularity, and name. View detailed profiles and book an appointment easily."
+                />
+            </Helmet>
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
             <Filters context='psychologist'/>
 
