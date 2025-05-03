@@ -114,9 +114,11 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
                 )}
               </button>
               </div>
-          {loading ? (<Loader />) : (
+          {loading ? (
+            <Loader />
+          ) : (
             <button type='submit' className={s.log_btn}>Log In</button>
-                    )}
+          )}
             </form>
         
         {openSnackbar && (

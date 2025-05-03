@@ -8,16 +8,18 @@ import { getPsychologists } from '../../redux/psychologists/operations.ts'
 import PsychologistsList from '../../components/PsychologistsList/PsychologistsList.tsx'
 import Loader from '../../components/Loader/Loader.tsx'
 import CustomAlert from '../../components/CustomAlert/CustomAlert.tsx'
-import { AppDispatch } from '../../redux/store.ts'
+import { AppDispatch, RootState } from '../../redux/store.ts'
+import { FilterType } from '../../types/types.ts'
+import { IPsychologist } from '../../types/IPsychologist.ts'
 
 const PsychologistsPage = () => {
 
     const dispatch = useDispatch<AppDispatch>()
-    const filters = useSelector(selectFilters)
-    const list = useSelector(selectList)
-    const lastVisibleDoc = useSelector(selectLastVisibleDoc)
-    const hasMore = useSelector(selectHasMore)
-    const loading = useSelector(selectLoading)
+    const filters = useSelector<RootState, FilterType>(selectFilters)
+    const list = useSelector<RootState, IPsychologist[]>(selectList)
+    const lastVisibleDoc = useSelector<RootState, string | null>(selectLastVisibleDoc)
+    const hasMore = useSelector<RootState, boolean>(selectHasMore)
+    const loading = useSelector<RootState, boolean>(selectLoading)
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
     const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
     const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState<boolean>(false)
@@ -49,6 +51,7 @@ const PsychologistsPage = () => {
             setOpenSnackbarNotFound(false)
         }
     }, [list, openSnackbarNotFound])
+    
 
     return (
         <section className={s.container}>

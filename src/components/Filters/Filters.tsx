@@ -23,14 +23,14 @@ const Filters = ({context}: FiltersProps) => {
       if (keys1.length !== keys2.length) return false
 
       return keys1.every(key => obj1[key] === obj2[key])
-}
+    }
 
 
     const iterableFilters = Object.keys(filters) as FilterName[]
 
     const findFilterNameByObject = (currentFilterObj: FilterType): FilterName => {
        return Object.keys(filters).find(key => isObjectsEqual(filters[key], currentFilterObj)) || 'A to Z'
-}
+    }
 
     const selectedFilter = useSelector<RootState, FilterType>(context === 'psychologist' ? selectFilters : selectFavouritesFilters)
     const selectedFilterName = findFilterNameByObject(selectedFilter)

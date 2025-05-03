@@ -60,7 +60,6 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
     const [bookedName, setBookedName] = useState<string>('')
 
     const onSubmit = (values: BookingFormData) => {
-        console.log(values)
         setOpenSnackbar(true)
         setBookedName(values.name)
         setBookedDate(values.date)

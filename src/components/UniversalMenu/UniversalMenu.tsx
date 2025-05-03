@@ -9,6 +9,8 @@ import ControlledSwitch from '../ControlledSwitch/ControlledSwitch.tsx'
 import { UniversalMenuProps } from '../../types/PropsTypes.ts'
 import { AppDispatch, RootState } from '../../redux/store.ts'
 import { resetFilters } from '../../redux/filters/slice.ts'
+import { gsap } from 'gsap';
+import { useEffect, useRef } from 'react'
 
 
 const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNavMenu, setIsUserMenuOpen, showAlert }: UniversalMenuProps) => {
@@ -18,6 +20,46 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
     const userName = useSelector<RootState, string | null>(selectName)
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
+    const contentRef = useRef<HTMLDivElement>(null)
+    const notAuthContentRef = useRef<HTMLDivElement>(null)
+    const authContentRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+       if (isUserMenuOpen && !isAuth && notAuthContentRef.current) {
+          gsap.from(notAuthContentRef.current.children, {
+             y: 50,
+             opacity: 0,
+             duration: 0.5,
+             stagger: 0.2,
+             ease: 'power2.out',
+          })
+        }
+    }, [isUserMenuOpen, isAuth])
+
+    useEffect(() => {
+       if (isUserMenuOpen && isAuth && authContentRef.current) {
+          gsap.from(authContentRef.current.children, {
+             y: 50,
+             opacity: 0,
+             duration: 0.5,
+             stagger: 0.2,
+             ease: 'power2.out',
+           })
+        }
+    }, [isUserMenuOpen, isAuth])
+    
+    useEffect(() => {
+        if (isNavMenuOpen && contentRef.current) {
+            const tl = gsap.timeline()
+            tl.from(contentRef.current.children, {
+               y: 50,
+               opacity: 0,
+               duration: 0.5,
+               stagger: 0.2,
+               ease: 'power2.out',
+            })
+        }
+    }, [isNavMenuOpen])
 
     const handleLogout = async () => {
         await dispatch(signOutUser())
@@ -54,19 +96,19 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
                 </div>
 
                 {isUserMenuOpen && !isAuth && (
-                    <div className={s.content}>
+                    <div ref={notAuthContentRef} className={s.content}>
                         <AuthButtons />
                     </div>
                 )}
 
                  {isUserMenuOpen && isAuth && (
-                    <div className={s.content}>
+                    <div ref={authContentRef} className={s.content}>
                         <AuthButtons handleLogout={handleLogout} showAlert={showAlert} />
                     </div>
                 )}
 
                 {isNavMenuOpen && (
-                    <div className={s.content}>
+                    <div ref={contentRef} className={s.content}>
                         <Link to='/' onClick={toggleNavMenu} className={`${location.pathname === '/' ? s.active_link : ''}`}>Home</Link>
                         <Link to='/psychologists' onClick={toggleNavMenu} className={`${location.pathname === '/psychologists' ? s.active_link : ''}`}>Psychologists</Link>
                         {isAuth && (

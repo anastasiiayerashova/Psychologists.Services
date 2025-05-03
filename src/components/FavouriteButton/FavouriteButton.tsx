@@ -13,7 +13,11 @@ const FavouriteButton = ({ isFavourite, onClick }: FavouriteButtonProps) => {
   return (
     <button type="button" className={s.icon_btn} onClick={onClick}>
       {isFavourite ? (
-        isAuth ? (<FaHeart className={s.heart} /> ) : (<FaRegHeart/>)
+        isAuth ? (
+          <FaHeart className={s.heart} />
+        ) : (
+            <FaRegHeart />
+          )
       ) : (
         <FaRegHeart/>
       )}

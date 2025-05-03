@@ -62,12 +62,12 @@ useEffect(() => {
 return (
     <div className='track'>
         <CustomSwitcher
-        options={themeOptions}
-        value={selectedTheme}
-        variant='secondary'
-        containerWidth={120}
-        switchSize={30}
-        callback={handleChange}
+            options={themeOptions}
+            value={selectedTheme}
+            variant='secondary'
+            containerWidth={120}
+            switchSize={30}
+            callback={handleChange}
         />
     </div>
   )

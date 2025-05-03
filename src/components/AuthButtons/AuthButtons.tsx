@@ -29,32 +29,30 @@ const AuthButtons = ({ handleLogout }: AuthButtonsProps) => {
         <>
             {!isAuth ? (
              <>
-                  <button type='button' className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
-                  <button type='button' className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
+                <button type='button' className={s.log_btn} onClick={() => openModal('login')}>Log In</button>
+                <button type='button' className={s.reg_btn} onClick={() => openModal('register')}>Registration</button>
              </>
             )
                 : 
             (
-                    
-                    
-                    <div className={s.time_picker_wrapper}>
-                        <button type='button' className={s.logOut_btn} onClick={() => setPickerOpen(!pickerOpen)}>Log out</button>
-                        {pickerOpen && (
-                             <motion.div
-                              className={s.popover}
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 10 }}
-                              ref={dropdownRef}
-                            >
-                              <p className={s.popover_title}>Are you sure?..</p>
-                              <div className={s.picker}>  
-                                <button type='button' className={s.yes_btn} onClick={onLogoutClick}>Yes</button>
-                                <button type='button' className={s.no_btn} onClick={() => setPickerOpen(!pickerOpen)}>No</button>
-                              </div>
-                            </motion.div>
-                        )}
-                    </div>
+                <div className={s.time_picker_wrapper}>
+                    <button type='button' className={s.logOut_btn} onClick={() => setPickerOpen(!pickerOpen)}>Log out</button>
+                           {pickerOpen && (
+                                <motion.div
+                                    className={s.popover}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    ref={dropdownRef}
+                                >
+                                    <p className={s.popover_title}>Are you sure?..</p>
+                                    <div className={s.picker}>  
+                                        <button type='button' className={s.yes_btn} onClick={onLogoutClick}>Yes</button>
+                                        <button type='button' className={s.no_btn} onClick={() => setPickerOpen(!pickerOpen)}>No</button>
+                                    </div>
+                                </motion.div>
+                            )}
+                </div>
             )}
         </>
     )

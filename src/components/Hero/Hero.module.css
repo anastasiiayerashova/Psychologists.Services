@@ -148,6 +148,10 @@
   color: var(--green);
 }
 
+.hiddenText {
+  visibility: hidden;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     padding: 78px 84px 100px 128px;

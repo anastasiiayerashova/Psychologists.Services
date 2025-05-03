@@ -5,17 +5,24 @@ import { RiCheckFill } from "react-icons/ri";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useEffect, useRef } from 'react';
-
-
 gsap.registerPlugin(SplitText)
 
 const Hero = () => {
 
     const titleRef = useRef<HTMLHeadingElement | null>(null)
     const subtitleRef = useRef<HTMLHeadingElement | null>(null)
+    const linkRef = useRef<HTMLAnchorElement | null>(null)
+    const secondWrapRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
         const runAnimation = () => {
+        if (!titleRef.current || !subtitleRef.current || !linkRef.current || !secondWrapRef.current) return
+            
+        titleRef.current.classList.remove(s.hiddenText)
+        subtitleRef.current.classList.remove(s.hiddenText)
+        linkRef.current.classList.remove(s.hiddenText)
+        secondWrapRef.current.classList.remove(s.hiddenText)
+            
         const splitTitle = new SplitText(titleRef.current, { type: 'chars, words' })
         const splitSubtitle = new SplitText(subtitleRef.current, { type: 'chars, words' })
         
@@ -36,6 +43,24 @@ const Hero = () => {
             delay: 0.5, 
         })
             
+        gsap.from(linkRef.current, {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power4.out',
+            delay: 0.8, 
+        })
+            
+        gsap.from(secondWrapRef.current, {
+            opacity: 0,
+            y: 50,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: 'power4.out',
+            delay: 1, 
+        })
+            
          return () => {
             splitTitle.revert()
             splitSubtitle.revert()
@@ -51,16 +76,16 @@ const Hero = () => {
     return (
         <section className={s.container}>
             <div className={s.first_wrapper}>
-                <h1 ref={titleRef} className={s.title}>The road to the <span>depths</span> of the human soul</h1>
-                <h2 ref={subtitleRef} className={s.subtitle}>We help you to reveal your potential, overcome challenges and find a guide in your own life with the help of our experienced psychologists.</h2>
-                <Link to='/psychologists' className={s.get_link}>Get started<span>
+                <h1 ref={titleRef} className={`${s.title} ${s.hiddenText}`}>The road to the <span>depths</span> of the human soul</h1>
+                <h2 ref={subtitleRef} className={`${s.subtitle} ${s.hiddenText}`}>We help you to reveal your potential, overcome challenges and find a guide in your own life with the help of our experienced psychologists.</h2>
+                <Link ref={linkRef} to='/psychologists' className={`${s.get_link} ${s.hiddenText}`}>Get started<span>
                            <svg width={16} height={16}>
                                <use href={`${svg}#icon-get-arrow`} />
                             </svg>
                     </span>
                 </Link>
             </div>
-            <div className={s.second_wrapper}>
+            <div ref={secondWrapRef} className={`${s.second_wrapper} ${s.hiddenText}`}>
                 <div className={s.img_wrapper}>
                     <picture>
                         <source srcSet='/images/main@3x-mob.png' media="(max-width: 767px)" />

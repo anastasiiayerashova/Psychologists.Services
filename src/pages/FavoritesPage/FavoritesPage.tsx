@@ -8,14 +8,15 @@ import PsychologistsList from '../../components/PsychologistsList/PsychologistsL
 import { useEffect, useState, useMemo } from 'react'
 import { resetFavouritesList, selectFavouritesData, selectUserId } from '../../redux/auth/slice.ts'
 import { getFavouritesPsychologists } from '../../redux/auth/operations.ts'
-import { AppDispatch } from '../../redux/store.ts'
+import { AppDispatch, RootState } from '../../redux/store.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
+import { FilterType } from '../../types/types.ts'
 
 const FavoritesPage = () => {
 
-    const favourites = useSelector(selectFavouritesData)
-    const userId = useSelector(selectUserId)
-    const filters = useSelector(selectFavouritesFilters)
+    const favourites = useSelector<RootState, IPsychologist[]>(selectFavouritesData)
+    const userId = useSelector<RootState, string | null>(selectUserId)
+    const filters = useSelector<RootState, FilterType>(selectFavouritesFilters)
     const dispatch = useDispatch<AppDispatch>()
 
     const [loading, setLoading] = useState<boolean>(false)

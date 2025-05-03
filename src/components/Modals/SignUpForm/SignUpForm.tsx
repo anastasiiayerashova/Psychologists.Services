@@ -120,10 +120,12 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
                     )}
                   </button>
                   </div>
-              {loading ? (<Loader />) : (
+              {loading ? (
+                <Loader />
+              ) : (
                 <button type='submit' className={s.log_btn}>Sign Up</button>
-                        )}
-                </form>
+              )}
+              </form>
             
                 {openSnackbar && (
                     <CustomAlert

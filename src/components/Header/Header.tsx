@@ -26,7 +26,7 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }
         navigate('/')
     }
 
-        useEffect(() => {
+    useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth >= 768) {
                 setShowSwitch(true)
@@ -41,8 +41,8 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
-    return (
-        <>
+return (
+    <>
         <div className={s.container}>
             <div className={s.first_wrapper}>
                 <Link to='/'><p className={s.logo}>psychologists.<span>services</span></p></Link>
@@ -88,9 +88,9 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }
                 </button>
             </div>
         </div>
-            <UniversalMenu isUserMenuOpen={isUserMenuOpen} toggleUserMenu={toggleUserMenu} isNavMenuOpen={isNavMenuOpen} toggleNavMenu={toggleNavMenu} />
-        </>
-    )
+        <UniversalMenu isUserMenuOpen={isUserMenuOpen} toggleUserMenu={toggleUserMenu} isNavMenuOpen={isNavMenuOpen} toggleNavMenu={toggleNavMenu} />
+    </>
+)
 }
 
 export default Header
