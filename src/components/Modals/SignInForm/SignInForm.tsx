@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState, useId, useEffect } from 'react';
+import { useState, useId } from 'react';
 import { svg } from '../../../constants/index.ts';
 import { schema } from '../../../validation/logInSchema.ts';
 import { signInUser } from '../../../redux/auth/operations.ts';
-import CustomAlert from '../../CustomAlert/CustomAlert.tsx';
 import useFirebaseError from '../../../hooks/firebaseErrorsHook.ts';
 import { passwordValidation } from '../../../validation/passwordValidation.ts';
 import PasswordHint from '../../PasswordHint/PasswordHint.tsx';
@@ -16,6 +15,7 @@ import { AppDispatch, RootState } from '../../../redux/store.ts';
 import { SignInFormData } from '../../../types/types.ts';
 import { selectLoading } from '../../../redux/auth/slice.ts';
 import Loader from '../../Loader/Loader.tsx';
+import { useModal } from '../../../utils/ModalContext.ts';
 
 
 const SignInForm = ({ onClose }: SignInFormProps) => {
@@ -28,20 +28,12 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const togglePasswordVisibility = () => setShowPassword(!showPassword)
-    const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
-    const [successMessage, setSuccessMessage] = useState<string>('')
-    const [errorMessage, setErrorMessage] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const loading = useSelector<RootState, boolean>(selectLoading)
+    const {showAlert} = useModal()
   
     const { getErrorMessage } = useFirebaseError()
     const {isPasswordValid, hasMinLength, hasMaxLength, hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar} = passwordValidation(password)
-  
-    useEffect(() => {
-      if (errorMessage) {
-          setOpenSnackbar(true)
-      }
-    }, [errorMessage])
 
     const {
     register,
@@ -58,8 +50,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
   const onSubmit = async (values: SignInFormData) => {
     try {
       await dispatch(signInUser({ values })).unwrap()
-      setSuccessMessage(`Welcome, ${values.email}, you have successfully logged in!`)
-      setOpenSnackbar(true)
+      showAlert('success', `Welcome, ${values.email}, you have successfully logged in!`)
       reset()
       setTimeout(() => {
           onClose()
@@ -68,8 +59,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
     }
     catch (e: unknown) {
       const message = getErrorMessage(e)
-      setErrorMessage(message)
-      setOpenSnackbar(true)
+      showAlert('error', message)
     }
   }
 
@@ -120,18 +110,6 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
             <button type='submit' className={s.log_btn}>Log In</button>
           )}
             </form>
-        
-        {openSnackbar && (
-          <CustomAlert
-              severity={successMessage ? 'success' : 'error'}
-              openSnackbar={openSnackbar}
-              handleSnackbarClose={() => setOpenSnackbar(false)}
-              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              alertSx={{  height: 'auto' }}
-          >
-              {successMessage || errorMessage}
-          </CustomAlert>
-        )}
         </div>
     )
 }
