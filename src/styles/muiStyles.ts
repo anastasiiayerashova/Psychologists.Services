@@ -4,7 +4,11 @@ export const carListSnackbarSx = {
     marginTop: '10px',
     fontSize: '14px',
     justifySelf: 'center',
+    display: 'flex',
+    marginRight: 'auto',
+    marginLeft: 'auto',
     textAlign: 'center',
+    alignSelf: 'center',
     maxWidth: 'fit-content'
 }
 
@@ -17,7 +21,6 @@ export const carListAlertSx = {
     lineHeight: 1.25,
     fontWeight: 400,
     borderRadius: '24px',
-    // backgroundColor: '#FFCDD2',
     color: 'var(--main)',
     border: 'none'
 }

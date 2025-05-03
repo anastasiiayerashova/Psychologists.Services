@@ -29,7 +29,7 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
         const pwdId = useId()
     
         const [showPassword, setShowPassword] = useState<boolean>(false)
-        const togglePasswordVisibility = () => setShowPassword(!showPassword)
+        const togglePasswordVisibility: () => void = () => setShowPassword(!showPassword)
         const [password, setPassword] = useState<string>('')
         const loading = useSelector<RootState, boolean>(selectLoading)
         const { showAlert } = useModal()

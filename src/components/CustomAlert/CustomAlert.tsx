@@ -24,7 +24,6 @@ const CustomAlert = ({children, openSnackbar, handleSnackbarClose, severity = 'w
             <Alert
                 onClose={handleSnackbarClose}
                 severity={severity}
-                // variant="filled"
                 sx={{...carListAlertSx, ...alertSx}}>
                 {children}
             </Alert>
