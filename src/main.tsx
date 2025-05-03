@@ -5,15 +5,15 @@ import App from './components/App.tsx'
 import { Provider } from 'react-redux';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { store } from './redux/store.ts';
-import { HelmetProvider } from 'react-helmet-async';
+import { HeadProvider } from 'react-head';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
       <BrowserRouter>
             <StyledEngineProvider>
-                <HelmetProvider>
+                <HeadProvider>
                     <App />
-                </HelmetProvider>
+                </HeadProvider>
           </StyledEngineProvider>
       </BrowserRouter>
   </Provider>

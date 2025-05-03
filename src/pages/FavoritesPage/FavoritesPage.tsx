@@ -11,7 +11,7 @@ import { getFavouritesPsychologists } from '../../redux/auth/operations.ts'
 import { AppDispatch, RootState } from '../../redux/store.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
 import { FilterType } from '../../types/types.ts'
-import { Helmet } from 'react-helmet-async'
+import { Title, Meta } from 'react-head';
 
 const FavoritesPage = () => {
 
@@ -108,15 +108,15 @@ const FavoritesPage = () => {
     }, 500)
   }
     
-    return (
+return (
+    <>
+      <Title>psychologists.services | your favourite psychologists</Title>
+      <Meta
+          name="description"
+          content="View and manage your favorite psychologists. Apply filters and book appointments directly from your saved list."
+      />
       <section className={s.container}>
-            <Helmet>
-               <title>psychologists.services | your favourite psychologists</title>
-               <meta
-                  name="description"
-                  content="View and manage your favorite psychologists. Apply filters and book appointments directly from your saved list."
-               />
-            </Helmet>
+             
             <h2 className='visually_hidden'>Psychologists You Can Trust</h2>
             <Filters context='favourites'/>
 
@@ -167,7 +167,8 @@ const FavoritesPage = () => {
                     )}
                 </>
             )}
-        </section>
+      </section>
+      </>
     )
 }
 
