@@ -30,6 +30,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
    const isAuth = useSelector<RootState, boolean>(selectIsAuth)
    const userId = useSelector<RootState, string | null>(selectUserId) 
    const aboutRef = useRef<HTMLParagraphElement | null>(null)
+   const aboutRefMob = useRef<HTMLParagraphElement | null>(null)
    
    const handleMakeAppointment = () => {
         openModal('booking', data)
@@ -76,6 +77,18 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
    useEffect(() => {
       gsap.from(aboutRef.current, {
           y: 100,                 
+          autoAlpha: 0,          
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+             trigger: aboutRef.current,
+             start: 'top 90%',
+             toggleActions: 'play none none none',
+          },
+      })
+
+      gsap.from(aboutRefMob.current, {
+          y: 50,                 
           autoAlpha: 0,          
           duration: 0.8,
           ease: 'power3.out',
@@ -138,7 +151,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
 
       <div className={s.card_body_mob}>
          <PsychologistsFeaturesList data={data} />
-         <p ref={aboutRef} className={s.about}>{about}</p>
+         <p ref={aboutRefMob} className={s.about}>{about}</p>
             <AnimatePresence initial={false}>
                {showReviews && (
                  <motion.div
