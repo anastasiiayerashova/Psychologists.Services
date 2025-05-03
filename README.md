@@ -6,25 +6,25 @@
 
 This application offers a catalog of psychologists with the ability to:
 
-• Filter psychologists by popularity, price, and name
+- Filter psychologists by popularity, price, and name
 
-• Add and remove favorites
+- Add and remove favorites
 
-• View detailed information of each psychologist
+- View detailed information of each psychologist
 
-• Book an appointment via an easy-to-use form
+- Book an appointment via an easy-to-use form
 
-• Sign up, sign in, fetch current user info, and sign out
+- Sign up, sign in, fetch current user info, and sign out
 
 ## 🎨 Theme Support
 
 The app includes three color themes to choose from:
 
-🟢 Green
+- 🟢 Green
 
-🔵 Blue
+- 🔵 Blue
 
-🟠 Orange
+- 🟠 Orange
 
 The selected theme is persisted between sessions for authorized users, so when they log in again, their preferred style is automatically applied.
 
