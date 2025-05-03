@@ -16,6 +16,7 @@ import { SignInFormData } from '../../../types/types.ts';
 import { selectLoading } from '../../../redux/auth/slice.ts';
 import Loader from '../../Loader/Loader.tsx';
 import { useModal } from '../../../utils/ModalContext.ts';
+import Confetti from '../../Confetti/Confetti.tsx';
 
 
 const SignInForm = ({ onClose }: SignInFormProps) => {
@@ -30,7 +31,8 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
     const togglePasswordVisibility = () => setShowPassword(!showPassword)
     const [password, setPassword] = useState<string>('')
     const loading = useSelector<RootState, boolean>(selectLoading)
-    const {showAlert} = useModal()
+    const { showAlert } = useModal()
+    const [isVisible, setIsVisible] = useState<boolean>(false)
   
     const { getErrorMessage } = useFirebaseError()
     const {isPasswordValid, hasMinLength, hasMaxLength, hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar} = passwordValidation(password)
@@ -51,6 +53,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
     try {
       await dispatch(signInUser({ values })).unwrap()
       showAlert('success', `Welcome, ${values.email}, you have successfully logged in!`)
+      setIsVisible(true)
       reset()
       setTimeout(() => {
           onClose()
@@ -64,7 +67,8 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
   }
 
     return (
-        <div className={s.container}>
+      <div className={s.container}>
+        {isVisible && <Confetti />}
             <div className={s.title_wrap}>
                 <p className={s.title}>Log In</p>
                 <p className={s.subtitle}>Welcome back! Please enter your credentials to access your account and continue your search for a psychologist.</p>
@@ -110,7 +114,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
             <button type='submit' className={s.log_btn}>Log In</button>
           )}
             </form>
-        </div>
+      </div>
     )
 }
 

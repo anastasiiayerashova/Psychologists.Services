@@ -16,6 +16,7 @@ import { SignUpFormData } from '../../../types/types.ts';
 import { selectLoading } from '../../../redux/auth/slice.ts';
 import Loader from '../../Loader/Loader.tsx';
 import { useModal } from '../../../utils/ModalContext.ts';
+import Confetti from '../../Confetti/Confetti.tsx';
 
 
 const SignUpForm = ({ onClose }: SignUpFormProps) => {
@@ -31,7 +32,8 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
         const togglePasswordVisibility = () => setShowPassword(!showPassword)
         const [password, setPassword] = useState<string>('')
         const loading = useSelector<RootState, boolean>(selectLoading)
-        const {showAlert} = useModal()
+        const { showAlert } = useModal()
+        const [isVisible, setIsVisible] = useState<boolean>(false)
 
         const { getErrorMessage } = useFirebaseError()
         const {isPasswordValid, hasMinLength, hasMaxLength, hasLowerCase, hasUpperCase, hasDigit, hasSpecialChar} = passwordValidation(password)
@@ -52,6 +54,7 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
         try {
            await dispatch(signUpUser({ values })).unwrap()
            showAlert('success', `Welcome, ${values.name}, you have successfully signed up!`)
+           setIsVisible(true)
            reset()
            setTimeout(() => {
               onClose()
@@ -65,7 +68,8 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
       }
     
         return (
-            <div className={s.container}>
+          <div className={s.container}>
+            {isVisible && <Confetti />}
                 <div className={s.title_wrap}>
                     <p className={s.title}>Registration</p>
                     <p className={s.subtitle}>Thank you for your interest in our platform! In order to register, we need some information. Please provide us with the following information.</p>

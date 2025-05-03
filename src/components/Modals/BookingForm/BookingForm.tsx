@@ -7,9 +7,10 @@ import { schema } from '../../../validation/bookingSchema.ts';
 import { svg } from '../../../constants/index.ts';
 import TimePicker from '../../TimePicker/TimePicker.tsx';
 import { useClickOutside } from '../../../hooks/useClickOutsideHook.ts';
-import CustomAlert from '../../CustomAlert/CustomAlert.tsx';
 import { BookingFormProps } from '../../../types/PropsTypes.ts';
 import { BookingFormData } from '../../../types/types.ts';
+import { useModal } from '../../../utils/ModalContext.ts';
+import Confetti from '../../Confetti/Confetti.tsx';
 
 
 const BookingForm = ({ data, onClose }: BookingFormProps) => {
@@ -40,6 +41,9 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
       const [isOpen, setIsOpen] = useState<boolean>(false);
       const [selectedHour, setSelectedHour] = useState<string>('00')
       const [selectedMinute, setSelectedMinute] = useState<string>('00')
+      const [bookedName, setBookedName] = useState<string>('')
+      const [isVisible, setIsVisible] = useState<boolean>(false)
+      const {showAlert} = useModal()
     
       const onChange = (time: string) => {
         console.log("Selected time: ", time)
@@ -55,14 +59,10 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
     
     useClickOutside(dropdownRef, () => setIsOpen(false))
 
-    const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
-    const [bookedDate, setBookedDate] = useState<string>('')
-    const [bookedName, setBookedName] = useState<string>('')
-
     const onSubmit = (values: BookingFormData) => {
-        setOpenSnackbar(true)
         setBookedName(values.name)
-        setBookedDate(values.date)
+        showAlert('success', `Thank you ${bookedName}! Your meeting with ${name} is scheduled for ${values.date} !`)
+        setIsVisible(true)
         reset()
         setSelectedHour('00')
         setSelectedMinute('00')
@@ -74,6 +74,7 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
     
     return (
         <div className={s.container}>
+            {isVisible && <Confetti />}
             <div className={s.title_wrap}>
                 <p className={s.title}>Make an appointment with a psychologists</p>
                 <p className={s.subtitle}>You are on the verge of changing your life for the better. Fill out the short form below to book your personal appointment with a professional psychologist. We guarantee confidentiality and respect for your privacy.</p>
@@ -145,15 +146,6 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
                 </div>
                 <button type='submit' className={s.send_btn}>Send</button>
             </form>
-            <CustomAlert
-                openSnackbar={openSnackbar}
-                severity='success'
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                handleSnackbarClose={() => setOpenSnackbar(false)}
-                alertSx={{ height: 'auto', textAlign: 'left' }}
-            >
-                {`Thank you ${bookedName}! Your meeting with ${name} is scheduled for ${bookedDate} !`}
-            </CustomAlert>
         </div>    
     )
  }
