@@ -36,7 +36,7 @@ const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => 
                    opacity: 0,
                    duration: 0.4,
                    ease: 'power2.out',
-                   stagger: 0.01,
+                //    stagger: 0.01,
                    scrollTrigger: {
                      trigger: triggerRef.current, 
                      start: 'top 90%', 
