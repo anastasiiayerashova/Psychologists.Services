@@ -49,7 +49,7 @@ const PsychologistsPage = () => {
         setOpenSnackbar(false)
         dispatch(getPsychologists({ filters, lastVisibleDoc }))
     }
-    
+
 
     const [prevListLength, setPrevListLength] = useState<number>(0)
 

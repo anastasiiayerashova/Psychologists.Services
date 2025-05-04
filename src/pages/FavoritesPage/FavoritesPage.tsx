@@ -23,21 +23,28 @@ const FavoritesPage = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
     const [visibleCount, setVisibleCount] = useState<number>(3)
-    const [allLoaded, setAllLoaded] = useState<boolean>(false)
     const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [suppressAlerts, setSuppressAlerts] = useState<boolean>(false)
    
   
     useEffect(() => {
-      if (userId) {
+      const fetchFavourites = async () => {
+        try {
+          if (userId) {
             dispatch(resetFavouritesList())
             setLoading(true)
-            dispatch(getFavouritesPsychologists(userId))
-                .unwrap()
-                .finally(() => {
-                setLoading(false)
-            })
+            await dispatch(getFavouritesPsychologists(userId)).unwrap()
+          }
         }
+        catch (e) {
+          console.log('Error during fetching favourites:', e)
+        }
+        finally {
+          setLoading(false)
+        }
+      }
+      fetchFavourites()
     }, [dispatch, userId])
 
 
@@ -68,44 +75,48 @@ const FavoritesPage = () => {
       })
     }
 
-    if (list.length === 0 && favourites.length > 0) {
-      setOpenSnackbar(true)
-    }
-    else {
-      setOpenSnackbar(false)
-    }
-
     return list
     }, [favourites, filters])
     
 
     useEffect(() => {
       setVisibleCount(3)
-      setAllLoaded(false)
       setOpenSnackbarNotFound(false)
+      setSuppressAlerts(true)
+      const timeout = setTimeout(() => {
+         setSuppressAlerts(false)
+  }, 100)
+
+  return () => clearTimeout(timeout)
     }, [filters])
+  
+  
+  useEffect(() => {
+      if (!suppressAlerts && !loading && visibleCount >= filteredList.length && filteredList.length > 0) {
+         setOpenSnackbarNotFound(true)
+      }
+  }, [suppressAlerts, loading, visibleCount, filteredList.length])
 
     
-    useEffect(() => {
-    if (visibleCount >= filteredList.length && filteredList.length !== 0) {
-      setAllLoaded(true)
-    }
-    }, [visibleCount, filteredList])
+  useEffect(() => {
+      const hasFilters = Object.keys(filters).length > 0
+      const hasFavourites = favourites.length > 0
+      const noMatches = filteredList.length === 0
 
-    
-    useEffect(() => {
-    if (allLoaded && filteredList.length >= visibleCount && !loading) {
-      setOpenSnackbarNotFound(true)
-    }
-      }, [allLoaded, filteredList.length, loading, visibleCount])
+      if (!suppressAlerts && !loading && hasFilters && hasFavourites && noMatches) {
+         setOpenSnackbar(true)
+      } else {
+         setOpenSnackbar(false)
+      }
+  }, [filters, favourites.length, filteredList.length, loading, suppressAlerts])
     
 
   const handleLoadMore = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setVisibleCount(prev => Math.min(prev + 3, filteredList.length))
-      setIsLoading(false)
-    }, 500)
+      setIsLoading(true)
+      setTimeout(() => {
+          setVisibleCount(prev => Math.min(prev + 3, filteredList.length))
+          setIsLoading(false)
+      }, 500)
   }
     
 return (
