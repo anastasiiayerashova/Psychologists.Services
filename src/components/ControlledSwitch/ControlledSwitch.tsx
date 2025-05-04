@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectUserId } from '../../redux/auth/slice.ts';
 import { db } from '../../config/firebase.ts';
 import { ThemeOption } from '../../types/types.ts';
+import { RootState } from '../../redux/store.ts';
 
 
 const themeOptions: ThemeOption[] = [
@@ -31,7 +32,8 @@ const [selectedTheme, setSelectedTheme] = useState<string>(() => {
     return localStorage.getItem('theme') || 'green'
   })
 
-const userId = useSelector(selectUserId)
+  
+const userId = useSelector<RootState, string | null>(selectUserId)
 
 
 const handleChange = async (value: string) => {

@@ -49,7 +49,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
     reValidateMode: 'onChange',
   })
 
-  const onSubmit = async (values: SignInFormData) => {
+  const onSubmit = async (values: SignInFormData): Promise<void> => {
     try {
       await dispatch(signInUser({ values })).unwrap()
       showAlert('success', `Welcome, ${values.email}, you have successfully logged in!`)

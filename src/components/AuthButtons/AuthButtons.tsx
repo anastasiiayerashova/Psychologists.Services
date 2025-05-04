@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { useClickOutside } from '../../hooks/useClickOutsideHook.ts'
 import { AuthButtonsProps } from '../../types/PropsTypes.ts'
+import { RootState } from '../../redux/store.ts'
 
 
 const AuthButtons = ({ handleLogout }: AuthButtonsProps) => {
@@ -14,10 +15,10 @@ const AuthButtons = ({ handleLogout }: AuthButtonsProps) => {
     const [pickerOpen, setPickerOpen] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement | null>(null)
 
-    const isAuth = useSelector(selectIsAuth)
+    const isAuth = useSelector<RootState, boolean>(selectIsAuth)
     useClickOutside(dropdownRef, () => setPickerOpen(false))
 
-    const onLogoutClick = () => {
+    const onLogoutClick = (): void => {
         handleLogout?.()
         showAlert?.('success', 'You have logged out!')
         setTimeout(() => {

@@ -61,11 +61,16 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
         }
     }, [isNavMenuOpen])
 
-    const handleLogout = async () => {
-        await dispatch(signOutUser())
-        dispatch(resetFilters())
-        setIsUserMenuOpen?.(false)
-        navigate('/')
+    const handleLogout = async (): Promise<void> => {
+        try {
+            await dispatch(signOutUser()).unwrap()
+            dispatch(resetFilters())
+            setIsUserMenuOpen?.(false)
+            navigate('/')
+        }
+        catch (e) {
+            console.log('Error during logout:', e)
+        }
     }
 
     return (

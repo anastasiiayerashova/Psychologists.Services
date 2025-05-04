@@ -50,7 +50,7 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
         reValidateMode: 'onChange',
       })
   
-      const onSubmit = async (values: SignUpFormData) => {
+      const onSubmit = async (values: SignUpFormData): Promise<void> => {
         try {
            await dispatch(signUpUser({ values })).unwrap()
            showAlert('success', `Welcome, ${values.name}, you have successfully signed up!`)

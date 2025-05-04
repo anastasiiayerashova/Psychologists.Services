@@ -45,11 +45,11 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
       const [isVisible, setIsVisible] = useState<boolean>(false)
       const {showAlert} = useModal()
     
-      const onChange = (time: string) => {
+      const onChange = (time: string): void => {
         console.log("Selected time: ", time)
     }
 
-      const handleSelect = (hour: string, minute: string) => {
+      const handleSelect = (hour: string, minute: string): void => {
         setSelectedHour(hour)
         setSelectedMinute(minute)
         onChange(`${hour}:${minute}`)
@@ -59,7 +59,7 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
     
     useClickOutside(dropdownRef, () => setIsOpen(false))
 
-    const onSubmit = (values: BookingFormData) => {
+    const onSubmit = (values: BookingFormData): void => {
         setBookedName(values.name)
         showAlert('success', `Thank you ${bookedName}! Your meeting with ${name} is scheduled for ${values.date} !`)
         setIsVisible(true)

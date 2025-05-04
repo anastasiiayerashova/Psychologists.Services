@@ -21,13 +21,18 @@ const Header = ({ toggleUserMenu, toggleNavMenu, isUserMenuOpen, isNavMenuOpen }
     const navigate = useNavigate()
     const [showSwitch, setShowSwitch] = useState<boolean>(false)
 
-    const handleLogout = async () => {
-        await dispatch(signOutUser())
-        navigate('/')
+    const handleLogout = async (): Promise<void> => {
+        try {
+            await dispatch(signOutUser()).unwrap()
+            navigate('/')
+        }
+        catch (e) {
+            console.log('Error during logout:', e)
+        }
     }
 
     useEffect(() => {
-        const handleResize = () => {
+        const handleResize = (): void => {
             if (window.innerWidth >= 768) {
                 setShowSwitch(true)
             } else {

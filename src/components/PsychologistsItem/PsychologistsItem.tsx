@@ -32,7 +32,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
    const aboutRef = useRef<HTMLParagraphElement | null>(null)
    const aboutRefMob = useRef<HTMLParagraphElement | null>(null)
    
-   const handleMakeAppointment = () => {
+   const handleMakeAppointment = (): void => {
         openModal('booking', data)
    }
    
@@ -41,7 +41,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
    const favourites = useSelector<RootState, IPsychologist[]>(selectFavouritesData)
    const isFavourite = favourites.some(favourite => favourite.id === id)
 
-   const handleToggleFavourite = () => {
+   const handleToggleFavourite = (): void => {
       if (!isAuth) {
          showAlert('error', 'You must be logged in to add to favorites')
          return

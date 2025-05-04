@@ -20,16 +20,16 @@ const Filters = ({ context }: FiltersProps) => {
 
     useEffect(() => {
          gsap.fromTo(
-      textRef.current,
-      { opacity: 0, y: -40 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.2, ease: 'power2.out' }
+            textRef.current,
+            { opacity: 0, y: -40 },
+            { opacity: 1, y: 0, duration: 1, delay: 0.2, ease: 'power2.out' }
         )
         
          gsap.fromTo(
-      filterRef.current,
-      { opacity: 0, y: -30 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power2.out' }
-    )
+            filterRef.current,
+            { opacity: 0, y: -30 },
+            { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power2.out' }
+        )
     }, [context])
 
     const isObjectsEqual = (obj1: FilterType | undefined, obj2: FilterType | undefined): boolean => {
@@ -59,7 +59,7 @@ const Filters = ({ context }: FiltersProps) => {
 
     const dispatch = useDispatch()
 
-    const handleChangeFilters = (filterName: FilterName) => {
+    const handleChangeFilters = (filterName: FilterName): void => {
         if (context === 'psychologist') {
             dispatch(setFilters(filters[filterName]))
             setIsDropdownOpen(false)

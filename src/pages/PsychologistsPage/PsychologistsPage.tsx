@@ -12,7 +12,6 @@ import { AppDispatch, RootState } from '../../redux/store.ts'
 import { FilterType } from '../../types/types.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
 import { Title, Meta } from 'react-head';
-// import gsap from 'gsap'
 
 const PsychologistsPage = () => {
 
@@ -23,43 +22,51 @@ const PsychologistsPage = () => {
     const hasMore = useSelector<RootState, boolean>(selectHasMore)
     const loading = useSelector<RootState, boolean>(selectLoading)
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
+    const [suppressAlerts, setSuppressAlerts] = useState<boolean>(false)
     const [openSnackbar, setOpenSnackbar] = useState<boolean>(false)
     const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState<boolean>(false)
-    // const listRef = useRef<HTMLDivElement>(null)
-
-    // const [isPending, startTransition] = useTransition()
 
     useEffect(() => {
-         dispatch(resetList())
-         dispatch(getPsychologists({ filters })).finally(() => {
-            setIsFirstLoad(false)
-        })
+        const fetchPsychologists = async () => {
+            try {
+                setSuppressAlerts(true)
+                dispatch(resetList())
+                await dispatch(getPsychologists({ filters })).unwrap()
+            }
+            catch (e: unknown) {
+                console.log('Error during fetching psychologists:', e)
+            }
+            finally {
+                setIsFirstLoad(false)
+                setSuppressAlerts(false)
+            }
+        }
+        fetchPsychologists()
     }, [filters, dispatch])
 
-    // useEffect(() => {
-    //     if (!loading && list.length > 0 && listRef.current) {
-    //         gsap.fromTo(
-    //            listRef.current,
-    //            { opacity: 0, y: 40 },
-    //            { opacity: isPending ? 0.5 : 1, y: 0, duration: 1.5, delay: 0.4, ease: 'power4.out' }
-    //         )
-    //     }
-    // }, [list, loading, isPending])
 
     const handleLoadMore = () => {
         setOpenSnackbar(false)
         dispatch(getPsychologists({ filters, lastVisibleDoc }))
     }
+    
+
+    const [prevListLength, setPrevListLength] = useState<number>(0)
+
 
     useEffect(() => {
-        if (!loading && !hasMore && list.length > 0) {
+        const loadedMore = list.length > prevListLength
+
+        if (!suppressAlerts && !loading && !hasMore && loadedMore ) {
            setOpenSnackbar(true)
         }
 
-        if (list.length === 0 && !loading && Object.keys(filters).length > 0) {
+        if (!suppressAlerts && list.length === 0 && !loading && Object.keys(filters).length > 0) {
             setOpenSnackbarNotFound(true)
         }
-    }, [hasMore, loading, list, filters])
+        setPrevListLength(list.length)
+    }, [suppressAlerts, hasMore, loading, list, filters, prevListLength])
+
 
     useEffect(() => {
          if (list.length > 0 && openSnackbarNotFound) {

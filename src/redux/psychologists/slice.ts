@@ -23,6 +23,7 @@ const slice = createSlice({
     reducers: {
         resetList: (state) => {
             state.list = []
+            state.hasMore = true
         }
     },
     extraReducers: (builder) => {
