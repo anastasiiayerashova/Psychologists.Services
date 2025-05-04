@@ -104,7 +104,8 @@ return (
    <motion.li
       className={s.card}
       layout   
-      initial={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
       transition={{ duration: 0.3 }}>
       
@@ -136,7 +137,7 @@ return (
               <div className={s.card_body_desc}>
                  <PsychologistsFeaturesList data={data} />
                  <p ref={aboutRef} className={s.about}>{about}</p>
-                     <AnimatePresence initial={false}>
+                 <AnimatePresence initial={false}>
                         {showReviews && (
                           <motion.div
                              initial="hidden"
@@ -147,7 +148,7 @@ return (
                               <Reviews data={data}/>
                           </motion.div>
                         )}
-                     </AnimatePresence>
+                 </AnimatePresence>
                  <motion.button
                     type='button'
                     whileTap={{ scale: 1.2 }}

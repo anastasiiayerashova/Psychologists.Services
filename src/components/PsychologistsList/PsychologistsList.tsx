@@ -14,7 +14,7 @@ const PsychologistsList = ({ list }: PsychologistsListProps) => {
     
     return (
         <ul className={s.list}>
-            <AnimatePresence>
+            <AnimatePresence mode='wait'>
                 {list.map((item) => (
                     <PsychologistsItem key={item.id} data={item} />
                 ))}
