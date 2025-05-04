@@ -78,7 +78,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
       gsap.from(aboutRef.current, {
           y: 100,                 
           autoAlpha: 0,          
-          duration: 0.8,
+          duration: 0.9,
           ease: 'power3.out',
           scrollTrigger: {
              trigger: aboutRef.current,
@@ -90,7 +90,7 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
       gsap.from(aboutRefMob.current, {
           y: 50,                 
           autoAlpha: 0,          
-          duration: 0.8,
+          duration: 0.9,
           ease: 'power3.out',
           scrollTrigger: {
              trigger: aboutRef.current,

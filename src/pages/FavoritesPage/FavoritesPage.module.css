@@ -37,6 +37,8 @@
   display: inline;
   display: flex;
   justify-self: center;
+  align-self: center;
+  margin: 0 auto;
 }
 
 .load_wrap_btn {
