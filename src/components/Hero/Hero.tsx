@@ -52,6 +52,23 @@ const Hero = () => {
             delay: 0.8, 
         })
             
+        const linkEl = linkRef.current
+           const handleClick = () => {
+              gsap.fromTo(
+                 linkEl,
+                 { scale: 1 },
+                 {
+                 scale: 1.15,
+                 duration: 0.2,
+                 ease: 'power2.out',
+                 yoyo: true,
+                 repeat: 1,
+                }
+              )
+            }
+
+        linkEl?.addEventListener('click', handleClick)
+            
         gsap.from(secondWrapRef.current, {
             opacity: 0,
             y: 50,
@@ -64,6 +81,7 @@ const Hero = () => {
          return () => {
             splitTitle.revert()
             splitSubtitle.revert()
+            linkEl?.removeEventListener('click', handleClick)
         }    
         }
         if (document.fonts && document.fonts.ready) {

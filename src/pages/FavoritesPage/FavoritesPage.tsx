@@ -11,7 +11,8 @@ import { getFavouritesPsychologists } from '../../redux/auth/operations.ts'
 import { AppDispatch, RootState } from '../../redux/store.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
 import { FilterType } from '../../types/types.ts'
-import { Title, Meta } from 'react-head';
+import { Title, Meta } from 'react-head'
+import { motion } from 'framer-motion'
 
 const FavoritesPage = () => {
 
@@ -145,9 +146,14 @@ return (
                                 <Loader />
                             </div>
                         ) : (
-                                <button type="button" className={s.load_btn} onClick={handleLoadMore}>
+                            <motion.button
+                                type="button"
+                                className={s.load_btn}
+                                whileTap={{ scale: 1.3 }}
+                                transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                                onClick={handleLoadMore}>
                                     Load more
-                                </button>
+                            </motion.button>
                             )
                         ) 
                     }
@@ -159,17 +165,17 @@ return (
                         alertSx={{ backgroundColor: '#fff4e5', height: 'auto' }}
                     >
                         No favorites found for the selected filters
-                        </CustomAlert>
+                    </CustomAlert>
                         
-                        <CustomAlert
-                                    severity="info"
-                                    openSnackbar={openSnackbarNotFound}
-                                    handleSnackbarClose={() => {setOpenSnackbarNotFound(false)}}
-                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                                    alertSx={{ height: 'auto' }}
-                                >
-                                    All psychologists loaded
-                                </CustomAlert>
+                    <CustomAlert
+                        severity="info"
+                        openSnackbar={openSnackbarNotFound}
+                        handleSnackbarClose={() => {setOpenSnackbarNotFound(false)}}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                        alertSx={{ height: 'auto' }}
+                    >
+                        All psychologists loaded
+                    </CustomAlert>
                         
                     {filteredList.length === 0 && !openSnackbar && favourites.length === 0 && (
                         <div className={s.text_wrap}>

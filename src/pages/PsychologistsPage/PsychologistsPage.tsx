@@ -12,6 +12,7 @@ import { AppDispatch, RootState } from '../../redux/store.ts'
 import { FilterType } from '../../types/types.ts'
 import { IPsychologist } from '../../types/IPsychologist.ts'
 import { Title, Meta } from 'react-head';
+import { motion } from 'framer-motion'
 
 const PsychologistsPage = () => {
 
@@ -101,9 +102,14 @@ return (
                                     <Loader />
                                 </div>
                             ) : (
-                                <button type="button" className={s.load_btn} onClick={handleLoadMore}>
-                                     Load more
-                                </button>
+                                <motion.button
+                                    type="button"
+                                    whileTap={{ scale: 1.3 }}
+                                    transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                                    className={s.load_btn}
+                                    onClick={handleLoadMore}>
+                                       Load more
+                                </motion.button>
                             )
                         ) : null}
                         

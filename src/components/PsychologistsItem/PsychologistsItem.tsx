@@ -100,8 +100,14 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
       })
    }, [])
   
-  return (
-    <li className={s.card}>
+return (
+   <motion.li
+      className={s.card}
+      layout   
+      initial={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.3 } }}
+      transition={{ duration: 0.3 }}>
+      
       <div className={s.card_header}>
         <FavouriteButton isFavourite={isFavourite} onClick={handleToggleFavourite}/>
         <PsychologistAvatar data={data} />
@@ -133,18 +139,23 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
                      <AnimatePresence initial={false}>
                         {showReviews && (
                           <motion.div
-                          initial="hidden"
-                          animate="visible"
-                          exit="exit"
-                          variants={reviewsVariants}
-                          >
-                             <Reviews data={data}/>
+                             initial="hidden"
+                             animate="visible"
+                             exit="exit"
+                             variants={reviewsVariants}
+                           >
+                              <Reviews data={data}/>
                           </motion.div>
                         )}
                      </AnimatePresence>
-                 <button type='button' onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)} className={showReviews ? s.make : s.read}>
-                     {showReviews ? 'Make an appointment' : 'Read more'}
-                 </button>
+                 <motion.button
+                    type='button'
+                    whileTap={{ scale: 1.2 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+                    onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)}
+                    className={showReviews ? s.make : s.read}>
+                       {showReviews ? 'Make an appointment' : 'Read more'}
+                 </motion.button>
               </div>
           </div>
       </div>
@@ -155,20 +166,25 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
             <AnimatePresence initial={false}>
                {showReviews && (
                  <motion.div
-                 initial="hidden"
-                 animate="visible"
-                 exit="exit"
-                 variants={reviewsVariants}
-                 >
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    variants={reviewsVariants}
+                  >
                     <Reviews data={data}/>
                  </motion.div>
                )}
             </AnimatePresence>
-         <button type='button' onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)} className={showReviews ? s.make : s.read}>
-              {showReviews ? 'Make an appointment' : 'Read more'}
-          </button>
+         <motion.button
+            type='button'
+            whileTap={{ scale: 1.2 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+            onClick={showReviews ? handleMakeAppointment : () => setShowReviews(true)}
+            className={showReviews ? s.make : s.read}>
+               {showReviews ? 'Make an appointment' : 'Read more'}
+          </motion.button>
       </div>
-    </li>
+   </motion.li>
   )
 }
 
