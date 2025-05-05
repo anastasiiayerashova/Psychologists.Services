@@ -126,7 +126,7 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
                             onClick={() => setIsOpen(!isOpen)}
                             readOnly/>
                         <button type='button' className={s.icon_btn} onClick={() => setIsOpen(!isOpen)}>
-                            <svg width="20" height="20" fill='none' stroke='black'>
+                            <svg width="16" height="16" fill='none' stroke='black' className={s.clock_icon}>
                                <use href={`${svg}#icon-clock`} />
                             </svg>
                         </button>
