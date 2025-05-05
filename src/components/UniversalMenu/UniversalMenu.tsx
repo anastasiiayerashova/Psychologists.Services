@@ -68,7 +68,7 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
             setIsUserMenuOpen?.(false)
             navigate('/')
         }
-        catch (e) {
+        catch (e: unknown) {
             console.log('Error during logout:', e)
         }
     }

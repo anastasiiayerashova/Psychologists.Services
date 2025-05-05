@@ -26,17 +26,10 @@ const PsychologistsFeaturesList = ({ data }: PsychologistsFeaturesListProps) => 
 
            const animate = (split: SplitText, triggerRef: React.RefObject<HTMLParagraphElement | null>) => {
                gsap.from(split.chars, {
-                // y: 100,
-                // opacity: 0,
-                // autoAlpha: 0,
-                // duration: 0.03,
-                // ease: 'power4.out',
-                // stagger: { each: 0.05 },
                    x: 50,
                    opacity: 0,
                    duration: 0.4,
                    ease: 'power2.out',
-                //    stagger: 0.01,
                    scrollTrigger: {
                      trigger: triggerRef.current, 
                      start: 'top 90%', 

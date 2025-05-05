@@ -58,8 +58,8 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
             .then(() => {
                showAlert('success', `Psychologist ${name} removed from favourites`)
             })
-            .catch((e) => {
-            console.log(e.message)
+            .catch((e: unknown) => {
+            console.log('Error during remove favourites:', e)
          })
       }
       else {
@@ -68,8 +68,8 @@ const PsychologistsItem = ({ data }: PsychologistItemProps) => {
             .then(() => {
                showAlert('success', `Psychologist ${name} added to favourites`)
             })
-            .catch((e) => {
-            console.log(e.message)
+            .catch((e: unknown) => {
+            console.log('Error during add favourites:', e)
          })
       }
    }

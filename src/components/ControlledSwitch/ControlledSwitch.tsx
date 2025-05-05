@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { CustomSwitcher } from "react-custom-switcher"
-import { doc, updateDoc } from "firebase/firestore";
-import { useSelector } from 'react-redux';
-import { selectUserId } from '../../redux/auth/slice.ts';
-import { db } from '../../config/firebase.ts';
-import { ThemeOption } from '../../types/types.ts';
-import { RootState } from '../../redux/store.ts';
+import { doc, updateDoc } from "firebase/firestore"
+import { useSelector } from 'react-redux'
+import { selectUserId } from '../../redux/auth/slice.ts'
+import { db } from '../../config/firebase.ts'
+import { ThemeOption } from '../../types/types.ts'
+import { RootState } from '../../redux/store.ts'
 
 
 const themeOptions: ThemeOption[] = [

@@ -28,7 +28,7 @@ const PsychologistsPage = () => {
     const [openSnackbarNotFound, setOpenSnackbarNotFound] = useState<boolean>(false)
 
     useEffect(() => {
-        const fetchPsychologists = async () => {
+        const fetchPsychologists = async (): Promise<void> => {
             try {
                 setSuppressAlerts(true)
                 dispatch(resetList())

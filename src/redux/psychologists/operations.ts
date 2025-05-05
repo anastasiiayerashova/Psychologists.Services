@@ -9,7 +9,6 @@ const psychologistsCollectionRef = collection(db, 'psychologists-services')
 export const getPsychologists = createAsyncThunk<GetPsychologistResponse, GetPsychologistsArgs, {rejectValue: string}>(
     'psychologists/getAll',
     async ({ filters = {}, lastVisibleDoc = null }, thunkAPI) => {
-        console.log("Filters in getPsychologists:", filters)
         
         const { limit: limitValue = 3, sortBy = 'name', direction = 'asc', priceGreater, priceLess } = filters
         

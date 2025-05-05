@@ -14,8 +14,8 @@ const AuthButtons = ({ handleLogout }: AuthButtonsProps) => {
     const { openModal, showAlert } = useModal()
     const [pickerOpen, setPickerOpen] = useState<boolean>(false)
     const dropdownRef = useRef<HTMLDivElement | null>(null)
-
     const isAuth = useSelector<RootState, boolean>(selectIsAuth)
+    
     useClickOutside(dropdownRef, () => setPickerOpen(false))
 
     const onLogoutClick = (): void => {

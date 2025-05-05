@@ -1,4 +1,4 @@
-import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks"
 
 const Confetti = () => {
   return (
@@ -14,8 +14,8 @@ const Confetti = () => {
         zIndex: 9999,
       }}
     />
-  );
-};
+  )
+}
 
 export default Confetti
 

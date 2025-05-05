@@ -1,10 +1,10 @@
 import s from './FavouriteButton.module.css'
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useSelector } from 'react-redux';
-import { selectIsAuth } from '../../redux/auth/slice.ts';
-import { FavouriteButtonProps } from '../../types/PropsTypes.ts';
-import { RootState } from '../../redux/store.ts';
-import { motion } from 'framer-motion';
+import { FaHeart, FaRegHeart } from "react-icons/fa"
+import { useSelector } from 'react-redux'
+import { selectIsAuth } from '../../redux/auth/slice.ts'
+import { FavouriteButtonProps } from '../../types/PropsTypes.ts'
+import { RootState } from '../../redux/store.ts'
+import { motion } from 'framer-motion'
 
 
 const FavouriteButton = ({ isFavourite, onClick }: FavouriteButtonProps) => {

@@ -30,7 +30,7 @@ const FavoritesPage = () => {
    
   
     useEffect(() => {
-      const fetchFavourites = async () => {
+      const fetchFavourites = async (): Promise<void> => {
         try {
           if (userId) {
             dispatch(resetFavouritesList())
@@ -38,7 +38,7 @@ const FavoritesPage = () => {
             await dispatch(getFavouritesPsychologists(userId)).unwrap()
           }
         }
-        catch (e) {
+        catch (e: unknown) {
           console.log('Error during fetching favourites:', e)
         }
         finally {
@@ -92,11 +92,11 @@ const FavoritesPage = () => {
     }, [filters])
   
   
-  useEffect(() => {
-      if (!suppressAlerts && !loading && visibleCount >= filteredList.length && filteredList.length > 0) {
-         setOpenSnackbarNotFound(true)
-      }
-  }, [suppressAlerts, loading, visibleCount, filteredList.length])
+  // useEffect(() => {
+  //     if (!suppressAlerts && !loading && visibleCount >= filteredList.length && filteredList.length > 0) {
+  //        setOpenSnackbarNotFound(true)
+  //     }
+  // }, [suppressAlerts, loading, visibleCount, filteredList.length])
 
     
   useEffect(() => {
@@ -115,7 +115,13 @@ const FavoritesPage = () => {
   const handleLoadMore = () => {
       setIsLoading(true)
       setTimeout(() => {
-          setVisibleCount(prev => Math.min(prev + 3, filteredList.length))
+        setVisibleCount(prev => {
+          const newCount = Math.min(prev + 3, filteredList.length)
+          if (newCount >= filteredList.length) {
+            setOpenSnackbarNotFound(true)
+          }
+          return newCount
+          })
           setIsLoading(false)
       }, 500)
   }

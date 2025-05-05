@@ -1,15 +1,15 @@
 import s from './Filters.module.css'
-import { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setFavouritesFilter, setFilters } from '../../redux/filters/slice.ts';
-import { useClickOutside } from '../../hooks/useClickOutsideHook.ts';
-import { filters, svg } from '../../constants/index.ts';
-import { selectFilters } from '../../redux/filters/selectors.ts';
-import { motion } from 'framer-motion';
-import { FilterType, FilterName } from '../../types/types.ts';
-import { selectFavouritesFilters } from '../../redux/filters/selectors.ts';
-import { RootState } from '../../redux/store.ts';
-import { FiltersProps } from '../../types/PropsTypes.ts';
+import { useState, useRef, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setFavouritesFilter, setFilters } from '../../redux/filters/slice.ts'
+import { useClickOutside } from '../../hooks/useClickOutsideHook.ts'
+import { filters, svg } from '../../constants/index.ts'
+import { selectFilters } from '../../redux/filters/selectors.ts'
+import { motion } from 'framer-motion'
+import { FilterType, FilterName } from '../../types/types.ts'
+import { selectFavouritesFilters } from '../../redux/filters/selectors.ts'
+import { RootState } from '../../redux/store.ts'
+import { FiltersProps } from '../../types/PropsTypes.ts'
 import gsap from 'gsap'
 
 
@@ -31,6 +31,7 @@ const Filters = ({ context }: FiltersProps) => {
             { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: 'power2.out' }
         )
     }, [context])
+
 
     const isObjectsEqual = (obj1: FilterType | undefined, obj2: FilterType | undefined): boolean => {
        if (!obj1 || !obj2) return false

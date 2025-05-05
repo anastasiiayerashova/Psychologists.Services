@@ -41,12 +41,13 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
       const [isOpen, setIsOpen] = useState<boolean>(false);
       const [selectedHour, setSelectedHour] = useState<string>('00')
       const [selectedMinute, setSelectedMinute] = useState<string>('00')
+      const [selectedTime, setSelectedTime] = useState<string>('')
       const [bookedName, setBookedName] = useState<string>('')
       const [isVisible, setIsVisible] = useState<boolean>(false)
       const {showAlert} = useModal()
     
       const onChange = (time: string): void => {
-        console.log("Selected time: ", time)
+        setSelectedTime(time)
     }
 
       const handleSelect = (hour: string, minute: string): void => {
@@ -61,7 +62,7 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
 
     const onSubmit = (values: BookingFormData): void => {
         setBookedName(values.name)
-        showAlert('success', `Thank you ${bookedName}! Your meeting with ${name} is scheduled for ${values.date} !`)
+        showAlert('success', `Thank you ${bookedName}! Your meeting with ${name} is scheduled for ${selectedTime} !`)
         setIsVisible(true)
         reset()
         setSelectedHour('00')

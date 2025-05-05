@@ -1,9 +1,9 @@
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-import { carListSnackbarSx, carListAlertSx } from '../../styles/muiStyles.ts';
-import Fade from '@mui/material/Fade';
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/material/Alert'
+import { carListSnackbarSx, carListAlertSx } from '../../styles/muiStyles.ts'
+import Fade from '@mui/material/Fade'
 import { TransitionProps } from '@mui/material/transitions'
-import { AlertProps } from '../../types/PropsTypes.ts';
+import { AlertProps } from '../../types/PropsTypes.ts'
 
 
 function FadeTransition(props: TransitionProps & { children: React.ReactElement }) {

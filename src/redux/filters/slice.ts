@@ -12,9 +12,7 @@ const slice = createSlice({
     initialState,
     reducers: {
         setFilters: (state, { payload }: PayloadAction<FilterType>) => {
-            console.log("Before setting filters:", state.filter);
-            state.filter = payload;
-            console.log("After setting filters:", state.filter);
+            state.filter = payload
         },
         resetFilters: (state) => {
             state.filter = {}
