@@ -89,14 +89,7 @@ const FavoritesPage = () => {
   }, 100)
 
   return () => clearTimeout(timeout)
-    }, [filters])
-  
-  
-  // useEffect(() => {
-  //     if (!suppressAlerts && !loading && visibleCount >= filteredList.length && filteredList.length > 0) {
-  //        setOpenSnackbarNotFound(true)
-  //     }
-  // }, [suppressAlerts, loading, visibleCount, filteredList.length])
+  }, [filters])
 
     
   useEffect(() => {

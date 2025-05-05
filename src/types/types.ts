@@ -1,6 +1,7 @@
 import { AlertColor } from "@mui/material"
 import { filters } from "../constants"
 import { JSX } from "react"
+import { IPsychologist } from "./IPsychologist"
 
 
 export type ThemeOption = {
@@ -51,4 +52,9 @@ export type SignUpFormData = {
     name: string
     email: string
     password: string
+}
+
+export type ModalContextType = {
+    openModal: (modalType: string, data?: Pick<IPsychologist, 'name' | 'avatar_url'> | null) => void
+    showAlert: (type: 'error' | 'success' | 'info' | 'warning', message: string) => void
 }

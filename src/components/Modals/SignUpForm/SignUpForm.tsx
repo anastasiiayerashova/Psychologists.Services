@@ -120,18 +120,6 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
                 <button type='submit' className={s.log_btn}>Sign Up</button>
               )}
               </form>
-            
-                {/* {openSnackbar && (
-                    <CustomAlert
-                        severity={successMessage ? 'success' : 'error'}
-                        openSnackbar={openSnackbar}
-                        handleSnackbarClose={() => setOpenSnackbar(false)}
-                        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                        alertSx={{ height: 'auto' }}
-                    >
-                      {successMessage || errorMessage}
-                    </CustomAlert>
-                )} */}
             </div>
         )
     }

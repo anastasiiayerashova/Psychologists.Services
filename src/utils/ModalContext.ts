@@ -1,10 +1,6 @@
 import { useContext, createContext } from "react";
-import { IPsychologist } from "../types/IPsychologist";
+import { ModalContextType } from "../types/types";
 
-type ModalContextType = {
-    openModal: (modalType: string, data?: Pick<IPsychologist, 'name' | 'avatar_url'> | null) => void
-    showAlert: (type: 'error' | 'success' | 'info' | 'warning', message: string) => void
-}
 
 export const ModalContext = createContext<ModalContextType | undefined>(undefined)
 
