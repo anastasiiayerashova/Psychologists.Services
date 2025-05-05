@@ -3,13 +3,14 @@ import { Routes, Route } from 'react-router-dom'
 import { lazy, useEffect } from 'react';
 import SharedLayout from './SharedLayout.tsx';
 import { useDispatch } from 'react-redux';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { auth } from '../config/firebase.ts';
 import { logoutUser, setUser } from '../redux/auth/slice.ts';
 import PrivateRoute from './PrivateRoute.tsx';
 import { getFavouritesPsychologists } from '../redux/auth/operations.ts';
 import { AppDispatch } from '../redux/store.ts';
 import { resetFilters } from '../redux/filters/slice.ts';
+import useFirebaseError from '../hooks/firebaseErrorsHook.ts';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const FavoritesPage = lazy(() => import('../pages/FavoritesPage/FavoritesPage'));
@@ -19,27 +20,36 @@ const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 function App() {
 
   const dispatch = useDispatch<AppDispatch>()
+  const {getErrorMessage} = useFirebaseError()
 
   useEffect(() => {
-    const unsubscribed = onAuthStateChanged(auth, async (user) => {
+    const unsubscribed: () => void = onAuthStateChanged(auth, async (user: FirebaseUser | null) => {
 
-      if (user) {
-        dispatch(resetFilters())
-        dispatch(setUser({
-          name: user.displayName,
-          email: user.email,
-          id: user.uid,
-          token: await user.getIdToken()
-        }))
-        dispatch(getFavouritesPsychologists(user.uid))
+      try {
+        if (user) {
+           dispatch(resetFilters())
+           dispatch(setUser({
+              name: user.displayName,
+              email: user.email,
+              id: user.uid,
+              token: await user.getIdToken()
+           }))
+          
+           dispatch(getFavouritesPsychologists(user.uid))
+          
+        }
+        else {
+           dispatch(logoutUser())
+        }
       }
-      else {
-        dispatch(logoutUser())
+      catch (e: unknown) {
+        const message = getErrorMessage(e)
+        console.log('Error during fetching current user:', message)
       }
     })
 
     return () => unsubscribed()
-  }, [dispatch])
+  }, [dispatch, getErrorMessage])
 
 
   return (
