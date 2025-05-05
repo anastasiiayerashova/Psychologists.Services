@@ -14,7 +14,8 @@ export const carListSnackbarSx = {
 
 
 export const carListAlertSx = {
-    width: '100%', height: '100%',
+    width: '100%',
+    height: '100%',
     fontFamily: 'Inter, sans-serif',
     fontSize: '14px',
     textAlign: 'center',
@@ -22,5 +23,22 @@ export const carListAlertSx = {
     fontWeight: 400,
     borderRadius: '24px',
     color: 'var(--main)',
-    border: 'none'
+    border: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    '& .MuiAlert-icon': {
+    alignSelf: 'center',
+    padding: 0,
+  },
+  '& .MuiAlert-message': {
+    flexGrow: 1,
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
+  '& .MuiAlert-action': {
+    alignSelf: 'center',
+    padding: 0,
+    marginRight: 0,
+  },
 }
