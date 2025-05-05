@@ -11,6 +11,9 @@ import { BookingFormProps } from '../../../types/PropsTypes.ts';
 import { BookingFormData } from '../../../types/types.ts';
 import { useModal } from '../../../utils/ModalContext.ts';
 import Confetti from '../../Confetti/Confetti.tsx';
+import { useSelector } from 'react-redux';
+import { selectEmail, selectIsAuth, selectName } from '../../../redux/auth/slice.ts';
+import { RootState } from '../../../redux/store.ts';
 
 
 const BookingForm = ({ data, onClose }: BookingFormProps) => {
@@ -44,6 +47,9 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
       const [selectedTime, setSelectedTime] = useState<string>('')
       const [bookedName, setBookedName] = useState<string>('')
       const [isVisible, setIsVisible] = useState<boolean>(false)
+      const isAuth = useSelector<RootState, boolean>(selectIsAuth)
+      const userName = useSelector<RootState, string | null>(selectName)
+      const userEmail = useSelector<RootState, string | null>(selectEmail)
       const {showAlert} = useModal()
     
       const onChange = (time: string): void => {
@@ -104,7 +110,7 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
                 <div className={s.input_group}>
                     <label htmlFor={nameId} className='visually_hidden'>Name</label>
-                    <input id={nameId} type='text' {...register('name')} placeholder='Name' />
+                    <input id={nameId} type='text' {...register('name')} placeholder={isAuth ? userName ?? 'Name' : 'Name'} />
                     {errors.name && <p className={s.error}>{errors.name.message}</p>}
                 </div>
                 <div className={s.phone_wrapper}>
@@ -137,7 +143,7 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
                 </div>
                 <div className={s.input_group}>
                     <label htmlFor={emailId} className='visually_hidden'>Email</label>
-                    <input id={emailId} type='text' {...register('email')} placeholder='Email' />
+                    <input id={emailId} type='text' {...register('email')} placeholder={isAuth ? userEmail ?? 'Email' : 'Email'} />
                     {errors.email && <p className={s.error}>{errors.email.message}</p>}
                 </div>
                 <div className={s.input_group}>

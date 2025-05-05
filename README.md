@@ -183,10 +183,10 @@ http://localhost:5173
 
 **Anastasiia Yerashova** — Junior Full-Stack Developer passionate about writing clean and efficient code, growing professionally, and collaborating with purpose-driven teams.
 
-> "As a passionate Junior Full-Stack Developer, I excel at delivering clean, reliable, and efficient solutions.  
-> My goal is to grow professionally, achieve meaningful results, and work with people who share my drive for success.  
-> I approach every task with responsibility and dedication, always giving 100%.  
-> My ability to quickly adapt to new challenges and technologies allows me to thrive in agile and fast-paced environments."
+> "I'm a Junior Full-Stack Developer with a strong commitment to building reliable and maintainable solutions.
+> I strive to grow professionally by taking on meaningful challenges and collaborating with motivated teams.
+> I approach each task with responsibility and dedication, always aiming to deliver my best work.
+> My adaptability and eagerness to learn help me stay effective in dynamic, fast-paced environments."
 
 ## 📫 Contact
 

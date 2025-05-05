@@ -24,6 +24,7 @@ const slice = createSlice({
         selectIsAuth: state => state.isAuth,
         selectError: state => state.error,
         selectName: state => state.user.name,
+        selectEmail: state => state.user.email,
         selectUserId: state => state.user.id,
         selectLoading: state => state.loading
     },
@@ -115,4 +116,4 @@ const slice = createSlice({
 
 export const authReducer = slice.reducer
 export const { setUser, logoutUser, resetFavouritesList } = slice.actions
-export const {selectIsAuth, selectError, selectName, selectUserId, selectFavouritesData, selectLoading} = slice.selectors
+export const {selectIsAuth, selectError, selectName, selectUserId, selectFavouritesData, selectLoading, selectEmail} = slice.selectors
