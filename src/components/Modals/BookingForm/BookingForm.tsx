@@ -81,6 +81,11 @@ const BookingForm = ({ data, onClose }: BookingFormProps) => {
     
     return (
         <div className={s.container}>
+            <button type='button' className={s.closeBtn} onClick={onClose} >
+                <svg className={s.iconX}>
+                    <use href={`${svg}#icon-x`}></use>
+                </svg>
+            </button>
             {isVisible && <Confetti />}
             <div className={s.title_wrap}>
                 <p className={s.title}>Make an appointment with a psychologists</p>

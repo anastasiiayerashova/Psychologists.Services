@@ -3,6 +3,22 @@
   display: flex;
   flex-direction: column;
   row-gap: 40px;
+
+  overflow-y: auto;
+  max-height: calc(100vh - 96px);
+  position: relative;
+}
+
+.iconX {
+  width: 20px;
+  height: 20px;
+  stroke: var(--black);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .title_wrap {
@@ -157,7 +173,8 @@
     font-size: 10px;
   }
 
-  .input_group input {
+  .input_group input,
+  .input_group textarea {
     font-size: 16px;
   }
 
@@ -179,6 +196,12 @@
   .container {
     padding: 64px;
     row-gap: 40px;
+    max-height: calc(100vh - 128px);
+  }
+
+  .iconX {
+    width: 32px;
+    height: 32px;
   }
 
   .title_wrap {

@@ -17,6 +17,7 @@ import { selectLoading } from '../../../redux/auth/slice.ts';
 import Loader from '../../Loader/Loader.tsx';
 import { useModal } from '../../../utils/ModalContext.ts';
 import Confetti from '../../Confetti/Confetti.tsx';
+import { AnimatePresence } from 'framer-motion';
 
 
 const SignInForm = ({ onClose }: SignInFormProps) => {
@@ -68,6 +69,11 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
 
     return (
       <div className={s.container}>
+        <button type='button' className={s.closeBtn} onClick={onClose} >
+           <svg className={s.iconX}>
+              <use href={`${svg}#icon-x`}></use>
+           </svg>
+        </button>
         {isVisible && <Confetti />}
             <div className={s.title_wrap}>
                 <p className={s.title}>Log In</p>
@@ -83,6 +89,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
                     <label htmlFor={pwdId} className='visually_hidden'>Password</label>
                     <input id={pwdId} type={showPassword ? 'text' : 'password'} {...register('password')} placeholder='Password' value={password} onChange={(e) => {setPassword(e.target.value)} } />
                     {password.length > 0 && !isPasswordValid && (
+                    <AnimatePresence mode='wait'>
                         <div className={s.passwordHints}>
                             <PasswordHint condition={hasMinLength} text="At least 6 characters" />
                             <PasswordHint condition={hasMaxLength} text="No more than 30 characters" />
@@ -91,6 +98,7 @@ const SignInForm = ({ onClose }: SignInFormProps) => {
                             <PasswordHint condition={hasDigit} text="At least one digit" />
                             <PasswordHint condition={hasSpecialChar} text="At least one special character" />
                         </div>
+                    </AnimatePresence>
                     )}
                     <button
                 className={s.eyeIcon}

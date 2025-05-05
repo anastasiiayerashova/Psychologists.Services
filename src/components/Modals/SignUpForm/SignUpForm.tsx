@@ -69,7 +69,12 @@ const SignUpForm = ({ onClose }: SignUpFormProps) => {
     
         return (
           <div className={s.container}>
-            {isVisible && <Confetti />}
+             <button type='button' className={s.closeBtn} onClick={onClose} >
+                <svg className={s.iconX}>
+                    <use href={`${svg}#icon-x`}></use>
+                </svg>
+              </button>
+              {isVisible && <Confetti />}
                 <div className={s.title_wrap}>
                     <p className={s.title}>Registration</p>
                     <p className={s.subtitle}>Thank you for your interest in our platform! In order to register, we need some information. Please provide us with the following information.</p>

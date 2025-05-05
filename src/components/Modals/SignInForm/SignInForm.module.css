@@ -1,6 +1,22 @@
 .container {
   padding: 40px 20px 40px 20px;
   background-color: var(--white);
+
+  overflow-y: auto;
+  max-height: calc(100vh - 80px);
+  position: relative;
+}
+
+.iconX {
+  width: 20px;
+  height: 20px;
+  stroke: var(--black);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 .title_wrap {
@@ -109,6 +125,12 @@
 @media screen and (min-width: 768px) {
   .container {
     padding: 64px;
+    max-height: calc(100vh - 128px);
+  }
+
+  .iconX {
+    width: 32px;
+    height: 32px;
   }
 
   .title_wrap {
