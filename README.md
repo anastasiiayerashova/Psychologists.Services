@@ -91,7 +91,6 @@ This project is written entirely in **TypeScript**, ensuring:
   - 💡 **Real-time password hints** — as the user types a password during registration, interactive hints appear to guide them (e.g. "At least 8 characters", "Contains a number", "Includes a special character")
   - 🔒 **Password validation** is strict and updates live to reflect whether each condition is met, helping users create strong, secure passwords
   - 🔔 **Custom `Snackbar`** shows confirmation or error messages upon form submission, ensuring smooth user interaction
-  - 🧾 **Form fields** include inputs like name, email, rental duration, car model, and accessories selection
   - ⚠️ Dynamic form validation ensures that users provide the necessary information before submitting their booking request.
 
 ## 🔧 Code Principles and Best Practices
