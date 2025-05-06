@@ -9,7 +9,7 @@ import { logoutUser, setUser } from '../redux/auth/slice.ts';
 import PrivateRoute from './PrivateRoute.tsx';
 import { getFavouritesPsychologists } from '../redux/auth/operations.ts';
 import { AppDispatch } from '../redux/store.ts';
-import { resetFilters } from '../redux/filters/slice.ts';
+import { resetFavouritesFilters, resetFilters } from '../redux/filters/slice.ts';
 import useFirebaseError from '../hooks/firebaseErrorsHook.ts';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
@@ -28,6 +28,7 @@ function App() {
       try {
         if (user) {
            dispatch(resetFilters())
+           dispatch(resetFavouritesFilters())
            dispatch(setUser({
               name: user.displayName,
               email: user.email,
