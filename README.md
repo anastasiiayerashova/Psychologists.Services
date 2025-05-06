@@ -1,6 +1,6 @@
-# 🧠 psychologist.services
+# 🧠 psychologists.services
 
-**psychologist.services** is a web application designed to help users find psychologists, explore detailed information about them, and easily make appointments. The app also allows users to manage their favorite psychologists, filter specialists based on various criteria, and handle their session through a full authentication system. The project follows modern frontend practices and emphasizes clean, reusable code.
+**psychologists.services** is a web application designed to help users find psychologists, explore detailed information about them, and easily make appointments. The app also allows users to manage their favorite psychologists, filter specialists based on various criteria, and handle their session through a full authentication system. The project follows modern frontend practices and emphasizes clean, reusable code.
 
 ## ✨ Project Overview
 
