@@ -72,6 +72,23 @@ const UniversalMenu = ({ isUserMenuOpen, toggleUserMenu, isNavMenuOpen, toggleNa
             console.log('Error during logout:', e)
         }
     }
+    
+
+    useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+       if (event.key === 'Escape') {
+          if (isNavMenuOpen) toggleNavMenu()
+          if (isUserMenuOpen) toggleUserMenu()
+        }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+       document.removeEventListener('keydown', handleKeyDown)
+    }
+    }, [isNavMenuOpen, isUserMenuOpen, toggleNavMenu, toggleUserMenu])
+
 
     return (
        <div className={s.mob_menu_wrapper}>
