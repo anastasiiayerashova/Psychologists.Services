@@ -58,7 +58,7 @@ function App() {
         <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/psychologists' element={<PsychologistsPage />} />
-            <Route path='/favorites' element={<PrivateRoute component={FavoritesPage} redirectTo='/' />} />
+            <Route path='/favorites' element={<PrivateRoute component={FavoritesPage} redirectTo='/favorites' />} />
             <Route path='/psychologists/favorites' element={<PrivateRoute component={FavoritesPage} redirectTo='/' redirectToAuth='/favorites'/>} />
             <Route path='*' element={<NotFoundPage/> } />
         </Routes>

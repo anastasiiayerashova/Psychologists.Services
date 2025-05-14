@@ -236,9 +236,26 @@
   .container {
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
   }
 
   .title {
     font-size: 80px;
+    max-width: 595px;
+  }
+
+  .subtitle {
+    max-width: 510px;
+  }
+
+  .image {
+    max-height: 524px;
+    min-width: 464px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .icon_box_green {
+    left: -10%;
   }
 }
